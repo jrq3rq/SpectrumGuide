@@ -25,6 +25,8 @@ autism-support-app/
 | │ ├── storageUtils.js # Helper functions for local storage
 │ │ └── validation.js # Input validation utilities
 │ ├── styles/
+│ | ├── App.css # General/global styles for the app
+│ │ ├── ChildProfileForm.css # Specific styles for the form
 │ │ ├── App.css # Global styles
 │ │ ├── Form.css # Styles for the form
 │ │ └── Recommendations.css # Styles for AI recommendations
