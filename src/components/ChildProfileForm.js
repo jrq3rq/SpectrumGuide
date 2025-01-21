@@ -135,7 +135,6 @@ const ChildProfileForm = () => {
           >
             <option value="">Select Communication Ability</option>
             <option value="Verbal">Verbal</option>
-            <option value="Non-Verbal">Non-Verbal</option>
             <option value="Limited Verbal">Limited Verbal</option>
           </select>
         </label>
