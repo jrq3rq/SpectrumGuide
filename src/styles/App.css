@@ -1,0 +1,49 @@
+/* Ensure the body fills the entire viewport */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  display: flex; /* Use Flexbox for centering */
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  min-height: 100vh; /* Use min-height to prevent cutting off content */
+  background-color: #f4f4f9; /* Optional: background color for the app */
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Ensure the root container is scrollable */
+.form-wrapper {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping unless in mobile view */
+  justify-content: space-between; /* Space between sections in desktop mode */
+  gap: 20px; /* Spacing between sections */
+  width: calc(100% - 40px); /* Subtract margin (20px on each side) */
+  box-sizing: border-box; /* Include padding and borders in the total width */
+  margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
+  padding-bottom: 20px; /* Add padding at the bottom for better spacing */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .form-wrapper {
+    flex-direction: column; /* Stack sections vertically on smaller screens */
+    width: calc(100% - 40px); /* Keep the 20px margin on smaller screens */
+    justify-content: flex-start; /* Align items at the top */
+    align-items: center; /* Center horizontally stacked items */
+    margin-top: 20px; /* Ensure the top isn't cut off */
+    padding-bottom: 50px; /* Add extra padding at the bottom for usability */
+  }
+}
+
+/* Ensure div-container elements are not constrained */
+
+/* Ensure scrolling works for overflow */
+html,
+body {
+  height: 100vh; /* Ensure the height includes the full content */
+  overflow-y: auto; /* Allow scrolling for overflowing content */
+}
