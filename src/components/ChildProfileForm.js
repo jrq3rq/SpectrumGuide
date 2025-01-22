@@ -126,65 +126,69 @@ const ChildProfileForm = () => {
       {/* Right Section */}
       <div className="form-section">
         <h3>Communication:</h3>
-        <label>
-          Verbal/Non-Verbal:
-          <select
-            name="communication"
-            value={formData.communication}
-            onChange={handleChange}
-          >
-            <option value="">Select Communication Ability</option>
-            <option value="Verbal">Verbal</option>
-            <option value="Limited Verbal">Limited Verbal</option>
-          </select>
-        </label>
-        <label>
-          Preferred Communication:
-          <select
-            name="preferredCommunication"
-            value={formData.preferredCommunication}
-            onChange={handleChange}
-          >
-            <option value="">Select Preferred Communication</option>
-            <option value="Speech">Speech</option>
-            <option value="AAC Device">AAC Device</option>
-            <option value="Gestures">Gestures</option>
-            <option value="Sign Language">Sign Language</option>
-            <option value="Other">Other</option>
-          </select>
-        </label>
-        <h3>Sensory Preferences:</h3>
-        <label>
-          Sensitivities:
-          <select
-            name="sensorySensitivities"
-            value={formData.sensorySensitivities}
-            onChange={handleChange}
-            multiple
-          >
-            <option value="Light">Light</option>
-            <option value="Sound">Sound</option>
-            <option value="Textures">Textures</option>
-            <option value="Crowds">Crowds</option>
-            <option value="Smell">Smell</option>
-            <option value="Temperature">Temperature</option>
-          </select>
-        </label>
-        <label>
-          Comfort Items:
-          <input
-            type="text"
-            name="comfortItems"
-            value={formData.comfortItems}
-            onChange={handleChange}
-            placeholder="Enter comfort items"
-          />
-        </label>
-        <div className="button-container">
-          <button type="button">Refresh</button>
-          <button type="submit">Submit</button>
-          <button type="button">Download</button>
-        </div>
+        <form className="form-container">
+          {" "}
+          {/* Added form container */}
+          <label>
+            Verbal/Non-Verbal:
+            <select
+              name="communication"
+              value={formData.communication}
+              onChange={handleChange}
+            >
+              <option value="">Select Communication Ability</option>
+              <option value="Verbal">Verbal</option>
+              <option value="Limited Verbal">Limited Verbal</option>
+            </select>
+          </label>
+          <label>
+            Preferred Communication:
+            <select
+              name="preferredCommunication"
+              value={formData.preferredCommunication}
+              onChange={handleChange}
+            >
+              <option value="">Select Preferred Communication</option>
+              <option value="Speech">Speech</option>
+              <option value="AAC Device">AAC Device</option>
+              <option value="Gestures">Gestures</option>
+              <option value="Sign Language">Sign Language</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <h3>Sensory Preferences:</h3>
+          <label>
+            Sensitivities:
+            <select
+              name="sensorySensitivities"
+              value={formData.sensorySensitivities}
+              onChange={handleChange}
+              multiple
+            >
+              <option value="Light">Light</option>
+              <option value="Sound">Sound</option>
+              <option value="Textures">Textures</option>
+              <option value="Crowds">Crowds</option>
+              <option value="Smell">Smell</option>
+              <option value="Temperature">Temperature</option>
+            </select>
+          </label>
+          <label>
+            Comfort Items:
+            <input
+              type="text"
+              name="comfortItems"
+              value={formData.comfortItems}
+              onChange={handleChange}
+              placeholder="Enter comfort items"
+            />
+          </label>
+          <div className="button-container">
+            <button type="button">Refresh</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>{" "}
+        {/* Closing form container */}
       </div>
     </div>
   );

@@ -1,0 +1,91 @@
+.payment-page {
+  max-width: 800px; /* Restrict maximum width */
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 20px; /* Add padding for spacing */
+  text-align: center; /* Center-align the text */
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.payment-page h1 {
+  color: #4a90e2; /* Blue color for headings */
+  font-size: 2rem; /* Large font size */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.payment-page p {
+  font-size: 18px; /* Larger font size for readability */
+  line-height: 1.6; /* Space between lines */
+  color: #555; /* Subtle gray for text */
+  margin-bottom: 15px; /* Space between paragraphs */
+}
+
+.payment-page ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 20px 0; /* Add margin around the list */
+}
+
+.payment-page li {
+  font-size: 18px; /* Font size for list items */
+  line-height: 1.5; /* Space between lines */
+  color: #333; /* Slightly darker text */
+  background-color: #f4f4f9; /* Light gray background for list items */
+  padding: 10px; /* Add padding for spacing */
+  border-radius: 4px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.payment-page button {
+  display: inline-block;
+  padding: 10px 20px; /* Add padding for the button */
+  font-size: 16px; /* Font size for button text */
+  font-weight: bold; /* Bold text */
+  color: white; /* White text */
+  background-color: #4a90e2; /* Button background color */
+  border: none; /* Remove border */
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+}
+
+.payment-page button:hover {
+  background-color: #357ab8; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.payment-page button:active {
+  transform: translateY(0); /* Reset on click */
+}
+
+/* Responsive styles for Payment page */
+@media (max-width: 768px) {
+  .payment-page {
+    padding: 15px; /* Reduce padding for smaller screens */
+    text-align: left; /* Align text to the left for better readability */
+    width: 80%;
+  }
+
+  .payment-page h1 {
+    font-size: 1.8rem; /* Slightly smaller font size for headings */
+  }
+
+  .payment-page p {
+    font-size: 16px; /* Adjust text size for smaller screens */
+  }
+
+  .payment-page ul {
+    margin: 10px 0; /* Reduce list margin */
+  }
+
+  .payment-page li {
+    font-size: 16px; /* Adjust list item text size */
+    padding: 8px; /* Reduce padding for list items */
+  }
+
+  .payment-page button {
+    font-size: 14px; /* Adjust button text size */
+    padding: 8px 16px; /* Adjust button padding */
+  }
+}

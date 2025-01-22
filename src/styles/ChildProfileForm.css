@@ -6,19 +6,21 @@
   gap: 20px; /* Spacing between the left and right sections */
   width: calc(100% - 40px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
-  margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
+  margin: 100px auto 40px auto;
 }
 @media (max-width: 768px) {
   .form-wrapper {
     flex-direction: column;
     max-height: calc(100vh - 80px); /* Assuming 20px margin top and bottom */
     overflow-y: auto;
+    margin: 120px auto 40px auto;
   }
 }
 
 /* Style all label text (e.g., "Child's Name:", "Date of Birth:") */
 label {
   font-size: 16px; /* Slightly larger for better readability */
+  text-align: left;
   font-weight: 600; /* Semi-bold for emphasis */
   color: #2e3136; /* Darker gray for modern and professional look */
   margin-bottom: 8px; /* Space between label text and input field */
@@ -28,7 +30,7 @@ label {
 /* Optional: Add custom alignment or spacing inside forms */
 .form-container label {
   display: block; /* Ensure labels are block elements */
-  margin-bottom: 4px; /* Space between label and input */
+  text-align: left; /* Explicitly set left alignment */
 }
 
 /* Individual section (left or right) */
@@ -41,17 +43,6 @@ label {
 }
 
 /* Center sections properly in mobile view */
-@media (max-width: 768px) {
-  .form-wrapper {
-    flex-direction: column; /* Stack sections vertically on smaller screens */
-    width: calc(100% - 40px); /* Keep the 20px margin on smaller screens */
-    justify-content: center; /* Center vertically stacked items */
-    align-items: center; /* Center horizontally stacked items */
-  }
-
-  .form-section {
-  }
-}
 
 /* Form container for inputs inside each section */
 .form-container {
@@ -106,7 +97,7 @@ textarea:focus {
   gap: 20px; /* Space between buttons */
   width: 100%; /* Full-width container */
   max-width: 600px; /* Optional: Limit the container width */
-  margin: 20px auto; /* Center the container horizontally */
+
   box-sizing: border-box;
 }
 

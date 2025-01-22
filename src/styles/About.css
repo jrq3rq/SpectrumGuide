@@ -1,0 +1,39 @@
+.about-page {
+  max-width: 800px; /* Restrict maximum width */
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 20px; /* Add padding for spacing */
+  text-align: center; /* Center-align the text */
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.about-page h1 {
+  color: #4a90e2; /* Blue color for headings */
+  font-size: 2rem; /* Large font size */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.about-page p {
+  font-size: 18px; /* Larger font size for readability */
+  line-height: 1.6; /* Space between lines */
+  color: #555; /* Subtle gray for text */
+  margin-bottom: 15px; /* Space between paragraphs */
+}
+
+/* Responsive styles for About page */
+@media (max-width: 768px) {
+  .about-page {
+    padding: 15px; /* Reduce padding on smaller screens */
+    text-align: left; /* Align text to the left for better readability */
+    width: 80%;
+  }
+
+  .about-page h1 {
+    font-size: 1.8rem; /* Slightly smaller font size for headings */
+  }
+
+  .about-page p {
+    font-size: 16px; /* Adjust text size for smaller screens */
+  }
+}
