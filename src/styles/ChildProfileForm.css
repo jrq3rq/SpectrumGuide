@@ -6,14 +6,13 @@
   gap: 20px; /* Spacing between the left and right sections */
   width: calc(100% - 40px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
-  margin: 100px auto 40px auto;
+  margin: 700px auto 20px auto;
 }
 @media (max-width: 768px) {
   .form-wrapper {
     flex-direction: column;
-    max-height: calc(100vh - 80px); /* Assuming 20px margin top and bottom */
+    max-height: calc(100vh - 100px); /* Assuming 20px margin top and bottom */
     overflow-y: auto;
-    margin: 120px auto 40px auto;
   }
 }
 

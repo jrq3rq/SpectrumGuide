@@ -7,7 +7,7 @@
   z-index: 1000;
   color: #000000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px 20px;
+  padding: 10px 20px;
 }
 
 .header-container {
@@ -33,28 +33,19 @@
 
 .nav-link {
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Stack icon and text vertically */
+  align-items: center; /* Center items in the container */
   color: #000000;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 18px; /* Keeping original font size */
   transition: color 0.3s ease, transform 0.3s ease;
-  padding: 8px 12px; /* Adds touch-friendly padding */
+  padding: 8px 12px;
 }
 
-/* For desktop view */
 .nav-link svg {
-  margin-right: 0;
-  padding-right: 5px;
-  color: #000000;
-}
-
-/* Within the mobile media query */
-@media (max-width: 768px) {
-  .nav-link svg {
-    margin-right: 0;
-    padding-right: 5px;
-    color: #fff;
-  }
+  margin-right: 0; /* Remove horizontal margin */
+  margin-bottom: 5px; /* Add space below icon */
+  color: #000000; /* Keeping original color */
 }
 
 .nav-link:hover {
@@ -74,7 +65,7 @@
 }
 
 body {
-  padding-top: 70px; /* Adjust based on your navbar height */
+  padding-top: 70px;
   margin: 0;
   box-sizing: border-box;
 }
@@ -86,13 +77,14 @@ body {
     top: 70px;
     left: 0;
     width: 100%;
-    height: calc(100vh - 70px); /* Full viewport height minus header */
+    height: calc(100vh - 70px);
     background-color: #4a90e2;
     color: #fff;
     flex-direction: column;
     padding: 20px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    overflow-y: auto; /* Allows scrolling if too many items */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
@@ -103,10 +95,9 @@ body {
   }
 
   .nav-link {
-    color: #fff;
-    padding: 15px 20px; /* Larger touch targets for mobile */
+    padding: 15px 0; /* Adjust padding for vertical layout */
     width: 100%;
-    justify-content: center;
+    text-align: center;
   }
 
   .nav-link svg {

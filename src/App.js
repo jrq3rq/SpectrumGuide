@@ -8,6 +8,7 @@ import {
 import ChildProfileForm from "./components/ChildProfileForm";
 import About from "./pages/About";
 import Payment from "./pages/Payment";
+import Interaction from "./pages/Interaction";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" element={<ChildProfileForm />} />
           <Route path="/about" element={<About />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/interactions" element={<Interaction />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

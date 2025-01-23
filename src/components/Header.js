@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaInfoCircle, FaDollarSign, FaBars } from "react-icons/fa";
+import {
+  FaHome,
+  FaInfoCircle,
+  FaDollarSign,
+  FaBars,
+  FaRobot,
+} from "react-icons/fa";
 import "../styles/Header.css";
 
 const Header = () => {
@@ -9,6 +15,26 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    const handleCloseMenu = (e) => {
+      if (!e.target.closest(".nav") && !e.target.closest(".mobile-menu-icon")) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    // Add event listener only when menu is open
+    if (isMobileMenuOpen) {
+      document.addEventListener("click", handleCloseMenu);
+    } else {
+      document.removeEventListener("click", handleCloseMenu);
+    }
+
+    // Cleanup to avoid memory leaks
+    return () => {
+      document.removeEventListener("click", handleCloseMenu);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header className="header" role="banner">
@@ -21,13 +47,20 @@ const Header = () => {
           aria-label="Main Navigation"
         >
           <Link to="/" className="nav-link" onClick={toggleMobileMenu}>
-            <FaHome /> Home
+            <FaHome /> <span>Home</span>
           </Link>
           <Link to="/about" className="nav-link" onClick={toggleMobileMenu}>
-            <FaInfoCircle /> About
+            <FaInfoCircle /> <span>About</span>
           </Link>
           <Link to="/payment" className="nav-link" onClick={toggleMobileMenu}>
-            <FaDollarSign /> Payment
+            <FaDollarSign /> <span>Payment</span>
+          </Link>
+          <Link
+            to="/interactions"
+            className="nav-link"
+            onClick={toggleMobileMenu}
+          >
+            <FaRobot /> <span>Logs</span>
           </Link>
         </nav>
         <button
