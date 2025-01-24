@@ -112,6 +112,24 @@ const ChatModal = () => {
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, aiMessage]);
+
+      // --- NEW LOGIC: Save to "interactions" in localStorage ---
+      // We treat each user+AI exchange as a single 'interaction'
+      const newInteraction = {
+        id: Date.now() + 2,
+        prompt: userInput, // The user's message
+        response: aiResponse, // The AI's reply
+        timestamp: new Date().toISOString(), // For grouping by date
+      };
+
+      const existingInteractions =
+        JSON.parse(localStorage.getItem("interactions")) || [];
+      existingInteractions.push(newInteraction);
+      localStorage.setItem(
+        "interactions",
+        JSON.stringify(existingInteractions)
+      );
+      // --- END NEW LOGIC ---
     } catch (error) {
       console.error("Error from AI service:", error);
       const errorMsg = {

@@ -133,7 +133,6 @@ const ChildProfileForm = () => {
             </label>
           </form>
         </div>
-
         {/* Right Section */}
         <div className="form-section">
           <h3>Communication:</h3>

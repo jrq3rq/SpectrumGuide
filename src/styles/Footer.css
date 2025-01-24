@@ -1,3 +1,20 @@
+body {
+  /* Ensure full height of the viewport */
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+#root {
+  /* Assuming your React app is mounted here */
+  height: 100%;
+}
+
+main {
+  /* Main content will take up all available space */
+}
+
 .footer {
   background-color: #f4f4f9;
   color: #555;

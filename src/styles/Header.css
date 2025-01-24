@@ -6,8 +6,15 @@
   background-color: #f4f4f9;
   z-index: 1000;
   color: #000000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
+  /* Add transition so it animates when toggling .header-hidden */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-bottom: 1px solid #dddddd;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .header-container {
@@ -65,7 +72,7 @@
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 80px;
   margin: 0;
   box-sizing: border-box;
 }
@@ -74,7 +81,7 @@ body {
   .nav {
     display: none;
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     width: 100%;
     height: calc(100vh - 70px);
