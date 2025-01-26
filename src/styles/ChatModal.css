@@ -1,14 +1,18 @@
+/* ChatModal.css */
 .chat-modal {
+  position: fixed; /* So it appears on top of everything else */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 600px;
+  max-width: 90%;
+  height: 80%;
   display: flex;
   flex-direction: column;
-  width: 420px;
-  height: 600px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #ffffff;
+  z-index: 9999; /* above the overlay */
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -29,6 +33,7 @@
   background: #f7f7f7;
   border-bottom: 1px solid #ddd;
   padding: 10px;
+  position: relative; /* for positioning close button */
 }
 
 .chat-header h2 {
@@ -38,44 +43,20 @@
   text-align: center;
 }
 
-/* Container for vertical button stack */
-.header-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px; /* Spacing between buttons */
-}
-
-.header-buttons button {
-  flex: 1;
-  width: 100%;
+/* Close button */
+.close-modal-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
   border: none;
-  outline: none;
+  font-size: 20px;
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  transition: background-color 0.2s ease;
 }
 
-/************************************
-  Individual Button Styles
-************************************/
-/* Download entire chat */
-.download-chat-btn {
-  background-color: #28a745;
-  color: #ffffff;
-}
-.download-chat-btn:hover {
-  background-color: #218838;
-}
-
-/* Clear chat */
-.clear-chat-btn {
-  background-color: #ff6b6b;
-  color: #ffffff;
-}
-.clear-chat-btn:hover {
-  background-color: #ff4d4d;
+/* Container for buttons and options */
+.chat-header > div {
+  margin-top: 10px;
 }
 
 /************************************
@@ -101,11 +82,13 @@
 /* User messages */
 .chat-message.user .message-content {
   background-color: #c7ffd8;
+  align-self: flex-start;
 }
 
 /* Assistant messages */
 .chat-message.assistant .message-content {
   background-color: #e2e2e2;
+  align-self: flex-start;
 }
 
 .message-content {
@@ -113,6 +96,7 @@
   border-radius: 8px;
   max-width: 70%;
   line-height: 1.4;
+  text-align: left; /* Ensure left alignment */
 }
 
 .timestamp {
@@ -202,7 +186,6 @@
 /************************************
   Checkbox Styling
 ************************************/
-/* Remove default appearance; show minimal styling with a checkmark when checked */
 .chat-header input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
@@ -235,3 +218,74 @@
 .chat-header input[type="checkbox"]:focus {
   outline: 2px dotted #3a86ff;
 }
+
+/* Loading Spinner Container */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Spinner Animation */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #4a90e2;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Ensure modal overlay and positioning */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  z-index: 9998; /* behind the modal itself */
+}
+
+/* Additional AI Response Formatting Enhancements (Optional) */
+.chat-message.assistant .message-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.chat-message.assistant .message-content ul {
+  padding-left: 20px;
+}
+
+.chat-message.assistant .message-content li {
+  margin-bottom: 5px;
+}
+
+.chat-message.assistant .message-content p {
+  white-space: pre-wrap; /* Preserve formatting from AI */
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Emphasize Important Recommendations */
+.chat-message.assistant .message-content strong {
+  color: #2e6da4; /* Accent color for emphasis */
+}
+
+/* Ensure existing styles remain unchanged */
+/* ... any other existing styles remain unchanged ... */

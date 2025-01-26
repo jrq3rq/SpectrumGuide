@@ -156,6 +156,7 @@ const styles = {
   scrollableArea: {
     overflowY: "auto",
     flex: 1,
+    paddingBottom: "60px", // Padding to ensure content doesn't touch the footer
   },
   dateGroup: {
     marginBottom: "24px",

@@ -1,3 +1,5 @@
+/* src/styles/ChildProfileForm.css */
+
 /* Wrapper for the entire form layout */
 .form-wrapper {
   display: flex;
@@ -6,8 +8,9 @@
   gap: 20px; /* Spacing between the left and right sections */
   width: calc(100% - 40px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
-  margin: 20px auto;
+  margin: 20px 20px auto;
 }
+
 @media (max-width: 768px) {
   .form-wrapper {
     flex-direction: column;
@@ -41,13 +44,17 @@ label {
   border: 1px solid #c3c3c3; /* Add the desired border */
 }
 
-/* Center sections properly in mobile view */
-
 /* Form container for inputs inside each section */
 .form-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 15px; /* Space between form elements */
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+  }
 }
 
 /* Form labels */
@@ -96,7 +103,6 @@ textarea:focus {
   gap: 20px; /* Space between buttons */
   width: 100%; /* Full-width container */
   max-width: 600px; /* Optional: Limit the container width */
-
   box-sizing: border-box;
 }
 
@@ -129,5 +135,208 @@ textarea:focus {
   .button-container {
     grid-template-columns: 1fr; /* Single column layout */
     gap: 15px; /* Reduce spacing for smaller screens */
+  }
+}
+
+/* Container for care plan checkboxes */
+.care-plans-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Hide the default checkbox */
+.care-plan-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Custom checkbox */
+/* .care-plan-option .care-plan-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s;
+} */
+
+/* Checked state */
+.care-plan-option input:checked ~ .care-plan-label::before {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+/* Checkmark */
+.care-plan-option input:checked ~ .care-plan-label::after {
+  content: "✔";
+  position: absolute;
+  left: 5px;
+  top: 0px;
+  color: white;
+  font-size: 16px;
+}
+
+/* Hover effect */
+.care-plan-option:hover .care-plan-label::before {
+  border-color: #000;
+}
+
+/* Style for the Notes textarea */
+.form-section label textarea {
+  width: 100%;
+  height: 100px; /* Adjust height as needed */
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; /* Allow vertical resizing */
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.form-section label textarea.input-error {
+  border-color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+
+/* Optional: Enhance the textarea placeholder color */
+.form-section label textarea::placeholder {
+  color: #999;
+}
+
+/* Container for Important Roles */
+.important-roles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduce spacing between options */
+  max-height: 100px; /* Limit the height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc; /* Add a subtle border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px; /* Inner padding */
+  background-color: #f9f9f9; /* Subtle background color */
+}
+
+/* Individual Important Role Option */
+.important-role-option {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between checkbox and label */
+  font-size: 14px; /* Smaller font size for compactness */
+  cursor: pointer;
+}
+
+/* Checkbox style */
+.important-role-option input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Role Label */
+.role-label {
+  /* Removed any tooltip-related styles */
+}
+
+/* ChildProfileForm.css */
+
+/* Container for Care Plans */
+.care-plans-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between each care plan option */
+  margin-bottom: 10px; /* Space below the care plans section */
+}
+
+/* Individual Care Plan Option */
+.care-plan-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Change cursor to pointer on hover */
+  position: relative; /* For positioning pseudo-elements */
+  padding-left: 30px; /* Space for custom checkbox */
+  user-select: none; /* Prevent text selection on click */
+}
+
+/* Hide the Default Checkbox */
+.care-plan-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom Checkbox - Unchecked State */
+.care-plan-option .care-plan-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Custom Checkbox - Checked State */
+.care-plan-option input:checked ~ .care-plan-label::before {
+  background-color: #4caf50; /* Green background when checked */
+  border-color: #4caf50; /* Green border when checked */
+}
+
+/* Checkmark in the Custom Checkbox */
+.care-plan-option input:checked ~ .care-plan-label::after {
+  content: "✔";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 16px;
+}
+
+/* Hover Effect on the Custom Checkbox */
+.care-plan-option:hover .care-plan-label::before {
+  border-color: #000; /* Darker border on hover */
+}
+
+/* Label Text Styling */
+.care-plan-label {
+  margin-left: 10px; /* Space between checkbox and label text */
+  font-size: 16px; /* Readable font size */
+  color: #333; /* Dark text color */
+}
+
+/* Responsive Adjustments (Optional) */
+@media (max-width: 600px) {
+  .care-plan-option {
+    padding-left: 25px; /* Adjust padding for smaller screens */
+  }
+
+  .care-plan-option .care-plan-label::before {
+    width: 18px;
+    height: 18px;
+  }
+
+  .care-plan-option input:checked ~ .care-plan-label::after {
+    font-size: 14px;
+  }
+
+  .care-plan-label {
+    font-size: 14px;
   }
 }

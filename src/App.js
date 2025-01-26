@@ -12,6 +12,7 @@ import Interaction from "./pages/Interaction";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./utils/ScrollToTop";
+import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
 
 const App = () => {
   return (
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/" element={<ChildProfileForm />} />
           <Route path="/about" element={<About />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/interactions" element={<Interaction />} />
+          <Route path="/interactions" element={<ChatHistoryDisplay />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

@@ -1,3 +1,4 @@
+// aiService.js
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_GROK_API_URL; // Add this to your `.env` file
