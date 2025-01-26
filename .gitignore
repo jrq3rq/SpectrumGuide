@@ -14,6 +14,16 @@ yarn-error.log*
 .env.test
 .env.production
 
+# Backend-specific
+backend/node_modules/
+backend/.env
+backend/*.log
+backend/.pnp
+backend/pnpm-lock.yaml
+backend/.DS_Store
+backend/.cache/
+backend/tmp/
+
 # Firebase-related files
 firebase-debug.log
 .firebaserc
@@ -21,6 +31,7 @@ firebase.json
 
 # Build files
 build/
+backend/build/
 
 # Cache
 .cache/
@@ -53,6 +64,7 @@ firebase_emulator_cache/
 
 # React-related cache
 public/static/
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -65,6 +77,13 @@ public/static/
 
 # production
 /build
+
+# backend-specific
+/backend/node_modules/
+backend/.env
+backend/.log
+backend/cache/
+backend/tmp/
 
 # misc
 .DS_Store
