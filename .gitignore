@@ -7,7 +7,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Environment variables
+# Environment variables (Frontend)
 .env
 .env.local
 .env.development
@@ -15,14 +15,14 @@ yarn-error.log*
 .env.production
 
 # Backend-specific
-backend/node_modules/
-backend/.env
-backend/*.log
-backend/.pnp
-backend/pnpm-lock.yaml
-backend/.DS_Store
-backend/.cache/
-backend/tmp/
+backend/node_modules/       # Exclude backend node_modules directory
+backend/.env                # Exclude backend environment variables file
+backend/*.log               # Exclude any logs generated in the backend
+backend/.pnp                # Exclude backend Yarn PnP file
+backend/pnpm-lock.yaml      # Exclude backend package manager lock file
+backend/.DS_Store           # Exclude macOS-specific system files in backend
+backend/.cache/             # Exclude backend cache directory
+backend/tmp/                # Exclude temporary files in backend
 
 # Firebase-related files
 firebase-debug.log
@@ -31,7 +31,7 @@ firebase.json
 
 # Build files
 build/
-backend/build/
+backend/build/              # Exclude backend build artifacts
 
 # Cache
 .cache/
@@ -79,11 +79,11 @@ public/static/
 /build
 
 # backend-specific
-/backend/node_modules/
-backend/.env
-backend/.log
-backend/cache/
-backend/tmp/
+/backend/node_modules/       # Backend dependencies
+/backend/.env                # Backend environment variables
+/backend/.log                # Backend log files
+/backend/cache/              # Backend cache directory
+/backend/tmp/                # Backend temporary files
 
 # misc
 .DS_Store
