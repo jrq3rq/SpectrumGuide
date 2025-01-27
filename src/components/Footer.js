@@ -4,7 +4,7 @@ import "../styles/Footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2025 Spectrum Guide. All rights reserved.</p>
+      <p>© 2025 Spectrum Guide. Founded by Tatiana Reyes.</p>
     </footer>
   );
 };
