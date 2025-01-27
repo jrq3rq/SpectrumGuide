@@ -28,6 +28,7 @@ backend/tmp/                # Exclude temporary files in backend
 firebase-debug.log
 .firebaserc
 firebase.json
+.firebase/                  # Exclude the .firebase directory to prevent accidental tracking
 
 # Build files
 build/
