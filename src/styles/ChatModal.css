@@ -77,6 +77,13 @@
   align-items: flex-start;
   margin-bottom: 12px;
   position: relative;
+  min-width: 650px;
+}
+
+@media (max-width: 768px) {
+  .chat-message {
+    min-width: auto;
+  }
 }
 
 /* User messages */
@@ -111,7 +118,8 @@
 ************************************/
 .message-actions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   gap: 8px; /* Spacing between action buttons */
   margin-left: 8px;
 }
@@ -125,6 +133,7 @@
   cursor: pointer;
   color: #ffffff;
   transition: background-color 0.2s ease;
+  width: 100%;
 }
 
 /* Delete button */

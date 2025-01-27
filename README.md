@@ -1,5 +1,10 @@
 ```markdown
 autism-support-app/
+├── backend/
+│ ├── server.js # Express server handling Stripe payments
+│ ├── package.json # Backend dependencies and scripts
+│ ├── .env # Backend environment variables (e.g., STRIPE_SECRET_KEY)
+│ └── README.md # Backend-specific documentation (optional)
 ├── public/
 │ ├── favicon.ico # Favicon for the app
 │ ├── index.html # Root HTML file
@@ -8,20 +13,22 @@ autism-support-app/
 │ ├── manifest.json # Web app manifest
 │ └── 404.html # Custom error page (optional)
 ├── src/
+│ ├── components/
+│ │ ├── ChatModal.js # Modal for displaying AI interactions
+│ │ ├── CheckoutForm.js
+│ │ ├── ChildProfileForm.js # Form for inputting child data
+│ │ ├── Footer.js
+│ │ ├── Header.js # Header with navigation
+│ │ ├── LoadingOverlay.js
+│ │ ├── MobileSidebar.js
+│ │ └── PaymentComponent.js
 │ ├── pages/
 │ │ ├── About.js # About page
 │ │ ├── ChatHistoryDisplay.js
-│ │ ├── Payment.js # Payment page
-│ │ └── Interactions.js # Page for viewing saved interactions
-│ ├── utils/
-│ │ └── ScrollToTop.js
-│ ├── components/
-│ │ ├── MobileSidebar.js
-│ │ ├── ChatModal.js # Modal for displaying AI interactions
-│ │ ├── Header.js # Header with navigation
-│ │ ├── Footer.js # Footer for the app
-│ │ └── ChildProfileForm.js # Form for inputting child data
+│ │ ├── Interactions.js # Page for viewing saved interactions
+│ │ └── Payment.js # Payment page
 │ ├── services/
+│ │ ├── paymentService.js
 │ │ └── aiService.js # AI service for handling API requests
 │ ├── styles/
 │ │ ├── About.css
@@ -32,6 +39,8 @@ autism-support-app/
 │ │ ├── App.css # General/global styles for the app
 │ │ ├── ChildProfileForm.css # Specific styles for the form
 │ │ └── ChatModal.css # Specific styles for the chat modal
+│ ├── utils/
+│ │ └── ScrollToTop.js
 │ ├── App.js # Main app component
 │ ├── index.js # Entry point
 │ └── index.css # Basic global styles

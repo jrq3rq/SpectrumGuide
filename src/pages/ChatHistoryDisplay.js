@@ -158,7 +158,8 @@ const styles = {
     fontFamily: "'Helvetica Neue', Arial, sans-serif",
     padding: "20px",
     borderRadius: "10px",
-    backgroundColor: "#F4F4F9",
+    backgroundColor: "#ffffff",
+    // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     border: "1px solid #ddddddcc",
   },
   title: {
@@ -171,7 +172,8 @@ const styles = {
     maxHeight: "400px",
     overflowY: "auto",
     padding: "10px",
-    backgroundColor: "#ffffff",
+    //   backgroundColor: "#ffffff",
+    backgroundColor: "#F4F4F9",
     border: "1px solid #ddd",
     borderRadius: "10px",
   },
@@ -179,14 +181,17 @@ const styles = {
     marginBottom: "15px",
     padding: "10px",
     borderBottom: "1px solid #eee",
+    textAlign: "left", // Aligns all content within the message card to the left
   },
   role: {
     fontWeight: "bold",
     color: "#4a4a4a",
     marginBottom: "5px",
+    textAlign: "left", // Ensures the role text is left-aligned
   },
   content: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#ffffff",
+    // backgroundColor: "#f5f5f5",
     padding: "10px",
     borderRadius: "5px",
     fontSize: "0.95rem",
@@ -194,16 +199,19 @@ const styles = {
     wordWrap: "break-word",
     lineHeight: "1.5",
     marginBottom: "10px",
-    border: "1px solid #ddddddcc",
+    border: "1px solid #DDDDDD",
+    textAlign: "left", // Aligns the chat content to the left
   },
   timestamp: {
     fontSize: "0.9rem",
     color: "#777",
     marginBottom: "10px",
+    textAlign: "left", // Aligns the timestamp to the left
   },
   actions: {
     display: "flex",
     gap: "10px",
+    justifyContent: "flex-start", // Aligns action buttons to the start (left)
   },
   actionButton: {
     backgroundColor: "#3a86ff",

@@ -540,13 +540,24 @@ Please ensure that the recommendations are clear, actionable, and tailored to th
                 onChange={handleChange}
                 required
                 className={errors.communication ? "input-error" : ""}
+                aria-describedby={
+                  errors.communication ? "communication-error" : undefined
+                }
               >
                 <option value="">Select Communication Ability</option>
                 <option value="Verbal">Verbal</option>
                 <option value="Limited Verbal">Limited Verbal</option>
+                <option value="Non-Verbal">Non-Verbal</option>
+                <option value="Uses Assistive Devices">
+                  Uses Assistive Devices
+                </option>
               </select>
               {errors.communication && (
-                <small className="error-text" role="alert">
+                <small
+                  id="communication-error"
+                  className="error-text"
+                  role="alert"
+                >
                   {errors.communication}
                 </small>
               )}
@@ -560,6 +571,11 @@ Please ensure that the recommendations are clear, actionable, and tailored to th
                 onChange={handleChange}
                 required
                 className={errors.preferredCommunication ? "input-error" : ""}
+                aria-describedby={
+                  errors.preferredCommunication
+                    ? "preferred-communication-error"
+                    : undefined
+                }
               >
                 <option value="">Select Preferred Communication</option>
                 <option value="Speech">Speech</option>
@@ -569,7 +585,11 @@ Please ensure that the recommendations are clear, actionable, and tailored to th
                 <option value="Other">Other</option>
               </select>
               {errors.preferredCommunication && (
-                <small className="error-text" role="alert">
+                <small
+                  id="preferred-communication-error"
+                  className="error-text"
+                  role="alert"
+                >
                   {errors.preferredCommunication}
                 </small>
               )}
