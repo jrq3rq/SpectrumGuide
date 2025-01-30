@@ -1,4 +1,6 @@
 /* ChatModal.css */
+
+/* Main Modal Styling */
 .chat-modal {
   position: fixed; /* So it appears on top of everything else */
   top: 50%;
@@ -68,9 +70,10 @@
   margin-top: 10px;
 }
 
+/* Button Styles */
 .download-chat-btn,
 .clear-chat-btn {
-  background-color: #007bff;
+  background-color: #3a86ff; /* Same blue as send-btn */
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -78,24 +81,16 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s ease;
-  margin-left: 10px;
+  margin-left: 0; /* Remove left margin to ensure even spacing */
 }
 
-.clear-chat-btn {
-  background-color: #dc3545;
-}
-
-.download-chat-btn:hover {
-  background-color: #0056b3;
-}
-
+/* Hover effects for Download and Clear buttons */
+.download-chat-btn:hover,
 .clear-chat-btn:hover {
-  background-color: #c82333;
+  background-color: #2379ff; /* Darker blue on hover */
 }
 
-/************************************
-  Scrollable message area
-************************************/
+/* Scrollable message area */
 .chat-container {
   flex: 1;
   padding: 10px;
@@ -200,13 +195,14 @@
 ************************************/
 .chat-input {
   display: flex;
+  flex-wrap: wrap; /* Allow wrapping to place buttons below */
   border-top: 1px solid #ddd;
   padding: 10px;
   background: #f9f9f9;
 }
 
 .chat-input textarea {
-  flex: 1;
+  flex: 1 1 100%; /* Full width */
   resize: none;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -222,7 +218,8 @@
 }
 
 .send-btn {
-  margin-left: 8px;
+  flex: 1 1 100%; /* Full width */
+  margin-top: 8px; /* Spacing from textarea */
   background-color: #3a86ff;
   color: #ffffff;
   border: none;
@@ -316,5 +313,45 @@
   color: #2e6da4; /* Accent color for emphasis */
 }
 
-/* Ensure existing styles remain unchanged */
-/* ... any other existing styles remain unchanged ... */
+/* New styles for the buttons container */
+.bottom-buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px; /* Ensures spacing from the input/send area */
+  width: 100%; /* Span the entire width */
+}
+
+.bottom-buttons-container .download-chat-btn,
+.bottom-buttons-container .clear-chat-btn {
+  flex: 1; /* Each takes 50% */
+  background-color: #3a86ff; /* Same blue as send-btn */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px; /* Same padding as send-btn */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effects for both buttons */
+.bottom-buttons-container .download-chat-btn:hover,
+.bottom-buttons-container .clear-chat-btn:hover {
+  background-color: #2379ff; /* Darker blue on hover */
+}
+
+/* Override existing styles if necessary */
+.download-chat-btn,
+.clear-chat-btn {
+  background-color: #3a86ff !important; /* Overrides previous background colors */
+  margin-left: 0 !important; /* Removes left margin to ensure even spacing */
+}
+
+/* Optional: Focus states for accessibility */
+.download-chat-btn:focus,
+.clear-chat-btn:focus,
+.send-btn:focus,
+.close-modal-btn:focus {
+  outline: 2px solid #2379ff;
+  outline-offset: 2px;
+}

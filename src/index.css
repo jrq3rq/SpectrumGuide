@@ -1,6 +1,6 @@
 /* Define a CSS variable for header height */
 :root {
-  --header-height: 40px; /* Adjust based on your header's actual height */
+  --header-height: 60px; /* Adjust based on your header's actual height */
   --footer-height: 40px; /* Adjust if you have a fixed footer */
 }
 

@@ -27,7 +27,7 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Effect to auto-scroll to the bottom when messages update
+  // Effect to auto-scroll to the top when messages update
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = 0; // Scroll to top
@@ -42,6 +42,7 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
         role: "assistant",
         content: sanitizeContent(initialPrompt),
         timestamp: new Date().toISOString(),
+        notes: [], // Initialize notes array
       };
       // Check if initial prompt is already in messages to avoid duplicates
       if (
@@ -85,6 +86,7 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
       role: "user",
       content,
       timestamp: new Date().toISOString(),
+      notes: [], // Initialize notes array
     };
 
     // Check for duplicate user message
@@ -115,6 +117,7 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
         role: "assistant",
         content: section.trim(),
         timestamp: new Date().toISOString(),
+        notes: [], // Initialize notes array
       }));
 
       // Filter out duplicate assistant messages
@@ -165,6 +168,7 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
         role: "assistant",
         content: "Sorry, something went wrong. Please try again.",
         timestamp: new Date().toISOString(),
+        notes: [], // Initialize notes array
       };
       setMessages((prev) => {
         const updated = [...prev, errorMsg];
@@ -246,18 +250,13 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
       <div className="chat-header">
         <h2>AI Chat Assistant</h2>
         {/* Close Button */}
-        <button onClick={onClose} className="close-modal-btn">
+        <button
+          onClick={onClose}
+          className="close-modal-btn"
+          aria-label="Close Chat Modal"
+        >
           &times;
         </button>
-
-        <div style={{ marginTop: "10px" }}>
-          <button className="download-chat-btn" onClick={handleDownloadChat}>
-            Download Chat
-          </button>
-          <button className="clear-chat-btn" onClick={handleClearChat}>
-            Clear Chat
-          </button>
-        </div>
       </div>
 
       <div className="chat-container" ref={chatContainerRef}>
@@ -281,12 +280,14 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
                 <button
                   onClick={() => handleDownloadMessage(msg)}
                   className="download-btn"
+                  aria-label={`Download message from ${msg.role}`}
                 >
                   Download
                 </button>
                 <button
                   onClick={() => handleDeleteMessage(msg.id)}
                   className="delete-btn"
+                  aria-label="Delete message"
                 >
                   Delete
                 </button>
@@ -311,10 +312,34 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
           placeholder="Type your message..."
           rows={2}
           disabled={isLoading} // Disable input while loading
+          aria-label="Type your message"
         />
-        <button onClick={handleSend} className="send-btn" disabled={isLoading}>
+        <button
+          onClick={handleSend}
+          className="send-btn"
+          disabled={isLoading}
+          aria-label="Send Message"
+        >
           {isLoading ? "Sending..." : "Send"}
         </button>
+
+        {/* New container for Download and Clear buttons */}
+        <div className="bottom-buttons-container">
+          <button
+            className="download-chat-btn"
+            onClick={handleDownloadChat}
+            aria-label="Download Chat History"
+          >
+            Download Chat
+          </button>
+          <button
+            className="clear-chat-btn"
+            onClick={handleClearChat}
+            aria-label="Clear Chat History"
+          >
+            Clear Chat
+          </button>
+        </div>
       </div>
     </div>
   );
