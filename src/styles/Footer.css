@@ -1,25 +1,59 @@
-body {
-  /* Ensure full height of the viewport */
-  min-height: 100vh;
-  margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-#root {
-  /* Assuming your React app is mounted here */
-  height: 100%;
-}
-
-main {
-  /* Main content will take up all available space */
-}
-
+/* Footer Styling */
 .footer {
-  background-color: #f4f4f9;
-  color: #555;
+  background-color: #ffffff;
+  color: #000;
   text-align: center;
-  padding: 15px 0;
+  padding: 15px 20px;
   font-size: 14px;
-  margin-top: 100px;
+  font-weight: 500;
+  margin-top: 60px;
+  border-top: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+  border-left: 1px solid #c3c3c3;
+  /* border-top-right-radius: 10px;
+  border-top-left-radius: 10px; */
+  width: 100%;
+}
+
+/* Flex container for text */
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Adds spacing between elements */
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+/* Brand Name */
+.brand-name {
+  font-weight: bold;
+}
+
+/* Founder Credit */
+.founder {
+  font-size: 12px;
+  color: #000;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 13px;
+    padding: 12px;
+    width: 100%;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+  }
+
+  /* Stack elements vertically on mobile */
+  .footer-content {
+    flex-direction: column;
+    gap: 5px; /* Reduce spacing between elements */
+    margin-top: 20px;
+  }
+  .founder {
+    margin-top: -10px;
+  }
 }

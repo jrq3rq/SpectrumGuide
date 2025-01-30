@@ -22,6 +22,8 @@ autism-support-app/
 │ │ ├── LoadingOverlay.js
 │ │ ├── MobileSidebar.js
 │ │ └── PaymentComponent.js
+│ ├── data/
+│ │ └── navData.js
 │ ├── pages/
 │ │ ├── About.js # About page
 │ │ ├── ChatHistoryDisplay.js

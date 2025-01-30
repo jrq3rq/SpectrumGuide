@@ -1,9 +1,9 @@
 .payment-page {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 40px;
+  max-width: 1200px;
+  margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
+  padding: 60px;
   text-align: center;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: #ffffff;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   border: 1px solid #c3c3c3;
@@ -93,6 +93,7 @@
     padding: 15px;
     text-align: left;
     width: 90%;
+    margin-top: -40px;
   }
 
   .payment-page h1 {

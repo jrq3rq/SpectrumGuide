@@ -13,6 +13,7 @@
   z-index: 9999; /* above the overlay */
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -50,13 +51,46 @@
   right: 8px;
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: #555;
+}
+
+.close-modal-btn:hover {
+  color: #000;
 }
 
 /* Container for buttons and options */
-.chat-header > div {
+.chat-header-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   margin-top: 10px;
+}
+
+.download-chat-btn,
+.clear-chat-btn {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  margin-left: 10px;
+}
+
+.clear-chat-btn {
+  background-color: #dc3545;
+}
+
+.download-chat-btn:hover {
+  background-color: #0056b3;
+}
+
+.clear-chat-btn:hover {
+  background-color: #c82333;
 }
 
 /************************************
@@ -77,40 +111,49 @@
   align-items: flex-start;
   margin-bottom: 12px;
   position: relative;
-  min-width: 650px;
 }
 
-@media (max-width: 768px) {
-  .chat-message {
-    min-width: auto;
-  }
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.assistant {
+  justify-content: flex-start;
 }
 
 /* User messages */
 .chat-message.user .message-content {
   background-color: #c7ffd8;
   align-self: flex-start;
+  border-top-right-radius: 0;
 }
 
 /* Assistant messages */
 .chat-message.assistant .message-content {
   background-color: #e2e2e2;
   align-self: flex-start;
+  border-top-left-radius: 0;
 }
 
 .message-content {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
   max-width: 70%;
-  line-height: 1.4;
-  text-align: left; /* Ensure left alignment */
+  line-height: 1.6;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.message-content strong {
+  color: #2e6da4; /* Accent color for emphasis */
+  font-weight: bold;
 }
 
 .timestamp {
   display: block;
   font-size: 0.75rem;
   color: #777;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 /************************************
@@ -124,30 +167,30 @@
   margin-left: 8px;
 }
 
-.delete-btn,
-.download-btn {
+.message-actions .download-btn,
+.message-actions .delete-btn {
   border: none;
   border-radius: 4px;
   padding: 4px 8px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   color: #ffffff;
   transition: background-color 0.2s ease;
-  width: 100%;
+  width: 80px;
 }
 
-/* Delete button */
 .delete-btn {
   background-color: #ff7272;
 }
+
 .delete-btn:hover {
   background-color: #ff4d4d;
 }
 
-/* Download message button */
 .download-btn {
   background-color: #007bff;
 }
+
 .download-btn:hover {
   background-color: #0056b3;
 }
@@ -175,6 +218,7 @@
 
 .chat-input textarea:focus {
   border-color: #3a86ff;
+  outline: none;
 }
 
 .send-btn {
@@ -183,52 +227,24 @@
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  padding: 0 16px;
+  padding: 8px 16px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s ease;
 }
+
 .send-btn:hover {
   background-color: #2379ff;
 }
 
+.send-btn:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+
 /************************************
-  Checkbox Styling
+  Loading Spinner Container
 ************************************/
-.chat-header input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-
-  /* Simple border so user knows it's a checkbox */
-  border: 1px solid #999;
-  border-radius: 4px;
-  background: none;
-  margin-right: 6px; /* spacing between the box and label text if needed */
-}
-
-.chat-header input[type="checkbox"]:checked::after {
-  content: "✓";
-  font-size: 14px;
-  color: #3a86ff; /* or your preferred accent color */
-  position: relative;
-  left: 2px;
-  top: 0;
-}
-
-/* Optional hover/focus states for user feedback */
-.chat-header input[type="checkbox"]:hover {
-  border-color: #666;
-}
-.chat-header input[type="checkbox"]:focus {
-  outline: 2px dotted #3a86ff;
-}
-
-/* Loading Spinner Container */
 .loading-spinner {
   display: flex;
   flex-direction: column;
@@ -258,7 +274,9 @@
   color: #555;
 }
 
-/* Ensure modal overlay and positioning */
+/************************************
+  Modal Overlay
+************************************/
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -269,7 +287,9 @@
   z-index: 9998; /* behind the modal itself */
 }
 
-/* Additional AI Response Formatting Enhancements (Optional) */
+/************************************
+  Additional AI Response Formatting Enhancements
+************************************/
 .chat-message.assistant .message-content h3 {
   font-size: 1.1rem;
   margin-bottom: 8px;

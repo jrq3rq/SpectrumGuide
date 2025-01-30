@@ -13,6 +13,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./utils/ScrollToTop";
 import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
+import Main from "./pages/Main";
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<ChildProfileForm />} />
+          <Route path="/" element={<Main />} />
           <Route path="/about" element={<About />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/interactions" element={<ChatHistoryDisplay />} />

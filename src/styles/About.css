@@ -1,11 +1,14 @@
 .about-page {
-  max-width: 800px; /* Restrict maximum width */
-  margin: 0 auto; /* Center the content horizontally */
-  padding: 20px; /* Add padding for spacing */
+  max-width: 1200px; /* Restrict maximum width */
+  margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
+
+  padding: 40px 80px; /* Add padding for spacing */
   text-align: left; /* Center-align the text */
   /* background-color: #ffffff;  */
   border-radius: 8px; /* Rounded corners */
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  background-color: #ffffff;
+  border: 1px solid #c3c3c3; /* Add the desired border */
 }
 
 .about-page h1 {
@@ -24,9 +27,10 @@
 /* Responsive styles for About page */
 @media (max-width: 768px) {
   .about-page {
-    padding: 15px; /* Reduce padding on smaller screens */
+    padding: 40px; /* Reduce padding on smaller screens */
     text-align: left; /* Align text to the left for better readability */
-    width: 80%;
+    width: 90%;
+    margin-top: -40px;
   }
 
   .about-page h1 {

@@ -116,3 +116,8 @@
 .interaction-container::-webkit-scrollbar-thumb:hover {
   background-color: #357ab8;
 }
+
+/* @media (max-width: 768px) {
+  .interaction-wrapper {
+  }
+} */

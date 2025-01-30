@@ -1,4 +1,4 @@
-/* Ensure the root container is scrollable */
+/* Root Container: Ensure the form wrapper is scrollable and responsive */
 .form-wrapper {
   display: flex;
   flex-wrap: nowrap; /* Prevent wrapping unless in mobile view */
@@ -8,50 +8,28 @@
   box-sizing: border-box; /* Include padding and borders in the total width */
   margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
   padding-bottom: 20px; /* Add padding at the bottom for better spacing */
+  background-color: #ffffff; /* White background for the form */
+  border-radius: 8px;
+  border: 1px solid #c3c3c3; /* Add the desired border */
 }
 
-/* Mobile adjustments */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
   .form-wrapper {
     flex-direction: column; /* Stack sections vertically on smaller screens */
     width: calc(100% - 40px); /* Keep the 20px margin on smaller screens */
     justify-content: flex-start; /* Align items at the top */
     align-items: center; /* Center horizontally stacked items */
-    margin-top: 20px; /* Ensure the top isn't cut off */
     padding-bottom: 50px; /* Add extra padding at the bottom for usability */
   }
 }
 
-/* Style all label text (e.g., "Child's Name:", "Date of Birth:") */
-label {
-  font-size: 16px; /* Slightly larger for better readability */
-  text-align: left;
-  font-weight: 600; /* Semi-bold for emphasis */
-  color: #2e3136; /* Darker gray for modern and professional look */
-  margin-bottom: 8px; /* Space between label text and input field */
-  line-height: 1.5; /* Improves readability for multiline labels */
-}
-
-/* Optional: Add custom alignment or spacing inside forms */
-.form-container label {
-  display: block; /* Ensure labels are block elements */
-  text-align: left; /* Explicitly set left alignment */
-}
-
-/* Individual section (left or right) */
-.form-section {
-  flex: 1; /* Each section takes equal space in desktop mode */
-  padding: 20px;
-  background-color: #ffffff; /* White background for sections */
-  border-radius: 8px;
-  border: 1px solid #c3c3c3; /* Add the desired border */
-}
-
-/* Form container for inputs inside each section */
+/* Form Container: Layout inside the form */
 .form-container {
   display: flex;
   flex-direction: row;
   gap: 15px; /* Space between form elements */
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -60,25 +38,43 @@ label {
   }
 }
 
-/* Form labels */
-label {
-  font-weight: bold;
-  color: #555;
+/* Form Sections: Left and Right */
+.form-section {
+  flex: 1; /* Each section takes equal space in desktop mode */
+  padding: 20px;
+  background-color: #ffffff; /* White background for sections */
+  border-radius: 8px;
+  border: 1px solid transparent; /* Initially transparent border */
+  box-sizing: border-box;
 }
 
-/* Input fields, dropdowns, and textarea */
-input,
+/* Labels: Style all label text */
+label {
+  display: block; /* Ensure labels are block elements */
+  font-size: 16px; /* Slightly larger for better readability */
+  text-align: left;
+  font-weight: 600; /* Semi-bold for emphasis */
+  color: #2e3136; /* Darker gray for modern and professional look */
+  margin-bottom: 8px; /* Space between label text and input field */
+  line-height: 1.5; /* Improves readability for multiline labels */
+}
+
+/* Input Fields, Selects, and Textareas */
+input[type="text"],
+input[type="date"],
 select,
 textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  margin-top: 5px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
   box-sizing: border-box;
+  font-size: 16px;
+  font-family: inherit;
 }
 
-/* Input focus */
+/* Input Focus Styles */
 input:focus,
 select:focus,
 textarea:focus {
@@ -87,178 +83,18 @@ textarea:focus {
   box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
-.div-container {
-  font-size: 12px;
-  height: 50px; /* Set the height of the container */
-  display: flex; /* Enable Flexbox */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  text-align: center; /* Center-align text within elements */
-  background-color: #dddddd;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+/* Highlight Input Fields with Errors */
+.input-error {
+  border: 1px solid #d9534f; /* Red border */
 }
 
-/* Container for the buttons */
-.button-container {
-  display: grid; /* Use CSS Grid for layout */
-  grid-template-columns: repeat(2, 1fr); /* Two columns, evenly spaced */
-  gap: 20px; /* Space between buttons */
-  width: 100%; /* Full-width container */
-  max-width: 600px; /* Optional: Limit the container width */
-  box-sizing: border-box;
-}
-
-/* Buttons */
-.button-container button {
-  padding: 8px 10px; /* Add padding for clickable area */
-  font-size: 16px; /* Set font size */
-  font-weight: bold; /* Make text bold */
-  color: white; /* Text color */
-  background-color: #4a90e2; /* Button background color */
-  border: none; /* Remove border */
-  border-radius: 6px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor for interactivity */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
-}
-
-/* Hover effect */
-.button-container button:hover {
-  background-color: #357ab8; /* Darker shade on hover */
-  transform: translateY(-2px); /* Slight lift effect */
-}
-
-/* Active effect */
-.button-container button:active {
-  transform: translateY(0); /* Reset lift on click */
-}
-
-/* Responsive for Mobile */
-@media (max-width: 768px) {
-  .button-container {
-    grid-template-columns: 1fr; /* Single column layout */
-    gap: 15px; /* Reduce spacing for smaller screens */
-  }
-}
-
-/* Container for care plan checkboxes */
-.care-plans-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-/* Hide the default checkbox */
-.care-plan-option input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Custom checkbox */
-/* .care-plan-option .care-plan-label::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #555;
-  border-radius: 4px;
-  background-color: #fff;
-  transition: background-color 0.3s, border-color 0.3s;
-} */
-
-/* Checked state */
-.care-plan-option input:checked ~ .care-plan-label::before {
-  background-color: #4caf50;
-  border-color: #4caf50;
-}
-
-/* Checkmark */
-.care-plan-option input:checked ~ .care-plan-label::after {
-  content: "✔";
-  position: absolute;
-  left: 5px;
-  top: 0px;
-  color: white;
-  font-size: 16px;
-}
-
-/* Hover effect */
-.care-plan-option:hover .care-plan-label::before {
-  border-color: #000;
-}
-
-/* Style for the Notes textarea */
-.form-section label textarea {
-  width: 100%;
-  height: 100px; /* Adjust height as needed */
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical; /* Allow vertical resizing */
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.form-section label textarea.input-error {
-  border-color: red;
-}
-
-.error-text {
-  color: red;
-  font-size: 12px;
-}
-
-/* Optional: Enhance the textarea placeholder color */
-.form-section label textarea::placeholder {
-  color: #999;
-}
-
-/* Container for Important Roles */
-.important-roles-container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px; /* Reduce spacing between options */
-  max-height: 100px; /* Limit the height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ccc; /* Add a subtle border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 5px; /* Inner padding */
-  background-color: #f9f9f9; /* Subtle background color */
-}
-
-/* Individual Important Role Option */
-.important-role-option {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Space between checkbox and label */
-  font-size: 14px; /* Smaller font size for compactness */
-  cursor: pointer;
-}
-
-/* Checkbox style */
-.important-role-option input {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-/* Role Label */
-.role-label {
-  /* Removed any tooltip-related styles */
-}
-
-/* ChildProfileForm.css */
-
-/* Container for Care Plans */
+/* Care Plans Container */
 .care-plans-container {
   display: flex;
   flex-direction: column;
   gap: 10px; /* Space between each care plan option */
   margin-bottom: 10px; /* Space below the care plans section */
+  position: relative; /* For error overlay positioning */
 }
 
 /* Individual Care Plan Option */
@@ -317,14 +153,14 @@ textarea:focus {
   border-color: #000; /* Darker border on hover */
 }
 
-/* Label Text Styling */
+/* Label Text Styling for Care Plans */
 .care-plan-label {
   margin-left: 10px; /* Space between checkbox and label text */
   font-size: 16px; /* Readable font size */
   color: #333; /* Dark text color */
 }
 
-/* Responsive Adjustments (Optional) */
+/* Responsive Adjustments for Care Plans */
 @media (max-width: 600px) {
   .care-plan-option {
     padding-left: 25px; /* Adjust padding for smaller screens */
@@ -342,4 +178,186 @@ textarea:focus {
   .care-plan-label {
     font-size: 14px;
   }
+}
+
+/* Important Roles Container */
+.important-roles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduce spacing between options */
+  max-height: 100px; /* Limit the height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ccc; /* Add a subtle border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px; /* Inner padding */
+  background-color: #f9f9f9; /* Subtle background color */
+}
+
+/* Individual Important Role Option */
+.important-role-option {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between checkbox and label */
+  font-size: 14px; /* Smaller font size for compactness */
+  cursor: pointer;
+}
+
+/* Checkbox Style for Important Roles */
+.important-role-option input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Role Label */
+.role-label {
+  /* Reserved for future styles */
+}
+
+/* Buttons Container */
+.button-container {
+  display: grid; /* Use CSS Grid for layout */
+  grid-template-columns: repeat(2, 1fr); /* Two columns, evenly spaced */
+  gap: 20px; /* Space between buttons */
+  width: 100%; /* Full-width container */
+  max-width: 600px; /* Optional: Limit the container width */
+  box-sizing: border-box;
+  margin-top: 1em; /* Space above the buttons */
+}
+
+/* Buttons */
+.button-container button {
+  padding: 10px 20px; /* Add padding for clickable area */
+  border: none;
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 16px; /* Set font size */
+  font-weight: bold; /* Make text bold */
+  color: white; /* Text color */
+  background-color: #4a90e2; /* Button background color */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+/* Submit Button */
+.button-container button[type="submit"] {
+  background-color: #4b8fe2; /* Green */
+}
+
+/* Refresh Button */
+.button-container button[type="button"] {
+  background-color: #4b8fe2; /* Orange */
+}
+
+/* Disabled Button State */
+.button-container button:disabled {
+  background-color: #a5d6a7; /* Light green when disabled */
+  cursor: not-allowed;
+}
+
+/* Hover Effect for Buttons */
+.button-container button:hover {
+  background-color: #357ab8; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Active Effect for Buttons */
+.button-container button:active {
+  transform: translateY(0); /* Reset lift on click */
+}
+
+/* Responsive Adjustments for Buttons */
+@media (max-width: 768px) {
+  .button-container {
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px; /* Reduce spacing for smaller screens */
+  }
+}
+
+/* Div Container Styles */
+.div-container {
+  font-size: 12px;
+  height: 50px; /* Set the height of the container */
+  display: flex; /* Enable Flexbox */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  text-align: center; /* Center-align text within elements */
+  background-color: #dddddd;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Error Text Styling (if using separate error texts) */
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+
+/* Enhance the Textarea Placeholder Color */
+textarea::placeholder {
+  color: #999;
+}
+
+/* Optional: Specific styles for textarea errors */
+.form-section label textarea.input-error {
+  border-color: red;
+}
+
+/* Show error overlay when active */
+.input-container .error-overlay.active {
+  opacity: 1;
+}
+
+/* Optional: Add a small arrow pointing to the input field */
+.error-overlay::after {
+  /* content: ""; */
+  /* position: absolute; */
+  /* bottom: -5px;  */
+  /* left: 10px;  */
+  border-width: 3px;
+  border-style: solid;
+  border-color: #000;
+  /* border-color: rgba(217, 83, 79, 0.9) transparent transparent transparent; */
+}
+
+/* ... previous CSS ... */
+
+.input-container {
+  margin-bottom: 1em;
+}
+
+.input-container h3 {
+  margin-bottom: 0.5em;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.important-role-option,
+.care-plan-option {
+  display: block;
+  margin-bottom: 0.1em;
+}
+
+.error-overlay {
+  position: static;
+  display: block;
+  color: red;
+  font-size: 15px;
+  opacity: 1;
+  border: none;
+  padding: 0;
+}
+
+.input-container label {
+  position: relative;
+}
+
+.input-container label .error-overlay {
+  position: absolute;
+  left: 0;
+  bottom: -1.5em;
+}
+
+.important-roles-container,
+.care-plans-container {
+  padding-left: 1em;
 }

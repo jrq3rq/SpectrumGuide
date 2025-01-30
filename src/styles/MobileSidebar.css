@@ -1,0 +1,56 @@
+/* src/styles/MobileSidebar.css */
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 0; /* Start with height 0 */
+  background-color: #4a90e2;
+  color: #fff;
+  overflow: hidden; /* Prevent content from showing before full expand */
+  transition: height 0.3s ease-in-out; /* Smooth animation for height */
+  z-index: 999; /* Below header's z-index */
+}
+
+.mobile-sidebar.open {
+  height: 100vh; /* Expand to full viewport height */
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px; /* Adjust padding to fit vertically */
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 15px 20px;
+  margin-top: 40px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-link svg {
+  margin-right: 10px;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(2px);
+}
+
+/* Overlay Style */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998; /* Below the sidebar */
+  cursor: pointer;
+}

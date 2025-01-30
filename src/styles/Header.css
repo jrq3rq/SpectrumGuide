@@ -1,15 +1,16 @@
+/* src/styles/Header.css */
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #f4f4f9;
+  background-color: #ffffff;
   z-index: 1000;
   color: #000000;
   padding: 10px 20px;
-  /* Add transition so it animates when toggling .header-hidden */
   transition: transform 0.3s ease, opacity 0.3s ease;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #c3c3c3; /* Add the desired border */
 }
 
 .header-hidden {
@@ -30,6 +31,12 @@
   font-weight: bold;
   color: #000000;
   text-decoration: none;
+  display: flex;
+  gap: 5px;
+}
+
+.blue-title {
+  color: #4b8fe2;
 }
 
 .nav {
@@ -40,19 +47,19 @@
 
 .nav-link {
   display: flex;
-  flex-direction: column; /* Stack icon and text vertically */
-  align-items: center; /* Center items in the container */
+  flex-direction: column;
+  align-items: center;
   color: #000000;
   text-decoration: none;
-  font-size: 18px; /* Keeping original font size */
+  font-size: 18px;
   transition: color 0.3s ease, transform 0.3s ease;
-  padding: 8px 12px;
+  padding: 8px 20px;
+  margin-right: 10px;
 }
 
 .nav-link svg {
-  margin-right: 0; /* Remove horizontal margin */
-  margin-bottom: 5px; /* Add space below icon */
-  color: #000000; /* Keeping original color */
+  margin-bottom: 5px;
+  color: #000000;
 }
 
 .nav-link:hover {
@@ -60,6 +67,8 @@
   transform: scale(1.05);
 }
 
+/* Hamburger Icon Base Style */
+/* Hamburger Icon Base Style */
 .mobile-menu-icon {
   display: none;
   background: none;
@@ -68,7 +77,14 @@
   font-size: 28px;
   cursor: pointer;
   z-index: 2000;
-  margin-right: 30px;
+
+  transition: transform 0.3s ease-in-out; /* Smooth rotation effect */
+}
+
+/* Rotate the icon 90 degrees when the sidebar is open */
+.mobile-menu-icon.open {
+  transform: rotate(90deg); /* Rotates 90 degrees instead of 180 */
+  color: #ffffff;
 }
 
 body {
@@ -78,44 +94,11 @@ body {
 }
 
 @media (max-width: 768px) {
-  .nav {
+  .nav.desktop-links {
     display: none;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background-color: #4a90e2;
-    color: #fff;
-    flex-direction: column;
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .nav.open {
-    display: flex;
-    transform: translateX(0);
-  }
-
-  .nav-link {
-    padding: 15px 0; /* Adjust padding for vertical layout */
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-link svg {
-    color: #fff;
   }
 
   .mobile-menu-icon {
     display: block;
-  }
-
-  .logo {
-    font-size: 20px;
   }
 }
