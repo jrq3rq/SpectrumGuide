@@ -36,7 +36,7 @@
 }
 
 .blue-title {
-  color: #4b8fe2;
+  color: #00c7eb;
 }
 
 .nav {
@@ -63,7 +63,7 @@
 }
 
 .nav-link:hover {
-  color: #4a90e2;
+  color: #02c7eb;
   transform: scale(1.05);
 }
 

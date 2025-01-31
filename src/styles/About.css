@@ -1,7 +1,6 @@
 .about-page {
   max-width: 1200px; /* Restrict maximum width */
   margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
-
   padding: 40px 80px; /* Add padding for spacing */
   text-align: left; /* Center-align the text */
   /* background-color: #ffffff;  */
@@ -12,7 +11,7 @@
 }
 
 .about-page h1 {
-  color: #4a90e2; /* Blue color for headings */
+  color: #00c7eb; /* Blue color for headings */
   font-size: 2rem; /* Large font size */
   margin-bottom: 20px; /* Space below the heading */
 }

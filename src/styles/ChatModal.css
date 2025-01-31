@@ -73,9 +73,9 @@
 /* Button Styles */
 .download-chat-btn,
 .clear-chat-btn {
-  background-color: #3a86ff; /* Same blue as send-btn */
+  background-color: #00c7eb; /* Same blue as send-btn */
+  border: 1px solid #908f8f;
   color: #ffffff;
-  border: none;
   border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
@@ -87,7 +87,7 @@
 /* Hover effects for Download and Clear buttons */
 .download-chat-btn:hover,
 .clear-chat-btn:hover {
-  background-color: #2379ff; /* Darker blue on hover */
+  background-color: #00b2d2; /* Darker blue on hover */
 }
 
 /* Scrollable message area */
@@ -119,6 +119,7 @@
 /* User messages */
 .chat-message.user .message-content {
   background-color: #c7ffd8;
+  border: 1px solid #cccccc;
   align-self: flex-start;
   border-top-right-radius: 0;
 }
@@ -126,6 +127,7 @@
 /* Assistant messages */
 .chat-message.assistant .message-content {
   background-color: #e2e2e2;
+  border: 1px solid #cccccc;
   align-self: flex-start;
   border-top-left-radius: 0;
 }
@@ -183,11 +185,10 @@
 }
 
 .download-btn {
-  background-color: #007bff;
+  background-color: #00c7eb;
 }
-
 .download-btn:hover {
-  background-color: #0056b3;
+  background-color: #00aac8;
 }
 
 /************************************
@@ -213,16 +214,16 @@
 }
 
 .chat-input textarea:focus {
-  border-color: #3a86ff;
+  border-color: #00c7eb;
   outline: none;
 }
 
 .send-btn {
   flex: 1 1 100%; /* Full width */
   margin-top: 8px; /* Spacing from textarea */
-  background-color: #3a86ff;
+  background-color: #00c7eb;
+  border: 1px solid #908f8f;
   color: #ffffff;
-  border: none;
   border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
@@ -231,7 +232,7 @@
 }
 
 .send-btn:hover {
-  background-color: #2379ff;
+  background-color: #00b2d2;
 }
 
 .send-btn:disabled {
@@ -324,9 +325,9 @@
 .bottom-buttons-container .download-chat-btn,
 .bottom-buttons-container .clear-chat-btn {
   flex: 1; /* Each takes 50% */
-  background-color: #3a86ff; /* Same blue as send-btn */
+  background-color: #00c7eb; /* Same blue as send-btn */
   color: #fff;
-  border: none;
+  border: 1px solid #908f8f;
   border-radius: 4px;
   padding: 8px 16px; /* Same padding as send-btn */
   cursor: pointer;
@@ -337,13 +338,13 @@
 /* Hover effects for both buttons */
 .bottom-buttons-container .download-chat-btn:hover,
 .bottom-buttons-container .clear-chat-btn:hover {
-  background-color: #2379ff; /* Darker blue on hover */
+  background-color: #00b2d2; /* Darker blue on hover */
 }
 
 /* Override existing styles if necessary */
 .download-chat-btn,
 .clear-chat-btn {
-  background-color: #3a86ff !important; /* Overrides previous background colors */
+  background-color: #00c7eb !important; /* Overrides previous background colors */
   margin-left: 0 !important; /* Removes left margin to ensure even spacing */
 }
 
@@ -352,6 +353,6 @@
 .clear-chat-btn:focus,
 .send-btn:focus,
 .close-modal-btn:focus {
-  outline: 2px solid #2379ff;
+  outline: 2px solid #029cb8;
   outline-offset: 2px;
 }

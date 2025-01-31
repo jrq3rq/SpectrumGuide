@@ -148,7 +148,7 @@ const ChatHistoryDisplay = () => {
   return (
     <div style={styles.container(isMobile)}>
       <h1 style={styles.title}>Chat History</h1>
-      <div style={styles.chatContainer} ref={chatContainerRef}>
+      <div style={styles.chatContainer(isMobile)} ref={chatContainerRef}>
         {messages.length > 0 ? (
           messages
             .slice() // Create a shallow copy to avoid mutating state
@@ -313,14 +313,14 @@ const styles = {
     color: "#333",
   },
 
-  chatContainer: {
-    maxHeight: "400px",
+  chatContainer: (isMobile) => ({
+    maxHeight: isMobile ? "60vh" : "400px", // 60vh for mobile, 800px for desktop
     overflowY: "auto",
     padding: "10px",
     backgroundColor: "#F4F4F9",
     border: "1px solid #c3c3c3",
     borderRadius: "10px",
-  },
+  }),
 
   messageCard: {
     marginBottom: "15px",
@@ -368,9 +368,9 @@ const styles = {
   },
 
   actionButton: {
-    backgroundColor: "#3a86ff",
+    backgroundColor: "#02C7EB",
+    border: "1px solid #908f8f",
     color: "#fff",
-    border: "none",
     padding: "10px 20px",
     borderRadius: "5px",
     cursor: "pointer",
@@ -382,8 +382,8 @@ const styles = {
 
   deleteButton: {
     backgroundColor: "#ff6b6b",
+    border: "1px solid #908f8f",
     color: "#fff",
-    border: "none",
     padding: "10px 20px",
     borderRadius: "5px",
     cursor: "pointer",
@@ -395,8 +395,8 @@ const styles = {
 
   addNoteButton: {
     backgroundColor: "#4caf50",
+    border: "1px solid #908f8f",
     color: "#fff",
-    border: "none",
     padding: "10px 20px",
     borderRadius: "5px",
     cursor: "pointer",
@@ -409,7 +409,7 @@ const styles = {
   showMoreButton: {
     backgroundColor: "transparent",
     border: "none",
-    color: "#3a86ff",
+    color: "#02C7EB",
     cursor: "pointer",
     fontSize: "0.9rem",
     marginLeft: "5px",
@@ -425,10 +425,10 @@ const styles = {
   downloadAllButton: {
     display: "block",
     margin: "20px auto",
-    backgroundColor: "#3a86ff",
+    backgroundColor: "#02C7EB",
     color: "#fff",
     width: "100%",
-    border: "1px solid #C3C3C3",
+    border: "1px solid #908f8f",
     padding: "10px 20px",
     borderRadius: "8px",
     cursor: "pointer",
@@ -501,7 +501,7 @@ const styles = {
   saveNoteButton: {
     width: "100%",
     backgroundColor: "#4caf50", // Green color
-    border: "1px solid #C3C3C3",
+    border: "1px solid #908f8f",
     color: "#ffffff",
     padding: "8px 16px",
     borderRadius: "5px",
@@ -513,7 +513,7 @@ const styles = {
   cancelNoteButton: {
     width: "100%",
     backgroundColor: "#FF6B6B", // Green color
-    border: "1px solid #C3C3C3",
+    border: "1px solid #908f8f",
     color: "#ffffff",
     padding: "8px 16px",
     borderRadius: "5px",

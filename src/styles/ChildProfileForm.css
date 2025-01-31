@@ -234,29 +234,33 @@ textarea:focus {
   font-size: 16px; /* Set font size */
   font-weight: bold; /* Make text bold */
   color: white; /* Text color */
-  background-color: #4a90e2; /* Button background color */
+  background-color: #00c7eb; /* Button background color */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
 }
 
 /* Submit Button */
 .button-container button[type="submit"] {
-  background-color: #4b8fe2; /* Green */
+  background-color: #00c7eb; /* Green */
+  border: 1px solid #908f8f; /* Add the desired border */
 }
 
 /* Refresh Button */
 .button-container button[type="button"] {
-  background-color: #4b8fe2; /* Orange */
+  background-color: #00c7eb; /* Orange */
+  border: 1px solid #908f8f; /* Add the desired border */
 }
 
 /* Disabled Button State */
 .button-container button:disabled {
   background-color: #a5d6a7; /* Light green when disabled */
+  border: 1px solid #908f8f; /* Add the desired border */
   cursor: not-allowed;
 }
 
 /* Hover Effect for Buttons */
 .button-container button:hover {
-  background-color: #357ab8; /* Darker shade on hover */
+  background-color: #00c7eb; /* Darker shade on hover */
+  border: 1px solid #908f8f; /* Add the desired border */
   transform: translateY(-2px); /* Slight lift effect */
 }
 
@@ -329,6 +333,13 @@ textarea::placeholder {
   margin-bottom: 0.5em;
   font-size: 18px;
   font-weight: bold;
+  text-align: center;
+  align-items: center;
+  padding: 5px 0px 5px 0px;
+  background-color: #00c7eb;
+  border: 1px solid #908f8f; /* Add the desired border */
+  color: #ffffff;
+  border-radius: 6px;
 }
 
 .important-role-option,
@@ -351,10 +362,15 @@ textarea::placeholder {
   position: relative;
 }
 
+.input-container .sensorySensitivities {
+  height: 150px;
+}
+
 .input-container label .error-overlay {
   position: absolute;
   left: 0;
   bottom: -1.5em;
+  height: 300px;
 }
 
 .important-roles-container,

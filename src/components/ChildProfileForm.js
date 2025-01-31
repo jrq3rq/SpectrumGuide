@@ -641,6 +641,7 @@ const ChildProfileForm = () => {
                 <select
                   id="sensorySensitivities"
                   name="sensorySensitivities"
+                  // className="sensorySensitivities"
                   value={formData.sensorySensitivities}
                   onChange={handleChange}
                   multiple

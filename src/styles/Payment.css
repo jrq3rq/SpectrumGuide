@@ -10,7 +10,7 @@
 }
 
 .payment-page h1 {
-  color: #4a90e2;
+  color: #00c7eb;
   font-size: 2.5rem;
   margin-bottom: 20px;
   font-weight: bold;
@@ -54,15 +54,17 @@
   font-size: 16px;
   font-weight: bold;
   color: white;
-  background-color: #4a90e2;
-  border: none;
+  background-color: #00c7eb;
+  border: 1px solid #908f8f;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .payment-options button:hover {
-  background-color: #357ab8;
+  background-color: #00aac8;
+  /* 00c7eb 00aac8 */
+
   transform: translateY(-2px);
 }
 
