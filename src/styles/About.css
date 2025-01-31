@@ -5,12 +5,15 @@
   text-align: left; /* Center-align the text */
   /* background-color: #ffffff;  */
   border-radius: 8px; /* Rounded corners */
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  /* background-color: #00c7eb; */
   border: 1px solid #c3c3c3; /* Add the desired border */
+  color: #000;
 }
 
 .about-page h1 {
+  /* color: #00c7eb;  */
   color: #00c7eb; /* Blue color for headings */
   font-size: 2rem; /* Large font size */
   margin-bottom: 20px; /* Space below the heading */
@@ -19,8 +22,21 @@
 .about-page p {
   font-size: 18px; /* Larger font size for readability */
   line-height: 1.6; /* Space between lines */
-  color: #555; /* Subtle gray for text */
+  color: #000; /* Subtle gray for text */
   margin-bottom: 15px; /* Space between paragraphs */
+}
+
+/* Centered logo container */
+.about-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo styling */
+.about-logo {
+  width: 100px; /* Adjust size as needed */
+  height: auto;
 }
 
 /* Responsive styles for About page */

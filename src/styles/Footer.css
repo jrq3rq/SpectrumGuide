@@ -33,8 +33,21 @@
 /* Founder Credit */
 .founder {
   font-size: 12px;
-  color: #000;
+  color: #555555;
   margin: 0;
+}
+
+/* Centered logo container */
+.footer-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo styling */
+.footer-logo {
+  width: 50px; /* Adjust size as needed */
+  height: auto;
 }
 
 /* Responsive Design */

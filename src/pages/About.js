@@ -1,9 +1,13 @@
 import React from "react";
 import "../styles/About.css"; // Add styles specific to the About page if needed
+// import logo from "../assets/puzzle-1020410_640.jpg";
 
 const About = () => {
   return (
     <div className="about-page">
+      {/* <div className="about-logo-container">
+        <img src={logo} alt="Spectrum Guide Logo" className="about-logo" />
+      </div> */}
       <h1>About Spectrum Guide</h1>
       <p>
         Spectrum Guide is an innovative tool designed to support parents and
