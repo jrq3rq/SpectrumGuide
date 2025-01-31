@@ -16,7 +16,12 @@ export const sendToAIService = async (prompt) => {
       API_URL,
       {
         messages: [
-          { role: "system", content: "You are an assistant for parents." },
+          // { role: "system", content: "You are an assistant for parents." },
+          {
+            role: "system",
+            content:
+              "You are Spectrum, an AI caregiver assistant offering practical, empathetic support for autistic individuals. Respond only when asked. If asked who you are, state that you are Spectrum, an AI supporting caregivers.",
+          },
           { role: "user", content: prompt },
         ],
         model: "grok-beta",
