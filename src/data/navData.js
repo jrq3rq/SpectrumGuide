@@ -1,6 +1,12 @@
 // src/data/navData.js
 
-import { FaHome, FaInfoCircle, FaDollarSign, FaRobot } from "react-icons/fa";
+import {
+  FaHome,
+  FaInfoCircle,
+  FaDollarSign,
+  FaRobot,
+  FaBookOpen,
+} from "react-icons/fa";
 
 export const navItems = [
   {
@@ -23,6 +29,12 @@ export const navItems = [
   },
   {
     id: 4,
+    path: "/social-stories",
+    name: "Stories",
+    icon: <FaBookOpen />,
+  },
+  {
+    id: 5,
     path: "/interactions",
     name: "Logs",
     icon: <FaRobot />,

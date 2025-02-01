@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./utils/ScrollToTop";
 import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
 import Main from "./pages/Main";
+import SocialStories from "./pages/SocialStories";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/interactions" element={<ChatHistoryDisplay />} />
+          <Route path="/social-stories" element={<SocialStories />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

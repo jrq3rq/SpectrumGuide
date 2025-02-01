@@ -47,6 +47,11 @@ const About = () => {
           special interests to boost confidence, encourage independence, and
           foster enjoyable, meaningful experiences.
         </li>
+        <li>
+          <strong>Social Stories:</strong> Generate personalized, AI-driven
+          stories to help individuals navigate social situations, routines, and
+          emotional regulation in an engaging and supportive way.
+        </li>
       </ul>
       <p>
         Spectrum Guide harnesses the power of AI to transform data into
