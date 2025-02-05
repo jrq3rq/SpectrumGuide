@@ -82,7 +82,7 @@ public/static/
 # backend-specific
 /backend/node_modules/       # Backend dependencies
 /backend/.env                # Backend environment variables
-/backend/.log                # Backend log files
+/backend/*.log               # Backend log files
 /backend/cache/              # Backend cache directory
 /backend/tmp/                # Backend temporary files
 
@@ -96,3 +96,6 @@ public/static/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Add this line to ignore the service account key
+config/serviceAccountKey.json
