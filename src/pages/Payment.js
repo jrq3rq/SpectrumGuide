@@ -18,9 +18,6 @@ const Payment = () => {
       case "starter":
         amount = 999; // $9.99 in cents
         break;
-      case "standard":
-        amount = 1999; // $19.99 in cents
-        break;
       case "family":
         amount = 2999; // $29.99 in cents
         break;
@@ -53,27 +50,23 @@ const Payment = () => {
     <div className="payment-page">
       <h1>Purchase Credits</h1>
       <p>
-        Spectrum Guide offers flexible, credit-based options to access
-        personalized AI recommendations. Choose the right package for your
-        family and start making meaningful progress today.
+        Spectrum Guide offers simple, credit-based options to access
+        personalized AI recommendations. Choose the right package for you or
+        your family and enhance your experience today.
       </p>
       <ul className="payment-options">
         <li>
-          <span>Starter Pack: 10 credits for $9.99</span>
+          <span>Silver Spectrum: 10 credits for $9.99</span>
           <button onClick={() => handlePurchase("starter")}>Buy Now</button>
         </li>
         <li>
-          <span>Standard Pack: 25 credits for $19.99</span>
-          <button onClick={() => handlePurchase("standard")}>Buy Now</button>
-        </li>
-        <li>
-          <span>Family Pack: 50 credits for $29.99</span>
+          <span>Gold Spectrum: 50 credits for $29.99</span>
           <button onClick={() => handlePurchase("family")}>Buy Now</button>
         </li>
       </ul>
       <p>
-        Credits allow you to generate care plans, manage sensory strategies, and
-        much more.
+        Credits allow you to generate detailed care plans, manage sensory
+        strategies, and much more with AI precision.
       </p>
 
       {/* Stripe Payment Form */}

@@ -13,6 +13,18 @@
   z-index: 999; /* Below header's z-index */
 }
 
+.credits-display-mobile {
+  display: inline-block;
+  background-color: #fff; /* Light grey background to match the style */
+  color: #000000; /* Black text */
+  font-size: 14px; /* Smaller than sidebar-link text */
+  padding: 10px 15px; /* Small padding */
+  margin-right: 5px; /* Small margin to separate from icon */
+  border-radius: 4px; /* Rounded corners */
+  vertical-align: middle; /* Align with the text vertically */
+  line-height: 1; /* To ensure it's the same height as the text */
+}
+
 .mobile-sidebar.open {
   height: 100vh; /* Expand to full viewport height */
 }
@@ -35,7 +47,7 @@
 }
 
 .sidebar-link svg {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .sidebar-link:hover {
@@ -53,4 +65,66 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 998; /* Below the sidebar */
   cursor: pointer;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; /* Adjust padding to match header if necessary */
+}
+
+.logo-sidebar {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  gap: 5px;
+}
+
+.sidebar-right-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* This should match the gap in header-right-icons */
+}
+
+.identity-rectangle-sidebar {
+  width: 50px; /* Adjust as needed to match header */
+  height: 30px; /* Same height as sidebar-link for consistency */
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  border: 1px solid #000000;
+}
+
+.identity-rectangle-sidebar.logged-in {
+  background-color: #45fe47; /* Green for logged in */
+}
+
+.identity-rectangle-sidebar.logged-out {
+  background-color: #fe4547; /* Red for logged out */
+}
+
+.identity-tooltip-sidebar {
+  position: absolute;
+  top: calc(100% + 5px); /* Adjust spacing between rectangle and tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none; /* Prevents tooltip from interfering with clicks */
+}
+
+.identity-rectangle-sidebar:hover .identity-tooltip-sidebar {
+  opacity: 1;
+  visibility: visible;
 }

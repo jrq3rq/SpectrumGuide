@@ -2,9 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/ChatModal.css";
 import { v4 as uuidv4 } from "uuid"; // Import UUID
 import { sendToAIService } from "../services/aiService"; // Ensure this service exists
+// import { sendToAIService } from "../services/aiServiceCredits";
 
 const ChatModal = ({ initialPrompt = "", onClose }) => {
   const chatContainerRef = useRef(null);
+
+  // Disable background scrolling when the modal is open
+  useEffect(() => {
+    const originalStyle = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, []);
 
   // Load existing chats from localStorage on initial render
   const [messages, setMessages] = useState(() => {

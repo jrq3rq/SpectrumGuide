@@ -16,6 +16,11 @@
   text-align: center;
 }
 
+.social-stories-page h1 svg {
+  vertical-align: -0.2em; /* Adjust this value based on visual alignment */
+  margin-right: 10px;
+}
+
 .generate-section {
   display: flex;
   flex-wrap: wrap;

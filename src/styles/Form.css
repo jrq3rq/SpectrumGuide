@@ -22,6 +22,9 @@
     align-items: center; /* Center horizontally stacked items */
     padding-bottom: 50px; /* Add extra padding at the bottom for usability */
   }
+  .main-page {
+    margin-top: -60px;
+  }
 }
 
 /* Form Container: Layout inside the form */
@@ -209,6 +212,11 @@ textarea:focus {
   cursor: pointer;
 }
 
+/* Role Label */
+.role-label {
+  /* Reserved for future styles */
+}
+
 /* Buttons Container */
 .button-container {
   display: grid; /* Use CSS Grid for layout */
@@ -248,14 +256,14 @@ textarea:focus {
 /* Disabled Button State */
 .button-container button:disabled {
   background-color: #a5d6a7; /* Light green when disabled */
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #908f8f; /* Add the desired border */
   cursor: not-allowed;
 }
 
 /* Hover Effect for Buttons */
 .button-container button:hover {
   background-color: #00c7eb; /* Darker shade on hover */
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #908f8f; /* Add the desired border */
   transform: translateY(-2px); /* Slight lift effect */
 }
 
@@ -332,7 +340,7 @@ textarea::placeholder {
   align-items: center;
   padding: 5px 0px 5px 0px;
   background-color: #00c7eb;
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #908f8f; /* Add the desired border */
   color: #ffffff;
   border-radius: 6px;
 }

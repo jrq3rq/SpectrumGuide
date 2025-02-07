@@ -1,41 +1,34 @@
-// src/data/navData.js
-
-import {
-  FaHome,
-  FaInfoCircle,
-  FaDollarSign,
-  FaRobot,
-  FaBookOpen,
-} from "react-icons/fa";
+import { FaInfoCircle, FaBookOpen, FaCoins, FaRobot } from "react-icons/fa";
+import { MdDescription } from "react-icons/md";
 
 export const navItems = [
   {
     id: 1,
-    path: "/",
-    name: "Home",
-    icon: <FaHome />,
-  },
-  {
-    id: 2,
     path: "/about",
     name: "About",
     icon: <FaInfoCircle />,
   },
   {
-    id: 3,
-    path: "/payment",
-    name: "Payment",
-    icon: <FaDollarSign />,
+    id: 2,
+    path: "/form",
+    name: "Form",
+    icon: <MdDescription />,
   },
   {
-    id: 4,
+    id: 3,
     path: "/social-stories",
     name: "Stories",
     icon: <FaBookOpen />,
   },
   {
+    id: 4,
+    path: "/payment",
+    name: "Credits",
+    icon: <FaCoins />,
+  },
+  {
     id: 5,
-    path: "/interactions",
+    path: "/history",
     name: "Logs",
     icon: <FaRobot />,
   },
