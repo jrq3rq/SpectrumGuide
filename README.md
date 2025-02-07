@@ -24,6 +24,8 @@ autism-support-app/
 │ │ └── PaymentComponent.js
 │ ├── data/
 │ │ └── navData.js
+│ ├── hooks/
+│ │ └── useLocalStorage.js
 │ ├── pages/
 │ │ ├── About.js # About page
 │ │ ├── ChatHistoryDisplay.js
@@ -42,6 +44,7 @@ autism-support-app/
 │ │ ├── ChildProfileForm.css # Specific styles for the form
 │ │ └── ChatModal.css # Specific styles for the chat modal
 │ ├── utils/
+│ │ ├── rateLimiter.js
 │ │ └── ScrollToTop.js
 │ ├── App.js # Main app component
 │ ├── index.js # Entry point
