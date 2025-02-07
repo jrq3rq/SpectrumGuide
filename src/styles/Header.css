@@ -13,6 +13,18 @@
   border-bottom: 1px solid #c3c3c3; /* Add the desired border */
 }
 
+.credits-display {
+  display: inline-block;
+  background-color: #e0e0e0; /* Light grey background to match the style */
+  color: #000000; /* Black text */
+  font-size: 14px; /* Smaller than nav-link text */
+  padding: 2px 6px; /* Small padding */
+  margin-left: 5px; /* Small margin to separate from text */
+  border-radius: 4px; /* Rounded corners */
+  vertical-align: middle; /* Align with the text vertically */
+  line-height: 1; /* To ensure it's the same height as the text */
+}
+
 .header-hidden {
   transform: translateY(-100%);
   opacity: 0;
@@ -24,6 +36,7 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px; /* Add some padding to ensure content doesn't touch the edges */
 }
 
 .logo {
@@ -47,8 +60,7 @@
 
 .nav-link {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: center; /* Align items in the center */
   color: #000000;
   text-decoration: none;
   font-size: 18px;
@@ -58,7 +70,7 @@
 }
 
 .nav-link svg {
-  margin-bottom: 5px;
+  margin-right: 5px; /* Margin to the right of the icon */
   color: #000000;
 }
 
@@ -67,24 +79,38 @@
   transform: scale(1.05);
 }
 
-/* Hamburger Icon Base Style */
-/* Hamburger Icon Base Style */
+.credits-display {
+  display: inline-block;
+  background-color: #e0e0e0;
+  color: #000000;
+  font-size: 14px;
+  padding: 2px 6px;
+  margin-left: 0; /* No left margin since it's now next to the icon */
+  margin-right: 5px; /* Small margin to separate from text */
+  border-radius: 4px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
 .mobile-menu-icon {
   display: none;
   background: none;
   border: none;
-  color: #000000;
-  font-size: 28px;
+  color: #000000; /* This keeps the icon color */
+  font-size: 28px; /* This keeps the icon size */
   cursor: pointer;
   z-index: 2000;
-  margin: 10px 0px 5px 10px;
-  transition: transform 0.3s ease-in-out; /* Smooth rotation effect */
+  /* Remove any padding or margin */
+  padding-top: 5px;
+  margin: 0;
+  /* Ensure no other styles interfere with the icon */
+  line-height: 1; /* This ensures the icon is vertically centered within the button */
+  transition: transform 0.3s ease; /* Adjust the duration and timing function as needed */
 }
-
 /* Rotate the icon 90 degrees when the sidebar is open */
 .mobile-menu-icon.open {
   transform: rotate(90deg); /* Rotates 90 degrees instead of 180 */
-  color: #ffffff;
+  color: #ffffff; /* This changes the icon color when open */
 }
 
 body {
@@ -93,6 +119,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Media query for mobile devices */
 @media (max-width: 768px) {
   .nav.desktop-links {
     display: none;
@@ -100,5 +127,72 @@ body {
 
   .mobile-menu-icon {
     display: block;
+    margin-left: 150px;
   }
+
+  .identity-rectangle {
+    margin-right: 0; /* Remove any right margin */
+    margin-left: 0; /* Remove any left margin for perfect alignment */
+  }
+
+  /* Flex container to align items */
+  .header-container {
+    justify-content: space-between; /* This will push the logo to the left and the icons to the right */
+  }
+
+  /* Flex container for the right side icons */
+  .header-right-icons {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 20px; /* Set the gap between icons to 20px */
+  }
+}
+
+/* New class for grouping right side icons */
+.header-right-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* This creates a 20px gap between the hamburger menu and the identity rectangle */
+}
+
+.identity-rectangle {
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Same height as nav-link for consistency */
+  margin-left: 0px; /* Margin to space it from the hamburger menu or other elements */
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+  border-radius: 50%;
+  border: 1px solid #000000;
+  z-index: 2222;
+}
+
+.identity-rectangle.logged-in {
+  background-color: #45fe47;
+}
+
+.identity-rectangle.logged-out {
+  background-color: #fe4547; /* Light red for logged out */
+}
+
+.identity-tooltip {
+  position: absolute;
+  top: calc(100% + 5px); /* Adjust spacing between rectangle and tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none; /* Prevents tooltip from interfering with clicks */
+}
+
+.identity-rectangle:hover .identity-tooltip {
+  opacity: 1;
+  visibility: visible;
 }

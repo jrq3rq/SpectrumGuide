@@ -3,6 +3,7 @@ import PropTypes from "prop-types"; // Import PropTypes for type checking
 import DOMPurify from "dompurify"; // Import DOMPurify for sanitizing inputs
 import "../styles/ChildProfileForm.css"; // Import matching CSS
 import { sendToAIService } from "../services/aiService"; // Import AI service
+// import { sendToAIService } from "../services/aiServiceCredits";
 import ChatModal from "./ChatModal"; // Import ChatModal
 import LoadingOverlay from "./LoadingOverlay"; // Import LoadingOverlay
 
@@ -399,7 +400,7 @@ const ChildProfileForm = () => {
           <div className="form-section">
             {/* Important Roles Section */}
             <div className="input-container">
-              <h3>Important Roles:</h3>
+              <h3 className="h3">Important Roles:</h3>
               <div className="important-roles-container">
                 {importantRoles.map((role) => (
                   <div key={role.id} className="important-role-option">

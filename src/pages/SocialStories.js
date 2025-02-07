@@ -1,7 +1,9 @@
 // SocialStories.js
 import React, { useState } from "react";
 import { MdMenuBook } from "react-icons/md";
+import { FaBookOpen } from "react-icons/fa";
 import { sendToAIService } from "../services/aiService";
+// import { sendToAIService } from "../services/aiServiceCredits";
 import useLocalStorage from "../hooks/useLocalStorage";
 import "../styles/SocialStories.css";
 import LoadingOverlay from "../components/LoadingOverlay"; // Import the LoadingOverlay component
@@ -114,7 +116,7 @@ Make it engaging, supportive, and personalized for the child's needs.
           return;
         }
       }
-      updatedStories.push(newStory);
+      updatedStories.unshift(newStory); // Add new story at the beginning
       setStories(updatedStories);
       setGeneratedStory(sanitizedResponse);
       setIsExpanded(false);
@@ -188,7 +190,7 @@ Make it engaging, supportive, and personalized for the child's needs.
       {/* Loading overlay appears when isLoading is true */}
       <div className="social-stories-page">
         <h1>
-          <MdMenuBook size={40} color="#00c7eb" /> Social Stories
+          <FaBookOpen size={40} color="#00c7eb" /> Social Stories
         </h1>
         <p>
           Social Stories are custom narratives tailored to teach specific social
