@@ -1,0 +1,53 @@
+.story-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Prevents overflow */
+  gap: 10px; /* Spacing between elements */
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+/* Ensures buttons and controls are aligned */
+.generated-story-content,
+.story-content {
+  background-color: var(--story-bg-color, #ffffff);
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  padding: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.download-story-button {
+  background-color: #00c7eb;
+}
+
+.download-story-button:hover {
+  background-color: #00b2d2;
+  transform: scale(1.05);
+}
+
+.delete-story-button {
+  background-color: #ff6b6b;
+}
+
+.delete-story-button:hover {
+  background-color: #d9534f;
+  transform: scale(1.05);
+}
+
+/* Ensure it adjusts properly for mobile */
+@media (max-width: 768px) {
+  .story-actions-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .label-inline,
+  .download-story-button,
+  .delete-story-button {
+    width: 100%;
+  }
+}

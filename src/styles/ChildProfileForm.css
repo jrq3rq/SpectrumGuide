@@ -7,10 +7,10 @@
   width: calc(100% - 40px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
   margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
-  padding-bottom: 20px; /* Add padding at the bottom for better spacing */
-  background-color: #ffffff; /* White background for the form */
+  padding-bottom: 20px;
+  background-color: transparent; /* White background for the form */
   border-radius: 8px;
-  border: 1px solid #c3c3c3; /* Add the desired border */
+  /* border: 1px solid #c3c3c3; */
 }
 
 /* Mobile Adjustments */
@@ -269,6 +269,7 @@ textarea:focus {
   .button-container {
     grid-template-columns: 1fr; /* Single column layout */
     gap: 15px; /* Reduce spacing for smaller screens */
+    margin-bottom: 20px;
   }
 }
 

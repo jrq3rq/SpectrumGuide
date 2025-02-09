@@ -1,0 +1,197 @@
+.tts-controls-container {
+  margin-top: 10px;
+  padding: 8px 0;
+  width: 100%;
+  border-radius: 8px;
+  background: var(--story-bg-color, #f0f0f0); /* Dynamic story color */
+  border: 1px solid #ccc;
+}
+
+/* Radial layout for buttons */
+.tts-radial {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  flex-wrap: wrap; /* Allows items to wrap when needed */
+}
+
+/* TTS button styles */
+.tts-btn {
+  flex: 1;
+  min-width: 80px; /* Ensures buttons remain usable on small screens */
+  margin: 4px; /* Added margin to avoid overlapping */
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease; /* Smooth transitions */
+  text-align: center;
+  white-space: nowrap; /* Prevents button text from breaking */
+}
+
+.tts-btn:hover {
+  background-color: #00b2d2;
+  transform: scale(1.05);
+}
+
+/* Container for TTS settings */
+.tts-controls-settings {
+  display: flex;
+  flex-direction: column; /* Keep rows stacked */
+  gap: 10px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Row 1: Auto TTS and Voice dropdown */
+.tts-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between Auto TTS and Voice */
+  width: 100%;
+}
+
+/* Ensure Auto TTS and Voice dropdown stay in one row */
+.tts-settings-row label {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between text and input elements */
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+/* Voice dropdown should take available space */
+.tts-settings-row select {
+  flex-grow: 1; /* Allows expansion while staying within bounds */
+  max-width: 70%;
+}
+
+/* Speed control row */
+.tts-speed-control {
+  display: flex;
+  align-items: center; /* Align items in a single row */
+  gap: 8px; /* Space between elements */
+  width: 100%; /* Ensures it scales with the container */
+  max-width: 100%; /* Prevents it from exceeding parent width */
+  flex-wrap: nowrap; /* Prevents wrapping */
+}
+
+/* Speed label and slider alignment */
+.tts-speed-control label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1; /* Allows elements to expand but not exceed */
+  max-width: 100%;
+  white-space: nowrap; /* Prevents breaking text */
+}
+
+/* Slider input */
+.tts-speed-control input[type="range"] {
+  flex-grow: 1; /* Ensures it scales properly */
+  max-width: 75%; /* Prevents it from stretching too far */
+  min-width: 50px; /* Ensures it’s always visible */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #ffffff; /* Light gray to blend with #F0F0F0 */
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+  border: 1px solid #bebdbd;
+}
+
+/* Slider thumb (handle) */
+.tts-speed-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #f0f0f0; /* Slightly darker gray */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  border: 1px solid #999999;
+}
+
+.tts-speed-control input[type="range"]::-webkit-slider-thumb:hover {
+  background: #909090; /* Darker gray for hover effect */
+  transform: scale(1.1);
+}
+
+/* Adjust thumb for Firefox */
+.tts-speed-control input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #b0b0b0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.tts-speed-control input[type="range"]::-moz-range-thumb:hover {
+  background: #909090;
+  transform: scale(1.1);
+}
+
+/* Active state (while dragging) */
+.tts-speed-control input[type="range"]:active::-webkit-slider-thumb {
+  background: #787878; /* Slightly darker gray */
+}
+/* Speed text (e.g., "1x") */
+.tts-speed-control span {
+  font-size: 0.9rem;
+  min-width: 35px; /* Prevents text from shifting */
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle; /* Aligns with slider */
+  white-space: nowrap; /* Keeps text on a single line */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .tts-speed-control {
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: flex-start; /* Align text left */
+  }
+
+  .tts-speed-control input[type="range"] {
+    max-width: 100%; /* Allows slider to be full-width */
+  }
+
+  .tts-speed-control span {
+    text-align: left; /* Aligns text properly on small screens */
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .tts-settings-row {
+    flex-direction: row; /* Keep Auto TTS and Voice in the same row */
+    flex-wrap: nowrap; /* Prevent wrapping on smaller screens */
+  }
+
+  .tts-speed-control {
+    flex-direction: column; /* Stack speed controls vertically */
+    align-items: flex-start;
+  }
+
+  .tts-voice {
+    height: 20px;
+  }
+
+  /* Adjust font sizes for smaller screens */
+
+  .speedBar,
+  .voicesBox,
+  .tts-controls-settings,
+  .tts-btn {
+    font-size: 0.7rem;
+  }
+}

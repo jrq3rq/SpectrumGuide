@@ -7,6 +7,7 @@
   border-radius: 8px;
   color: #000;
   font-family: "Helvetica Neue", Arial, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .social-stories-page h1,
@@ -59,8 +60,9 @@
   margin-bottom: 20px;
 }
 
-.generated-story-content {
-  background-color: #ffffff;
+.generated-story-content,
+.story-content {
+  background-color: var(--story-bg-color, #ffffff);
   border: 1px solid #c3c3c3;
   border-radius: 5px;
   padding: 10px;
@@ -119,17 +121,6 @@
   margin-left: 10px;
 }
 
-.story-content {
-  background-color: #ffffff;
-  border: 1px solid #c3c3c3;
-  border-radius: 5px;
-  padding: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 1.5;
-  margin-bottom: 10px;
-}
-
 .story-footer {
   display: flex;
   justify-content: space-between;
@@ -171,6 +162,7 @@
   .generate-button {
     height: auto;
     margin-top: 0px;
+    width: 100%;
   }
   .social-stories-page {
     margin: 20px 20px;

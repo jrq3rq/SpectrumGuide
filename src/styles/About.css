@@ -1,58 +1,107 @@
 .about-page {
-  max-width: 1200px; /* Restrict maximum width */
-  margin: 20px auto; /* Ensure the 20px margin around the entire perimeter */
-  padding: 40px 80px; /* Add padding for spacing */
-  text-align: left; /* Center-align the text */
-  /* background-color: #ffffff;  */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 40px;
   background-color: #fff;
-  /* background-color: #00c7eb; */
-  border: 1px solid #c3c3c3; /* Add the desired border */
+  border: 1px solid #c3c3c3;
+  border-radius: 8px;
   color: #000;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .about-page h1 {
-  /* color: #00c7eb;  */
-  color: #00c7eb; /* Blue color for headings */
-  font-size: 2rem; /* Large font size */
-  margin-bottom: 20px; /* Space below the heading */
+  color: #00c7eb;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
 .about-page p {
-  font-size: 18px; /* Larger font size for readability */
-  line-height: 1.6; /* Space between lines */
-  color: #000; /* Subtle gray for text */
-  margin-bottom: 15px; /* Space between paragraphs */
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-bottom: 25px;
+  letter-spacing: 0.1px;
 }
 
-/* Centered logo container */
+.about-page ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 20px; /* Adds space before the list */
+}
+
+.about-page li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 30px;
+}
+
+.about-page li::before {
+  content: none;
+}
+
+.about-page .pay-per-use {
+  font-size: 1rem; /* Reset to match general text size */
+  font-weight: bold; /* Emphasize this key information */
+  color: #4a4a4a;
+  background-color: #e6f9ff; /* A lighter shade of blue for contrast */
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #00c7eb; /* Adds a border for visual separation */
+}
+
+.about-page .privacy-notice {
+  font-size: 0.8rem; /* Keep smaller for fingerprint effect */
+  color: #666; /* Lighter text for less prominence */
+  line-height: 1.5;
+  background-color: #f2f2f2; /* Light gray background for subtlety */
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #c3c3c3; /* Matches the page border for cohesion */
+}
+
+.about-page strong {
+  color: #000;
+  /* color: #00c7eb; */
+}
+
 .about-logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Logo styling */
 .about-logo {
-  width: 100px; /* Adjust size as needed */
+  max-width: 150px;
   height: auto;
 }
 
-/* Responsive styles for About page */
 @media (max-width: 768px) {
   .about-page {
-    padding: 40px; /* Reduce padding on smaller screens */
-    text-align: left; /* Align text to the left for better readability */
-    width: 90%;
+    padding: 20px;
+    margin: 20px 20px;
     margin-top: -40px;
   }
 
   .about-page h1 {
-    font-size: 1.8rem; /* Slightly smaller font size for headings */
+    font-size: 2rem;
+    letter-spacing: -0.3px;
+    margin-bottom: 20px;
   }
 
   .about-page p {
-    font-size: 16px; /* Adjust text size for smaller screens */
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    letter-spacing: 0;
+  }
+
+  .about-page .pay-per-use,
+  .about-page .privacy-notice {
+    font-size: 0.9rem; /* Adjust for mobile readability */
+    padding: 10px;
   }
 }

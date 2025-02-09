@@ -19,9 +19,9 @@ const Tooltip = ({ text, x, y }) => {
     boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
     // opacity: 0.9,
     transition: "opacity 0.3s",
-    // Optionally, you can add maxWidth to further control the container size:
     maxWidth: "200px",
-    border: "1px solid #555", // A 1px solid border with a slightly lighter color than the background
+    border: "1px solid #555",
+    textAlign: "left", // Add this to align text to the left
   };
 
   return <div style={style}>{text}</div>;

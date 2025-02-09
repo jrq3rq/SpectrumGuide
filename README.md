@@ -16,6 +16,7 @@ autism-support-app/
 │ └── 404.html # Custom error page (optional)
 ├── src/
 │ ├── components/
+│ │ ├── StoryActions.js
 │ │ ├── Tooltip.js
 │ │ ├── ChatModal.js # Modal for displaying AI interactions
 │ │ ├── CheckoutForm.js
@@ -25,9 +26,12 @@ autism-support-app/
 │ │ ├── LoadingOverlay.js
 │ │ ├── MobileSidebar.js
 │ │ ├── PaymentComponent.js
+│ │ ├── TTSRadialControls.jsx
 │ │ └── PrivateRoute.js # New file for protecting routes
 │ ├── context/
 │ │ └── UserContext.js # New file for user context
+│ ├── core/
+│ │ └── tts-service.js
 │ ├── data/
 │ │ └── navData.js
 │ ├── hooks/
@@ -48,6 +52,7 @@ autism-support-app/
 │ │ ├── SignUp.css
 │ │ ├── About.css
 │ │ ├── SocialStories.css
+│ │ ├── StoryActions.css
 │ │ ├── Header.css # Styles for the header
 │ │ ├── Footer.css # Styles for the footer
 │ │ ├── Interaction.css

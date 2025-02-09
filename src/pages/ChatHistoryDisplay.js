@@ -314,7 +314,7 @@ const styles = {
   },
 
   chatContainer: (isMobile) => ({
-    maxHeight: isMobile ? "60vh" : "400px", // 60vh for mobile, 800px for desktop
+    maxHeight: isMobile ? "70vh" : "700px", // 60vh for mobile, 800px for desktop
     overflowY: "auto",
     padding: "10px",
     backgroundColor: "#F4F4F9",
@@ -324,8 +324,7 @@ const styles = {
 
   messageCard: {
     marginBottom: "15px",
-    padding: "10px",
-    borderBottom: "1px solid #eee",
+    padding: "20px",
     textAlign: "left",
     backgroundColor: "#ffffff",
     borderRadius: "8px",
