@@ -1,0 +1,119 @@
+/* Base styling for CreateProfile page */
+.create-profile-page {
+  background: #ffffff;
+  border-radius: 10px;
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+/* Success message */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Grid layout for the form */
+.profile-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.error {
+  width: 100%; /* Ensure it spans the full width of the form */
+  text-align: center; /* Center the text horizontally */
+  margin: 10px 0; /* Add some margin for spacing */
+}
+
+/* Form rows */
+.profile-form-row {
+  display: contents;
+}
+
+/* Submit button row - spans full width */
+.profile-form-row.full-width {
+  grid-column: span 2; /* Ensures it spans across both columns */
+  width: 100%;
+}
+
+.create-profile-page > div {
+  width: 100%;
+}
+/* Keep the submit button full width */
+.external-submit-button {
+  background-color: #00c7eb;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  display: block; /* Make sure it takes full width */
+}
+
+.external-submit-button:hover {
+  background-color: #00a6c3;
+}
+
+/* Ensure error appears just below the confirm password input */
+.password-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px; /* Spacing between input and error message */
+  padding: 0;
+}
+
+/* Two columns for desktop */
+@media (min-width: 768px) {
+  .profile-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Rows that should span both columns */
+  .profile-form-row {
+    grid-column: span 2;
+  }
+
+  /* Ensure button spans full width on desktop too */
+  .profile-form-row.full-width {
+    grid-column: span 2;
+    width: 100%;
+  }
+}
+
+/* Labels */
+.create-profile-page label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-profile-page h1 {
+  text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .create-profile-page {
+    max-width: 500px;
+    margin: 20px 20px;
+    text-align: center;
+  }
+
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+}

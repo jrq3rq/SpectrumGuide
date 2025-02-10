@@ -1,13 +1,15 @@
 import React from "react";
 import "../styles/Footer.css";
 import logo from "../assets/puzzle-1020410_640.jpg";
+import YearDisplay from "./YearDisplay";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
         <p>
-          © 2025 <span className="brand-name">Spectrum Guide AI</span>
+          © <YearDisplay />{" "}
+          <span className="brand-name">Spectrum Guide AI</span>
         </p>
         <p className="founder">Founded by Tatiana & Co.</p>
         <div className="footer-logo-container">

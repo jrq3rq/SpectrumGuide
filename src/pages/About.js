@@ -17,10 +17,10 @@ const About = () => {
       </p>
       <h2>Our Mission</h2>
       <p>
-        We believe every individual deserves customized support that recognizes
-        their unique needs, strengths, and challenges. Spectrum Guide empowers
-        families, educators, and therapists with AI-driven tools to create
-        supportive, growth-oriented environments.
+        We believe every autistic individual deserves customized support that
+        recognizes their unique needs, strengths, and challenges. Spectrum Guide
+        empowers families, educators, and therapists with AI-driven tools to
+        create supportive, growth-oriented environments.
       </p>
       <p className="pay-per-use">
         <strong>Pay-Per-Use Model:</strong> Spectrum Guide is available through
@@ -48,6 +48,46 @@ const About = () => {
         access to tailored support, we recommend using the same device for all
         Spectrum Guide interactions.
       </p>
+
+      <p>
+        Spectrum Guide offers a comprehensive suite of features tailored to
+        support individuals with autism. Our <b>Customized Care Plans</b> allow
+        for the tailoring of daily routines and care strategies to match each
+        person's unique strengths, sensory preferences, and specific triggers,
+        creating a nurturing and supportive environment. With{" "}
+        <b>Educational Support</b> we help develop personalized learning
+        approaches or Individualized Education Plans (IEPs) that are designed
+        based on an individual's preferred communication styles, learning
+        methods, and interests, aiming to optimize educational outcomes.
+      </p>
+      <p>
+        In terms of<b> Behavioral and Sensory Management</b>, we focus on
+        proactively addressing sensory sensitivities and behavioral challenges,
+        employing strategies that help reduce stress and enhance overall
+        well-being. Our commitment to <b>Safety and Emergency Planning</b>{" "}
+        involves taking measures to manage safety risks, wandering behaviors,
+        and allergies, ensuring that environments like home, school, and public
+        spaces are secure for autistic individuals.
+      </p>
+      <p>
+        We also emphasize <b> Strength-Based Activities</b>, where we highlight
+        and leverage each individual's strengths and special interests to not
+        only boost their confidence but also to encourage independence through
+        activities that are both enjoyable and meaningful. Finally,{" "}
+        <b>Social Stories</b> are generated using AI technology to provide
+        personalized narratives that aid in navigating social situations,
+        understanding routines, and managing emotional regulation in a way
+        that's both engaging and supportive. This holistic approach ensures that
+        each aspect of life for individuals with autism is addressed with care
+        and precision.
+      </p>
+      <p>
+        <b>Spectrum Guide</b> harnesses the power of AI to transform data into
+        actionable insights, ensuring every individual receives personalized
+        support to thrive in their unique journey. Continuously updated with the
+        latest technology and methodologies, we are committed to evolving our
+        services to meet the dynamic needs of the autism community.
+      </p>
       <p
         style={{
           backgroundColor: "#ffebee",
@@ -64,44 +104,6 @@ const About = () => {
         lives remain confidential and under your control. We commit to not using
         external databases for storing these personal interactions, safeguarding
         your information against unauthorized access.
-      </p>
-
-      <p>
-        Spectrum Guide offers a comprehensive suite of features tailored to
-        support individuals with autism. Our <b>Customized Care Plans</b> allow
-        for the tailoring of daily routines and care strategies to match each
-        person's unique strengths, sensory preferences, and specific triggers,
-        creating a nurturing and supportive environment. With{" "}
-        <b>Educational Support</b>, we help develop personalized learning
-        approaches or Individualized Education Plans (IEPs) that are designed
-        based on an individual's preferred communication styles, learning
-        methods, and interests, aiming to optimize educational outcomes.
-      </p>
-      <p>
-        In terms of <b>Behavioral and Sensory Management</b>, we focus on
-        proactively addressing sensory sensitivities and behavioral challenges,
-        employing strategies that help reduce stress and enhance overall
-        well-being. Our commitment to <b>Safety and Emergency Planning</b>{" "}
-        involves taking measures to manage safety risks, wandering behaviors,
-        and allergies, ensuring that environments like home, school, and public
-        spaces are secure for autistic individuals.
-      </p>
-      <p>
-        We also emphasize <b>Strength-Based Activities</b>, where we highlight
-        and leverage each individual's strengths and special interests to not
-        only boost their confidence but also to encourage independence through
-        activities that are both enjoyable and meaningful. Finally,{" "}
-        <b>Social Stories</b> are generated using AI technology to provide
-        personalized narratives that aid in navigating social situations,
-        understanding routines, and managing emotional regulation in a way
-        that's both engaging and supportive. This holistic approach ensures that
-        each aspect of life for individuals with autism is addressed with care
-        and precision.
-      </p>
-      <p>
-        Spectrum Guide harnesses the power of AI to transform data into
-        actionable insights, ensuring every individual receives personalized
-        support to thrive in their unique journey.
       </p>
     </div>
   );

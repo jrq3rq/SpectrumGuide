@@ -67,6 +67,8 @@
   transition: color 0.3s ease, transform 0.3s ease;
   padding: 8px 20px;
   margin-right: 10px;
+  /* padding: 4px 10px;
+  margin-right: 5px; */
 }
 
 .nav-link svg {
@@ -120,14 +122,14 @@ body {
 }
 
 /* Media query for mobile devices */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .nav.desktop-links {
     display: none;
   }
 
   .mobile-menu-icon {
     display: block;
-    margin-left: 150px;
+    /* margin-left: 80px; */
   }
 
   .identity-rectangle {
@@ -156,9 +158,9 @@ body {
 }
 
 .identity-rectangle {
-  width: 20px; /* Adjust as needed */
-  height: 20px; /* Same height as nav-link for consistency */
-  margin-left: 0px; /* Margin to space it from the hamburger menu or other elements */
+  min-width: 20px; /* Adjust as needed */
+  min-height: 20px; /* Same height as nav-link for consistency */
+  margin-left: -60px; /* Margin to space it from the hamburger menu or other elements */
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;

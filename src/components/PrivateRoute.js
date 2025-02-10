@@ -1,34 +1,27 @@
-// import React from "react";
-// import { Navigate, Outlet } from "react-router-dom";
-// import { useUser } from "../context/UserContext";
-
-// const PrivateRoute = () => {
-//   const { isAuthenticated } = useUser();
-
-//   return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
-// };
-
-// export default PrivateRoute;
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 
 const PrivateRoute = () => {
-  const { isAuthenticated, isLoading } = useUser();
+  const { isAuthenticated, user, isLoading } = useUser();
   const location = useLocation();
 
-  // Store the last visited page in sessionStorage
+  // ✅ Check if profile is actually complete
+  const hasProfile = user?.firstName && user?.lastName && user?.dob;
+
   React.useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && hasProfile) {
       sessionStorage.setItem("lastVisitedPage", location.pathname);
     }
-  }, [isAuthenticated, location.pathname]);
+  }, [isAuthenticated, hasProfile, location.pathname]);
 
-  if (isLoading) return null; // Prevent premature redirection
+  if (isLoading) return <div className="loading-message">Loading...</div>;
 
-  const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
+  if (isAuthenticated && !hasProfile) {
+    return <Navigate to="/create-profile" replace />;
+  }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={lastPage} replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default PrivateRoute;

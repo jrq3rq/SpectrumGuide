@@ -4,7 +4,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, firestore } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/SignIn.css";
@@ -16,13 +17,14 @@ const SignIn = () => {
   const [testMode, setTestMode] = useState(false);
   const [error, setError] = useState(null);
   const { login, isAuthenticated, user } = useUser();
-  const [isAboutOpen, setIsAboutOpen] = useState(false); // State for toggling SpectrumGuideInfo
-  const navigate = useNavigate();
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const navigate = useNavigate(); // ✅ Moved useNavigate outside of functions
 
   useEffect(() => {
-    console.log("Authentication state in SignIn:", { isAuthenticated, user });
-  }, [isAuthenticated, user]);
-
+    if (isAuthenticated) {
+      navigate("/form"); // ✅ Redirect user immediately if already logged in
+    }
+  }, [isAuthenticated, navigate]);
   const toggleAbout = () => {
     setIsAboutOpen((prev) => !prev);
   };
@@ -59,8 +61,26 @@ const SignIn = () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("Google User logged in:", result.user);
-      login(result.user);
+      const user = result.user;
+
+      // ✅ Check Firestore for user profile
+      const userRef = doc(firestore, "users", user.uid);
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        // User does NOT have a profile → Force profile setup
+        sessionStorage.setItem("requiresProfileSetup", "true");
+        navigate("/create-profile");
+      } else {
+        // ✅ User has profile → Load data into context and redirect
+        sessionStorage.removeItem("requiresProfileSetup");
+        const profileData = docSnap.data();
+        login({ ...user, ...profileData });
+
+        // Redirect to last visited page or default `/form`
+        const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
+        navigate(lastPage);
+      }
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       setError(error.message || "An error occurred during Google sign-in.");
@@ -93,7 +113,6 @@ const SignIn = () => {
   return (
     <div className="social-stories-page">
       <h1>Sign In</h1>
-
       <div className="form-wrapper">
         <div className="form-section">
           <form onSubmit={handleSubmit}>
@@ -129,10 +148,7 @@ const SignIn = () => {
             Don't have an account?{" "}
             <button
               type="button"
-              onClick={() => {
-                console.log("Sign Up button clicked");
-                navigate("/signup");
-              }}
+              onClick={() => navigate("/signup")}
               className="link-button"
             >
               Sign Up

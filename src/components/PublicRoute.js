@@ -1,27 +1,57 @@
-// import React from "react";
-// import { Navigate, Outlet } from "react-router-dom";
-// import { useUser } from "../context/UserContext";
-
-// const PublicRoute = () => {
-//   const { isAuthenticated } = useUser();
-
-//   // If the user is authenticated, redirect to /form
-//   // Otherwise, render the Outlet which will show the sign-in component
-//   return !isAuthenticated ? <Outlet /> : <Navigate to="/form" replace />;
-// };
-
-// export default PublicRoute;
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import { firestore } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const PublicRoute = () => {
-  const { isAuthenticated, isLoading } = useUser();
+  const { isAuthenticated, user, isLoading, login } = useUser();
+  const [profileChecked, setProfileChecked] = useState(false);
 
-  if (isLoading) return null; // Wait for authentication state to load
+  useEffect(() => {
+    const checkUserProfile = async () => {
+      if (!user || !isAuthenticated) {
+        setProfileChecked(true); // No user, allow public routes
+        return;
+      }
 
-  // If the user is authenticated, always redirect to /form
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/form" replace />;
+      try {
+        const userRef = doc(firestore, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+          sessionStorage.removeItem("requiresProfileSetup");
+          login({ ...user, ...docSnap.data() });
+        } else {
+          sessionStorage.setItem("requiresProfileSetup", "true");
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+
+      setProfileChecked(true);
+    };
+
+    if (isAuthenticated) checkUserProfile();
+    else setProfileChecked(true);
+  }, [isAuthenticated, user, login]);
+
+  if (isLoading || !profileChecked)
+    return <div className="loading-message">Loading...</div>;
+
+  const requiresProfileSetup =
+    sessionStorage.getItem("requiresProfileSetup") === "true";
+  const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
+
+  if (isAuthenticated) {
+    return requiresProfileSetup ? (
+      <Navigate to="/create-profile" replace />
+    ) : (
+      <Navigate to={lastPage} replace />
+    );
+  }
+
+  return <Outlet />;
 };
 
 export default PublicRoute;

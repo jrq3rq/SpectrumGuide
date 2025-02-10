@@ -1,0 +1,230 @@
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #c3c3c3;
+}
+
+.container .title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.chatContainer {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f4f4f9;
+  border: 1px solid #c3c3c3;
+  border-radius: 10px;
+}
+
+.messageCard {
+  margin-bottom: 15px;
+  padding: 20px;
+  text-align: left;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.messageCard .role {
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.messageCard .content {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  border: 1px solid #c3c3c3;
+  text-align: left;
+}
+
+.messageCard .timestamp {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.messageCard .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0px;
+  margin-top: 10px;
+}
+
+.messageCard .actionButton,
+.messageCard .deleteButton,
+.messageCard .addNoteButton {
+  background-color: #02c7eb;
+  border: 1px solid #908f8f;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  flex: 1;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.messageCard .deleteButton {
+  background-color: #ff6b6b;
+}
+
+.messageCard .addNoteButton {
+  background-color: #4caf50;
+}
+
+.messageCard .showMoreButton {
+  background-color: transparent;
+  border: none;
+  color: #02c7eb;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 5px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.noMessages {
+  text-align: center;
+  color: #777;
+}
+
+.downloadAllButton {
+  display: block;
+  margin: 20px auto;
+  background-color: #02c7eb;
+  color: #fff;
+  width: 100%;
+  border: 1px solid #908f8f;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.notesSection {
+  margin-top: 15px;
+}
+
+.notesTitle {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.notesList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.noteItem {
+  background-color: #e8f5e9;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #c3c3c3;
+}
+
+.noteContent {
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
+.noteTimestamp {
+  font-size: 0.8rem;
+  color: #555;
+  margin-left: 10px;
+}
+
+.addNoteContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.addNoteTextarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.addNoteActions {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0px 10px 0px;
+}
+
+.saveNoteButton {
+  width: 100%;
+  background-color: #4caf50;
+  border: 1px solid #908f8f;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.cancelNoteButton {
+  width: 100%;
+  background-color: #ff6b6b;
+  border: 1px solid #908f8f;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.deleteNoteButton {
+  background-color: transparent;
+  border: none;
+  color: #c3c3c3;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    margin: 20px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    background-color: transparent;
+    border: 1px solid transparent;
+    margin-top: -80px;
+  }
+}

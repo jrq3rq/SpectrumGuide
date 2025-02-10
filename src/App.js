@@ -1,67 +1,3 @@
-// // src/App.js
-// import React, { lazy, Suspense } from "react";
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route,
-//   Navigate,
-// } from "react-router-dom";
-// import { UserProvider } from "./context/UserContext";
-// import ScrollToTop from "./utils/ScrollToTop";
-// import PrivateRoute from "./components/PrivateRoute";
-// import PublicRoute from "./components/PublicRoute"; // Import the new PublicRoute
-// import Header from "./components/Header";
-// import Footer from "./components/Footer";
-// import Form from "./pages/Form";
-// import About from "./pages/About";
-// import Payment from "./pages/Payment";
-// import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
-// import SocialStories from "./pages/SocialStories";
-// import SignUp from "./pages/SignUp";
-// import LoadingOverlay from "./components/LoadingOverlay";
-
-// const SignIn = lazy(() => import("./pages/SignIn"));
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <UserProvider>
-//         <ScrollToTop />
-//         <Header />
-//         <main>
-//           <Routes>
-//             {/* Public Routes */}
-//             <Route element={<PublicRoute />}>
-//               <Route
-//                 path="/"
-//                 element={
-//                   <Suspense fallback={<LoadingOverlay />}>
-//                     <SignIn />
-//                   </Suspense>
-//                 }
-//               />
-//               <Route path="/signup" element={<SignUp />} />
-//             </Route>
-//             {/* Protected Routes */}
-//             <Route element={<PrivateRoute />}>
-//               <Route path="/form" element={<Form />} />
-//               <Route path="/about" element={<About />} />
-//               <Route path="/payment" element={<Payment />} />
-//               <Route path="/history" element={<ChatHistoryDisplay />} />
-//               <Route path="/social-stories" element={<SocialStories />} />
-//             </Route>
-//             {/* Redirect unknown routes */}
-//             <Route path="*" element={<Navigate to="/" replace />} />
-//           </Routes>
-//         </main>
-//         <Footer />
-//       </UserProvider>
-//     </Router>
-//   );
-// };
-
-// export default App;
-
 import React, { lazy, Suspense, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -85,14 +21,16 @@ import SignUp from "./pages/SignUp";
 import LoadingOverlay from "./components/LoadingOverlay";
 
 const SignIn = lazy(() => import("./pages/SignIn"));
+const CreateProfile = lazy(() => import("./pages/CreateProfile"));
 
-/** Save the last visited page in sessionStorage */
+/** ✅ Save the last visited page in sessionStorage */
 const SaveLastPage = () => {
   const location = useLocation();
   useEffect(() => {
-    sessionStorage.setItem("lastVisitedPage", location.pathname);
+    if (location.pathname !== "/create-profile") {
+      sessionStorage.setItem("lastVisitedPage", location.pathname);
+    }
   }, [location.pathname]);
-
   return null;
 };
 
@@ -105,7 +43,7 @@ const App = () => {
         <Header />
         <main>
           <Routes>
-            {/* Public Routes */}
+            {/* Public Routes (Sign In & Sign Up) */}
             <Route element={<PublicRoute />}>
               <Route
                 path="/"
@@ -118,6 +56,16 @@ const App = () => {
               <Route path="/signup" element={<SignUp />} />
             </Route>
 
+            {/* Profile Completion Route (Handled in PublicRoute.js) */}
+            <Route
+              path="/create-profile"
+              element={
+                <Suspense fallback={<LoadingOverlay />}>
+                  <CreateProfile />
+                </Suspense>
+              }
+            />
+
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/form" element={<Form />} />
@@ -127,7 +75,7 @@ const App = () => {
               <Route path="/social-stories" element={<SocialStories />} />
             </Route>
 
-            {/* Redirect unknown routes to last visited page */}
+            {/* ✅ Fixed: Redirect unknown routes to last visited page or /form */}
             <Route
               path="*"
               element={

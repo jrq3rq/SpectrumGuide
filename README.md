@@ -37,6 +37,7 @@ autism-support-app/
 │ ├── hooks/
 │ │ └── useLocalStorage.js
 │ ├── pages/
+│ │ ├── CreateProfile.js
 │ │ ├── SignIn.js
 │ │ ├── SignUp.js
 │ │ ├── SocialStories.js
@@ -48,6 +49,7 @@ autism-support-app/
 │ │ ├── paymentService.js
 │ │ └── aiService.js # AI service for handling API requests
 │ ├── styles/
+│ │ ├── CreateProfile.css
 │ │ ├── SignIn.css
 │ │ ├── SignUp.css
 │ │ ├── About.css
