@@ -1,5 +1,6 @@
 // src/pages/Payment.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Added import for useNavigate
 import "../styles/Payment.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -17,6 +18,7 @@ const Payment = () => {
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [isAboutOpen, setIsAboutOpen] = useState(false); // State for toggling SpectrumGuideInfo
+  const navigate = useNavigate(); // Added useNavigate hook
 
   const toggleAbout = () => {
     setIsAboutOpen((prev) => !prev);
@@ -157,10 +159,20 @@ const Payment = () => {
               clientSecret={clientSecret}
               customerName="Customer Name" // Replace with dynamic data
               customerEmail="customer@example.com" // Replace with dynamic data
+              onSuccess={() => {
+                console.log("Payment successful, navigating to Form");
+                navigate("/form");
+                setTimeout(() => {
+                  window.location.reload();
+                }, 100);
+              }}
+              onFailure={(err) => {
+                console.error("Payment failed:", err);
+                // Optionally, display error to the user
+              }}
             />
           </Elements>
         )}
-
         {/* Tooltip */}
         {tooltipVisible && (
           <Tooltip text={tooltipContent} {...tooltipPosition} />

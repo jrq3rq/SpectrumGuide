@@ -18,26 +18,25 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const { login, isAuthenticated, user } = useUser();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const navigate = useNavigate(); // ✅ Moved useNavigate outside of functions
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/form"); // ✅ Redirect user immediately if already logged in
+      navigate("/form");
+      window.location.reload(); // Refresh the page if already authenticated
     }
   }, [isAuthenticated, navigate]);
   const toggleAbout = () => {
     setIsAboutOpen((prev) => !prev);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted");
-
     if (process.env.REACT_APP_DISABLE_AUTH === "true") {
       login({ uid: "mockUserId", email: "mock@example.com" }, false);
+      navigate("/form");
+      window.location.reload(); // Refresh the page after mock login
       return;
     }
-
     try {
       let result;
       if (testMode) {
@@ -51,42 +50,38 @@ const SignIn = () => {
       }
       console.log("User logged in:", result.user);
       login(result.user);
+      navigate("/form");
+      window.location.reload(); // Refresh the page after successful login
     } catch (error) {
       console.error("Sign-in error:", error);
       setError(error.message || "An error occurred during sign-in.");
     }
   };
-
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // ✅ Check Firestore for user profile
       const userRef = doc(firestore, "users", user.uid);
       const docSnap = await getDoc(userRef);
-
       if (!docSnap.exists()) {
-        // User does NOT have a profile → Force profile setup
         sessionStorage.setItem("requiresProfileSetup", "true");
         navigate("/create-profile");
+        window.location.reload(); // Refresh the page if profile setup is required
       } else {
-        // ✅ User has profile → Load data into context and redirect
         sessionStorage.removeItem("requiresProfileSetup");
         const profileData = docSnap.data();
         login({ ...user, ...profileData });
-
-        // Redirect to last visited page or default `/form`
         const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
         navigate(lastPage);
+        window.location.reload(); // Refresh the page after successful Google sign-in
       }
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       setError(error.message || "An error occurred during Google sign-in.");
     }
   };
-
+  // Rest of your component code remains the same
   if (process.env.REACT_APP_DISABLE_AUTH === "true") {
     return (
       <div className="social-stories-page">

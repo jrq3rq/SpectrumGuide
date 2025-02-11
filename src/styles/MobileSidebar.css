@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 0; /* Start with height 0 */
-  background-color: #00aac8;
+  background-color: #02c7eb;
   color: #fff;
   overflow: hidden; /* Prevent content from showing before full expand */
   transition: height 0.3s ease-in-out; /* Smooth animation for height */

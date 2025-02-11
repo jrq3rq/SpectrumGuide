@@ -12,13 +12,13 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Form from "./pages/Form";
 import About from "./pages/About";
 import Payment from "./pages/Payment";
 import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
 import SocialStories from "./pages/SocialStories";
 import SignUp from "./pages/SignUp";
 import LoadingOverlay from "./components/LoadingOverlay";
+import ChildProfileForm from "./components/ChildProfileForm";
 
 const SignIn = lazy(() => import("./pages/SignIn"));
 const CreateProfile = lazy(() => import("./pages/CreateProfile"));
@@ -68,7 +68,7 @@ const App = () => {
 
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
-              <Route path="/form" element={<Form />} />
+              <Route path="/form" element={<ChildProfileForm />} />
               <Route path="/about" element={<About />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/history" element={<ChatHistoryDisplay />} />

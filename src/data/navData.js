@@ -12,7 +12,7 @@ export const navItems = [
     id: 2,
     path: "/form",
     name: "Form",
-    icon: <MdDescription />,
+    icon: <FaRobot />,
   },
   {
     id: 3,
@@ -30,6 +30,6 @@ export const navItems = [
     id: 5,
     path: "/history",
     name: "Logs",
-    icon: <FaRobot />,
+    icon: <MdDescription />,
   },
 ];

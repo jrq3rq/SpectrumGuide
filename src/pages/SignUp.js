@@ -60,30 +60,25 @@ const SignUp = () => {
   // Handle Sign-Up
   const handleSignUp = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
-
     if (!accountCreator) {
       setError("Please select who is creating this account");
       return;
     }
-
     try {
-      // ✅ Step 1: Create user in Firebase Authentication
+      // Step 1: Create user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
       const user = userCredential.user;
-
-      // ✅ Step 2: Update Firebase Profile (Display Name)
+      // Step 2: Update Firebase Profile (Display Name)
       await updateProfile(user, { displayName: `${firstName} ${lastName}` });
-
-      // ✅ Step 3: Store Additional Data in Firestore
+      // Step 3: Store Additional Data in Firestore
       await setDoc(doc(firestore, "users", user.uid), {
         firstName,
         lastName,
@@ -92,48 +87,59 @@ const SignUp = () => {
         accountCreator,
         plan: selectedPlan,
         credits:
-          selectedPlan === "free" ? 0 : selectedPlan === "starter" ? 10 : 50,
+          selectedPlan === "free" ? 1 : selectedPlan === "silver" ? 10 : 50,
         createdAt: new Date(),
         lastLogin: new Date(),
       });
-
-      // ✅ Step 4: Handle Payment if User Selected a Paid Plan
+      // Step 4: Handle Payment if User Selected a Paid Plan
       if (selectedPlan !== "free") {
         let amount;
         switch (selectedPlan) {
-          case "starter":
+          case "silver":
             amount = 999; // $9.99 in cents
             break;
-          case "family":
+          case "gold":
             amount = 2999; // $29.99 in cents
             break;
           default:
             throw new Error("Invalid plan selected");
         }
-
         const paymentIntent = await createPaymentIntent({
           amount,
           currency: "usd",
           metadata: { plan: selectedPlan, accountCreator },
           receipt_email: email,
         });
-
         setClientSecret(paymentIntent.clientSecret);
+        // Directly navigate to the payment page where payment processing will happen
+        navigate("/payment", {
+          state: {
+            clientSecret: paymentIntent.clientSecret,
+            selectedPlan: selectedPlan,
+          },
+        });
+        // Add refresh here for paid plans
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       } else {
         console.log("Free account created successfully");
         navigate("/form");
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       }
     } catch (err) {
       console.error("Sign-up error:", err);
       setError(err.message);
     }
   };
-
   // Handle Plan Selection
   const handlePlanSelection = (plan) => {
     setSelectedPlan(plan);
     setClientSecret(null);
   };
+
   // Tooltip Handlers
   const handleMouseMove = (e, plan) => {
     // Use planTooltips instead of planDescriptions
@@ -147,7 +153,6 @@ const SignUp = () => {
   const handleMouseLeave = () => {
     setTooltip({ ...tooltip, show: false });
   };
-
   return (
     <div className="signup-page">
       <h1>Sign Up</h1>

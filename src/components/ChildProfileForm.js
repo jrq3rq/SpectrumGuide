@@ -6,6 +6,7 @@ import { sendToAIService } from "../services/aiService"; // Import AI service
 // import { sendToAIService } from "../services/aiServiceCredits";
 import ChatModal from "./ChatModal"; // Import ChatModal
 import LoadingOverlay from "./LoadingOverlay"; // Import LoadingOverlay
+import { useUser } from "../context/UserContext";
 
 // Define carePlanRules
 const carePlanRules = {
@@ -124,7 +125,7 @@ const ChildProfileForm = () => {
   const [aiPrompt, setAiPrompt] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSubmittedPrompt, setLastSubmittedPrompt] = useState("");
-
+  const { userPlan } = useUser();
   // Options for the Care Plans (linked to carePlanRules)
   const carePlanOptions = [
     {
@@ -394,7 +395,11 @@ const ChildProfileForm = () => {
       {/* Loading Overlay */}
       {isLoading && <LoadingOverlay />}
 
-      <div className="form-wrapper">
+      <div
+        className={`form-wrapper ${
+          userPlan === "silver" || userPlan === "gold" ? "premium-plan" : ""
+        }`}
+      >
         <form onSubmit={handleSubmit} className="form-container">
           {/* Left Section: Basic Information and Diagnosis Details */}
           <div className="form-section">

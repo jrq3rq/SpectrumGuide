@@ -1,5 +1,4 @@
-/* src/styles/Header.css */
-
+/* General Header Styling */
 .header {
   position: fixed;
   top: 0;
@@ -8,21 +7,10 @@
   background-color: #ffffff;
   z-index: 1000;
   color: #000000;
-  padding: 10px 20px;
+  padding: 20px 20px;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  border-bottom: 1px solid #c3c3c3; /* Add the desired border */
-}
-
-.credits-display {
-  display: inline-block;
-  background-color: #e0e0e0; /* Light grey background to match the style */
-  color: #000000; /* Black text */
-  font-size: 14px; /* Smaller than nav-link text */
-  padding: 2px 6px; /* Small padding */
-  margin-left: 5px; /* Small margin to separate from text */
-  border-radius: 4px; /* Rounded corners */
-  vertical-align: middle; /* Align with the text vertically */
-  line-height: 1; /* To ensure it's the same height as the text */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  border-bottom: 1px solid #ccc;
 }
 
 .header-hidden {
@@ -36,165 +24,235 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px; /* Add some padding to ensure content doesn't touch the edges */
+  padding: 0 20px;
 }
 
+/* Logo Styling */
 .logo {
   font-size: 24px;
   font-weight: bold;
   color: #000000;
-  text-decoration: none;
+  cursor: pointer;
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 
 .blue-title {
   color: #00c7eb;
+  font-weight: bold;
 }
 
+/* Navigation Styling */
 .nav {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   align-items: center;
 }
 
 .nav-link {
   display: flex;
-  align-items: center; /* Align items in the center */
+  align-items: center;
+  font-size: 18px;
   color: #000000;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease, transform 0.3s ease;
-  padding: 8px 20px;
-  margin-right: 10px;
-  /* padding: 4px 10px;
-  margin-right: 5px; */
-}
-
-.nav-link svg {
-  margin-right: 5px; /* Margin to the right of the icon */
-  color: #000000;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 
 .nav-link:hover {
-  color: #02c7eb;
+  color: #00c7eb;
+  background: rgba(0, 199, 235, 0.1);
   transform: scale(1.05);
 }
 
 .credits-display {
-  display: inline-block;
-  background-color: #e0e0e0;
-  color: #000000;
   font-size: 14px;
-  padding: 2px 6px;
-  margin-left: 0; /* No left margin since it's now next to the icon */
-  margin-right: 5px; /* Small margin to separate from text */
-  border-radius: 4px;
-  vertical-align: middle;
-  line-height: 1;
+  background: #e0e0e0;
+  color: #000;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-left: 8px;
 }
 
+/* Profile & Menu Column Layout */
+/* Adjusting the header-right-icons to be static */
+.header-right-icons {
+  position: fixed; /* Fixed positioning */
+  top: 15px; /* Adjust this value to match the header's padding top + any additional space */
+  right: 20px; /* Adjust this value to match the header's padding right */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10002; /* Ensure it's above the header */
+  background-color: #ffffff;
+  /* background-color: #00c7eb; */
+  padding: 10px 0px 5px 0px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #555555;
+  border-left: 1px solid #555555;
+  border-right: 1px solid #555555;
+  border-top: 1px solid #555555; /* Ensures no top border */
+  border-radius: 6px 6px;
+}
+
+.profile-menu {
+  position: relative;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+.profile-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.profile-menu {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-icon {
+  font-size: 32px;
+  /* color: #000000;  */
+  transition: color 0.3s ease;
+  margin: 0px 5px 5px 5px;
+}
+.profile-icon:hover {
+  color: #00d9ff; /* Hover effect remains */
+}
+.profile-menu:hover {
+  color: #000000; /* Hover effect remains */
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: -10px;
+  right: 60px;
+  background: #00c7eb;
+  border-bottom: 1px solid #555555;
+  border-left: 1px solid #555555;
+  border-right: 1px solid #555555;
+  border-top: 1px solid #555555;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  min-width: 200px;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 10001;
+}
+
+.profile-menu:hover .profile-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.profile-name {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #555555;
+}
+
+.profile-button {
+  background: #ff4b4b;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #555555;
+}
+
+.profile-button:hover {
+  background: #e63939;
+}
+
+/* Mobile Menu */
 .mobile-menu-icon {
-  display: none;
+  font-size: 32px;
   background: none;
   border: none;
-  color: #000000; /* This keeps the icon color */
-  font-size: 28px; /* This keeps the icon size */
   cursor: pointer;
-  z-index: 2000;
-  /* Remove any padding or margin */
-  padding-top: 5px;
-  margin: 0;
-  /* Ensure no other styles interfere with the icon */
-  line-height: 1; /* This ensures the icon is vertically centered within the button */
-  transition: transform 0.3s ease; /* Adjust the duration and timing function as needed */
+  color: #000000; /* Default color is black */
+  /* color: #000000;  */
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform-origin: center center;
+  display: none;
 }
-/* Rotate the icon 90 degrees when the sidebar is open */
+
+.mobile-menu-icon:hover {
+  /* color: #ffffff;  */
+  color: #00c7eb;
+}
+
 .mobile-menu-icon.open {
-  transform: rotate(90deg); /* Rotates 90 degrees instead of 180 */
-  color: #ffffff; /* This changes the icon color when open */
+  transform: rotate(90deg) translateX(-5px) translateY(5px); /* Adjust here for position after rotation */
+  /* color: #04a9c7; */
+  /* color: #04a9c7; */
+  /* Change to white when open */
 }
 
-body {
-  padding-top: 80px;
-  margin: 0;
-  box-sizing: border-box;
+/* When hamburger menu is triggered, change both icons to white */
+.header-right-icons.open .profile-icon,
+.header-right-icons.open .mobile-menu-icon {
+  /* color: #04a9c7; */
+  color: #000;
 }
 
-/* Media query for mobile devices */
-@media (max-width: 1000px) {
+/* Responsive */
+@media (max-width: 1275px) {
   .nav.desktop-links {
     display: none;
   }
-
   .mobile-menu-icon {
     display: block;
-    /* margin-left: 80px; */
   }
-
-  .identity-rectangle {
-    margin-right: 0; /* Remove any right margin */
-    margin-left: 0; /* Remove any left margin for perfect alignment */
+  .header {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 15px 20px 15px 20px;
   }
-
-  /* Flex container to align items */
-  .header-container {
-    justify-content: space-between; /* This will push the logo to the left and the icons to the right */
-  }
-
-  /* Flex container for the right side icons */
   .header-right-icons {
-    display: flex;
-    align-items: center; /* Align items vertically */
-    gap: 20px; /* Set the gap between icons to 20px */
+    top: 10px; /* Adjust this value to match the header's padding top + any additional space */
+    right: 10px; /* Adjust this value to match the header's padding right */
+    color: #000000; /* Ensure the icons are black in mobile view */
+    background-color: #00d9ff;
   }
-}
-
-/* New class for grouping right side icons */
-.header-right-icons {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* This creates a 20px gap between the hamburger menu and the identity rectangle */
-}
-
-.identity-rectangle {
-  min-width: 20px; /* Adjust as needed */
-  min-height: 20px; /* Same height as nav-link for consistency */
-  margin-left: -60px; /* Margin to space it from the hamburger menu or other elements */
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease;
-  border-radius: 50%;
-  border: 1px solid #000000;
-  z-index: 2222;
-}
-
-.identity-rectangle.logged-in {
-  background-color: #45fe47;
-}
-
-.identity-rectangle.logged-out {
-  background-color: #fe4547; /* Light red for logged out */
-}
-
-.identity-tooltip {
-  position: absolute;
-  top: calc(100% + 5px); /* Adjust spacing between rectangle and tooltip */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 5px 20px;
-  border-radius: 4px;
-  font-size: 14px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  pointer-events: none; /* Prevents tooltip from interfering with clicks */
-}
-
-.identity-rectangle:hover .identity-tooltip {
-  opacity: 1;
-  visibility: visible;
+  .profile-menu {
+    color: #000000; /* Ensure the profile menu icon is black in mobile view */
+  }
+  .profile-menu:hover {
+    color: #000000;
+  }
+  .mobile-menu-icon:hover {
+    color: #ffffff;
+  }
+  .profile-icon:hover {
+    color: #ffffff;
+  }
 }
