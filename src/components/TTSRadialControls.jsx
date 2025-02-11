@@ -10,6 +10,20 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
     return localStorage.getItem(`autoTTS_${chatId}`) === "true" || false;
   });
 
+  // Function to clean text before sending to TTS
+  const cleanTextForTTS = useCallback((inputText) => {
+    // Remove dashes or any other unwanted characters
+    let cleanedText = inputText.replace(/[-–—]{3,}/g, "");
+
+    // Ensure numbers in lists are read as numbers
+    cleanedText = cleanedText.replace(
+      /(\d+)\.\s/g,
+      (match, number) => `${number}. `
+    );
+
+    return cleanedText;
+  }, []);
+
   useEffect(() => {
     const loadVoices = () => {
       const availableVoices = ttsService.getVoices();
@@ -43,12 +57,14 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
 
   const handleAction = useCallback(
     (action) => {
+      const cleanedText = cleanTextForTTS(text); // Clean text before passing to TTS
+
       switch (action) {
         case "play":
           ttsService.setTtsEnabled(true);
           ttsService.setSpeechRate(speed);
           ttsService.setVoiceIndex(parseInt(selectedVoiceIndex, 10));
-          ttsService.speakText(text);
+          ttsService.speakText(cleanedText);
           break;
         case "pause":
           ttsService.pauseSpeech();
@@ -61,13 +77,13 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
           break;
         case "replay":
           ttsService.cancelSpeech();
-          ttsService.speakText(text);
+          ttsService.speakText(cleanedText);
           break;
         default:
           console.error("Unknown TTS action:", action);
       }
     },
-    [text, speed, selectedVoiceIndex]
+    [text, speed, selectedVoiceIndex, cleanTextForTTS]
   );
 
   const handleVoiceChange = useCallback((e) => {
