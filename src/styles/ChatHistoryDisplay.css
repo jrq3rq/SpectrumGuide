@@ -53,6 +53,14 @@
   text-align: left;
 }
 
+.messageCard .title {
+  overflow-wrap: break-word;
+  /* Alternatively, for single-line text with ellipsis: */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+}
+
 .messageCard .timestamp {
   font-size: 0.9rem;
   color: #777;
@@ -70,18 +78,36 @@
 }
 
 .messageCard .actionButton,
-.messageCard .deleteButton,
-.messageCard .addNoteButton {
+.messageCard .deleteButton {
   background-color: #02c7eb;
   border: 1px solid #908f8f;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
   flex: 1;
   margin: 0 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.messageCard .addNoteButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #02c7eb;
+  border: 1px solid #908f8f;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  flex: 1;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.messageCard .addNoteButton span {
+  flex-shrink: 0;
 }
 
 .messageCard .deleteButton {

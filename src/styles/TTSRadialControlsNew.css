@@ -1,0 +1,252 @@
+.tts-controls-container {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.tts-radial {
+  display: flex;
+  flex-direction: row; /* Change to row for horizontal alignment */
+  justify-content: space-around; /* Space buttons evenly */
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.07); /* Subtle shadow for depth */
+  border: 1px solid #c3c3c3;
+  flex-wrap: wrap; /* Allows buttons to wrap if screen is too small */
+}
+
+.tts-btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tts-btn {
+  flex: 0 0 auto; /* No flex grow, keep fixed size */
+  width: 50px; /* Smaller width for circles */
+  height: 50px; /* Equal to width for perfect circle */
+  margin: 5px; /* Space between buttons */
+  padding: 0;
+  background-color: #d3d3d3; /* Light gray for vintage look */
+  color: #000; /* Font color for icons */
+  border: 1px solid #c3c3c3;
+  border-radius: 50%; /* Perfect circle */
+  font-size: 1.5rem; /* Adjust for icon size */
+  font-family: "Courier New", Courier, monospace; /* Retro font */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  line-height: 50px; /* Center text vertically */
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tts-btn:hover {
+  background-color: #b0b0b0;
+  transform: scale(1.05);
+}
+
+/* Accordion Header */
+.tts-accordion-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  background-color: #d3d3d3;
+  border: 1px solid #c3c3c3;
+  border-radius: 8px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.tts-accordion-header span {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.tts-accordion-header:hover {
+  background-color: #b0b0b0;
+}
+
+.tts-accordion-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #d3d3d3;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Show settings only when open */
+.tts-controls-settings {
+  display: block;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+/* Accordion Content */
+.tts-controls-settings {
+  width: 100%;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #c3c3c3;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.tts-controls-settings.closed {
+  max-height: 0;
+  padding: 0;
+}
+
+.tts-controls-settings.open {
+  max-height: 500px; /* Adjust based on your content */
+  padding: 10px;
+}
+
+/* Styling for settings rows and speed control */
+.tts-settings-row,
+.tts-speed-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.tts-settings-row label,
+.tts-speed-control label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.tts-settings-row select {
+  flex-grow: 1;
+  max-width: 70%;
+  padding: 5px;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid #c3c3c3;
+  border-radius: 4px;
+  background: #d3d3d3;
+}
+
+/* Retro-style speed control */
+.tts-speed-control input[type="range"] {
+  flex-grow: 1;
+  max-width: 75%;
+  min-width: 50px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #b0b0b0; /* Vintage slider track */
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s;
+  border: 1px solid #c3c3c3;
+}
+
+/* Retro thumb */
+.tts-speed-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #d3d3d3;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  border: 1px solid #c3c3c3;
+}
+
+.tts-speed-control input[type="range"]::-webkit-slider-thumb:hover {
+  background: #b0b0b0;
+  transform: scale(1.1);
+}
+
+.tts-speed-control input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #d3d3d3;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.tts-speed-control input[type="range"]::-moz-range-thumb:hover {
+  background: #b0b0b0;
+  transform: scale(1.1);
+}
+
+.tts-speed-control input[type="range"]:active::-webkit-slider-thumb {
+  background: #999;
+}
+
+.tts-speed-control span {
+  font-size: 0.9rem;
+  min-width: 35px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .tts-speed-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tts-speed-control input[type="range"] {
+    max-width: 100%;
+  }
+
+  .tts-speed-control span {
+    text-align: left;
+  }
+
+  /* Keep the button size the same */
+  .tts-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    line-height: 50px;
+  }
+
+  /* Ensure .tts-radial still spaces buttons evenly */
+  .tts-radial {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .tts-settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tts-speed-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tts-voice {
+    height: 20px;
+  }
+
+  .tts-settings-row select,
+  .tts-btn {
+    font-size: 1.5rem;
+  }
+}

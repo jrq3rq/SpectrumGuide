@@ -19,6 +19,7 @@ import SocialStories from "./pages/SocialStories";
 import SignUp from "./pages/SignUp";
 import LoadingOverlay from "./components/LoadingOverlay";
 import ChildProfileForm from "./components/ChildProfileForm";
+import InteractiveHub from "./components/InteractiveHub";
 
 const SignIn = lazy(() => import("./pages/SignIn"));
 const CreateProfile = lazy(() => import("./pages/CreateProfile"));
@@ -73,6 +74,7 @@ const App = () => {
               <Route path="/payment" element={<Payment />} />
               <Route path="/history" element={<ChatHistoryDisplay />} />
               <Route path="/social-stories" element={<SocialStories />} />
+              <Route path="/interactive-hub" element={<InteractiveHub />} />
             </Route>
 
             {/* ✅ Fixed: Redirect unknown routes to last visited page or /form */}

@@ -1,0 +1,46 @@
+.floating-chat-bot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #00c7eb;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  /* Adjust transition to include transform for smooth slide from left */
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  /* Start position off-screen to the left */
+  transform: translateX(-100%);
+  opacity: 0; /* Initially hidden */
+  border: 1px solid #555555;
+}
+
+/* When visible, slide into place from left */
+.floating-chat-bot.slide-in {
+  /* Move to its correct position */
+  transform: translateX(0);
+  opacity: 1; /* Fade in */
+}
+
+/* Button hover effect */
+.floating-chat-bot:hover {
+  background-color: #00a5c4;
+}
+
+/* Default icon style */
+.floating-chat-bot .chat-icon {
+  font-size: 24px;
+  color: #000000 !important; /* Ensure black default color */
+  transition: color 0.3s ease;
+  padding: 2px; /* Adjust icon positioning */
+}
+
+/* Change icon color on hover */
+.floating-chat-bot:hover .chat-icon {
+  color: #ffffff !important; /* White when hovered */
+}

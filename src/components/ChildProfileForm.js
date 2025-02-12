@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import PropTypes from "prop-types"; // Import PropTypes for type checking
 import DOMPurify from "dompurify"; // Import DOMPurify for sanitizing inputs
 import "../styles/ChildProfileForm.css"; // Import matching CSS
-import { sendToAIService } from "../services/aiService"; // Import AI service
+// import { sendToAIService } from "../services/aiService";
+import { sendToAIService } from "../services/aiServiceImageGen"; // Import AI service
 // import { sendToAIService } from "../services/aiServiceCredits";
 import ChatModal from "./ChatModal"; // Import ChatModal
 import LoadingOverlay from "./LoadingOverlay"; // Import LoadingOverlay
 import { useUser } from "../context/UserContext";
+import FloatingChatBot from "./FloatingChatBot";
 
 // Define carePlanRules
 const carePlanRules = {
@@ -725,7 +727,7 @@ const ChildProfileForm = () => {
           </div>
         </form>
       </div>
-
+      <FloatingChatBot onClick={() => setIsModalOpen(true)} />
       {/* ChatModal is conditionally rendered */}
       {isModalOpen && (
         <div className="modal-overlay">

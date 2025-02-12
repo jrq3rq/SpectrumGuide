@@ -151,6 +151,12 @@
   background-color: #aaa;
 }
 
+@media (max-width: 1275px) {
+  .social-stories-page {
+    margin: 60px 80px;
+  }
+}
+
 @media (max-width: 768px) {
   .generate-section {
     flex-direction: column;

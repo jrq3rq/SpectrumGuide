@@ -1,6 +1,6 @@
 import React from "react";
 import TTSRadialControls from "./TTSRadialControls";
-import "../styles/StoryActions.css"; // Ensure styles are properly included
+import "../styles/StoryActions.css";
 
 const StoryActions = ({ story, onDownload, onDelete }) => {
   return (

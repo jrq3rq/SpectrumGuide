@@ -4,7 +4,7 @@
   flex-wrap: nowrap; /* Prevent wrapping unless in mobile view */
   justify-content: space-between; /* Space between sections in desktop mode */
   gap: 20px; /* Spacing between sections */
-  width: calc(100% - 40px); /* Subtract margin (20px on each side) */
+  width: calc(100% - 80px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
   margin: 60px auto; /* Ensure the 20px margin around the entire perimeter */
   padding-bottom: 20px;

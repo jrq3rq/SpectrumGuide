@@ -50,4 +50,7 @@
   .delete-story-button {
     width: 100%;
   }
+  .delete-story-button {
+    margin-bottom: 5px;
+  }
 }

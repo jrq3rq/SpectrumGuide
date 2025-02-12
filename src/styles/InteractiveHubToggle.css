@@ -1,0 +1,65 @@
+/* Container */
+.interactive-hub-container {
+  text-align: center;
+  /* margin: 20px auto; */
+  width: 100%;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  background-color: #00c7eb;
+  width: 100%;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #00a5c4;
+  transform: scale(1);
+}
+
+/* Content Box */
+.interactive-hub-content {
+  margin-top: 15px;
+  padding: 15px 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  text-align: left;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-in;
+}
+
+/* List Styles */
+.interactive-hub-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.interactive-hub-content ul li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* Strong Text */
+.interactive-hub-content strong {
+  color: #333;
+}
+
+/* Italicized Text */
+.interactive-hub-content em {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .interactive-hub-content {
+    padding: 15px 20px;
+  }
+}
