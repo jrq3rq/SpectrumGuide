@@ -1,14 +1,12 @@
-// src/components/MobileSidebar.js
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/MobileSidebar.css";
+import { useUser } from "../context/UserContext";
 
-const MobileSidebar = ({
-  isOpen,
-  toggleSidebar,
-  navItems = [],
-  credits = 0,
-}) => {
+const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
+  const { user } = useUser(); // Get user data from context
+  const credits = user?.credits || 0; // Default to 0 if undefined
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"; // Prevent background scrolling

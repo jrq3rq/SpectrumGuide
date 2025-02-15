@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { doc, onSnapshot } from "firebase/firestore"; // ✅ Import Firestore functions
+import { firestore } from "../firebase"; // ✅ Ensure Firestore instance is imported
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -82,16 +84,30 @@ export const UserProvider = ({ children }) => {
         setUser(null);
         setUserPlan("free");
         localStorage.removeItem("mockAuth");
-        navigate("/");
+        navigate("/signin"); // ✅ Redirects to SignIn page after logout
       })
       .catch((error) => {
         console.error("Error signing out:", error);
       });
   };
 
-  const fetchUserPlanFromFirestore = async (uid) => {
+  const fetchUserPlanFromFirestore = (uid, setCredits) => {
     console.log("Fetching plan for user:", uid);
-    return "free"; // Placeholder for Firestore interaction
+
+    // Reference to the user's document in Firestore
+    const userRef = doc(firestore, "users", uid);
+
+    // Subscribe to real-time updates on user document
+    const unsubscribe = onSnapshot(userRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        setCredits(userData.credits || 0); // Update the credits in state
+      } else {
+        setCredits(0); // Default to 0 if no document is found
+      }
+    });
+
+    return unsubscribe; // Return the unsubscribe function
   };
 
   // ✅ **Store all messages, but filter form messages when displaying**

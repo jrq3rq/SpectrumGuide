@@ -111,7 +111,7 @@ const SignIn = () => {
       <div className="form-wrapper">
         <div className="form-section">
           <form onSubmit={handleSubmit}>
-            <h3>Email Sign In</h3>
+            {/* <h3>Email Sign In</h3> */}
             <label htmlFor="email">Email:</label>
             <input
               type="email"

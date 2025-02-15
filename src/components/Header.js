@@ -5,6 +5,7 @@ import MobileSidebar from "./MobileSidebar";
 import { navItems } from "../data/navData";
 import { useUser } from "../context/UserContext";
 import "../styles/Header.css";
+import { useCredits } from "../hooks/useCredits";
 
 const Header = () => {
   const { isAuthenticated, user, logout } = useUser();
@@ -12,7 +13,9 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
-  const [credits, setCredits] = useState(0);
+  // const [credits, setCredits] = useState(0);
+  const credits = useCredits();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,12 +39,36 @@ const Header = () => {
     setProfileOpen((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    if (window.confirm("Are you sure you want to log out?")) {
-      logout();
-      navigate("/");
+  const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (confirmed) {
+      try {
+        await logout(); // Ensure async logout completes
+        navigate("/signin"); // Redirect user to SignIn page
+        setTimeout(() => {
+          window.location.reload(); // Refresh the page after navigating
+        }, 100); // Small delay to ensure smooth transition
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
     }
   };
+
+  // Conditional rendering based on authentication status
+  if (!isAuthenticated) {
+    return (
+      <header
+        className={`header ${isHidden ? "header-hidden" : ""}`}
+        role="banner"
+      >
+        <div className="header-container">
+          <div className="logo" onClick={() => navigate("/")}>
+            Spectrum <span className="blue-title">Guide</span>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header
@@ -53,54 +80,46 @@ const Header = () => {
           Spectrum <span className="blue-title">Guide</span>
         </div>
 
-        {isAuthenticated && (
-          <nav className="nav desktop-links">
-            {navItems.map((item) => (
-              <Link key={item.id} to={item.path} className="nav-link">
-                {item.icon}
-                {item.id === 4 && (
-                  <span className="credits-display">{credits}</span>
-                )}
-                <span>{item.name}</span>
-              </Link>
-            ))}
-          </nav>
-        )}
-        <div className="header-right-icons">
-          {isAuthenticated ? (
-            <div className="profile-menu" onClick={toggleProfileMenu}>
-              <FaUserCircle className="profile-icon" />
-              {isProfileOpen && (
-                <div className="profile-dropdown">
-                  <span className="profile-name">
-                    {user?.displayName || "User"}
-                  </span>
-                  <button onClick={handleLogout} className="profile-button">
-                    Logout
-                  </button>
-                </div>
+        <nav className="nav desktop-links">
+          {navItems.map((item) => (
+            <Link key={item.id} to={item.path} className="nav-link">
+              {item.icon}
+              {item.id === 4 && (
+                // <span className="credits-display">{credits}</span>
+                <span className="credits-display">{credits}</span>
               )}
-            </div>
-          ) : null}{" "}
-          {/* This renders nothing when not authenticated */}
-          {isAuthenticated && (
-            <button
-              className={`mobile-menu-icon ${isMobileMenuOpen ? "open" : ""}`}
-              onClick={toggleMobileMenu}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              <FaBars />
-            </button>
-          )}
+              <span>{item.name}</span>
+            </Link>
+          ))}
+        </nav>
+        <div className="header-right-icons">
+          <div className="profile-menu" onClick={toggleProfileMenu}>
+            <FaUserCircle className="profile-icon" />
+            {isProfileOpen && (
+              <div className="profile-dropdown">
+                <span className="profile-name">
+                  {user?.displayName || "User"}
+                </span>
+                <button onClick={handleLogout} className="profile-button">
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+          <button
+            className={`mobile-menu-icon ${isMobileMenuOpen ? "open" : ""}`}
+            onClick={toggleMobileMenu}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <FaBars />
+          </button>
         </div>
       </div>
-      {isAuthenticated && (
-        <MobileSidebar
-          isOpen={isMobileMenuOpen}
-          toggleSidebar={toggleMobileMenu}
-          navItems={navItems}
-        />
-      )}
+      <MobileSidebar
+        isOpen={isMobileMenuOpen}
+        toggleSidebar={toggleMobileMenu}
+        navItems={navItems}
+      />
     </header>
   );
 };

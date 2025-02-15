@@ -7,7 +7,7 @@ const SpectrumGuideInfo = ({ isOpen, toggle }) => {
         width: "100%",
         padding: "10px",
         borderRadius: "8px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#ffffff",
         fontFamily: "Arial, sans-serif",
         color: "#333",
         border: "1px solid #c3c3c3",
@@ -43,12 +43,18 @@ const SpectrumGuideInfo = ({ isOpen, toggle }) => {
         <div
           style={{
             padding: "15px",
-            backgroundColor: "#fff",
+            backgroundColor: "transparent",
+            // backgroundColor: "#F4F4F9",
             borderRadius: "5px",
             border: "1px solid #ddd",
           }}
         >
-          <h2 style={{ color: "#02C7EB", marginBottom: "10px" }}>
+          <h2
+            style={{
+              color: "#02C7EB",
+              marginBottom: "10px",
+            }}
+          >
             About Spectrum Guide
           </h2>
           <p>
@@ -90,12 +96,33 @@ const SpectrumGuideInfo = ({ isOpen, toggle }) => {
           >
             <strong>Privacy and Data Security:</strong> At Spectrum Guide, we
             prioritize your privacy. All chat history and generated stories are
-            stored locally on your device, not on external servers. This ensures
-            that your personal data and the sensitive details of your loved
-            ones' lives remain confidential and under your control. We commit to
-            not using external databases for storing these personal
+            stored <strong>locally on your device</strong>, not on external
+            servers. This approach ensures that your personal data and the
+            sensitive details of your loved ones' lives remain confidential and
+            under your control. However, please note:
+            <ul style={{ margin: "5px 0px 0px 20px", padding: "0" }}>
+              <li>
+                <em>Storage Limitation:</em> Local storage has capacity
+                constraints. If you exceed these limits, you might need to
+                manage or delete older data to make room for new information.
+              </li>
+              <li>
+                <em>Device Dependency:</em> Your data is only accessible on the
+                device where it's stored. If you lose or change devices, you'll
+                need to manually back up or transfer your data to maintain
+                access.
+              </li>
+              <li>
+                <em>No Cloud Sync:</em> Without cloud storage, your data won't
+                automatically sync across multiple devices, which means you'll
+                need to take extra steps if you use Spectrum Guide on different
+                devices.
+              </li>
+            </ul>
+            We commit to not using external databases for storing these personal
             interactions, safeguarding your information against unauthorized
-            access.
+            access. However, always ensure you have a backup strategy for your
+            critical data.
           </p>
 
           <p style={{ marginBottom: "15px" }}>
