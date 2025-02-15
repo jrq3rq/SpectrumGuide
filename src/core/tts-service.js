@@ -1,4 +1,3 @@
-// export default ttsService;
 const ttsService = (() => {
   let ttsEnabled = false;
   let currentRate = 1;
@@ -56,29 +55,60 @@ const ttsService = (() => {
       console.warn("No text provided to speak.");
       return;
     }
+
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
 
-    // Split text into sentences (or fallback to the full text if no match)
-    const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+    // Pre-process text to handle formatting:
+    let processedText = text.replace(/\s*\n\s*\n\s*/g, "\n").trim(); // Remove extra newlines
+    processedText = processedText.replace(/---+/g, "..."); // Replace "---" with ellipses or omit if you want silence
+
+    // Split text into sentences or paragraphs, assuming paragraphs might be separated by single newlines after cleaning
+    const paragraphs = processedText.split("\n");
     let currentIndex = 0;
 
     const speakNext = () => {
-      if (currentIndex < sentences.length) {
-        const utterance = new SpeechSynthesisUtterance(
-          sentences[currentIndex].trim()
-        );
-        utterance.rate = currentRate;
-        // Set the selected voice if available
-        const voices = getVoices();
-        if (selectedVoiceIndex !== null && voices[selectedVoiceIndex]) {
-          utterance.voice = voices[selectedVoiceIndex];
-        }
-        utterance.onend = () => {
+      if (currentIndex < paragraphs.length) {
+        const paragraph = paragraphs[currentIndex].trim();
+        if (paragraph) {
+          // Only speak if the paragraph is not empty
+          const sentences = paragraph.match(/[^\.!\?]+[\.!\?]+/g) || [
+            paragraph,
+          ];
+          let sentenceIndex = 0;
+
+          const speakSentence = () => {
+            if (sentenceIndex < sentences.length) {
+              const utterance = new SpeechSynthesisUtterance(
+                sentences[sentenceIndex].trim()
+              );
+              utterance.rate = currentRate;
+              // Set the selected voice if available
+              const voices = getVoices();
+              if (selectedVoiceIndex !== null && voices[selectedVoiceIndex]) {
+                utterance.voice = voices[selectedVoiceIndex];
+              }
+              utterance.onend = () => {
+                sentenceIndex++;
+                if (sentenceIndex < sentences.length) {
+                  speakSentence();
+                } else {
+                  currentIndex++;
+                  speakNext();
+                }
+              };
+              window.speechSynthesis.speak(utterance);
+            } else {
+              currentIndex++;
+              speakNext();
+            }
+          };
+
+          speakSentence();
+        } else {
           currentIndex++;
           speakNext();
-        };
-        window.speechSynthesis.speak(utterance);
+        }
       }
     };
 

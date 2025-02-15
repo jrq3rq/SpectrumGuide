@@ -125,9 +125,6 @@ const InteractiveHub = () => {
   return (
     <div className="interactive-hub">
       <div className="feature-description">
-        <h2 className="feature">
-          Interactive Learning and Communication Hub <FaBrain />
-        </h2>
         <InteractiveHubToggle />
       </div>
 

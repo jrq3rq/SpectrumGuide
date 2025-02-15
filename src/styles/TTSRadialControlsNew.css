@@ -8,9 +8,9 @@
   flex-direction: row; /* Change to row for horizontal alignment */
   justify-content: space-around; /* Space buttons evenly */
   align-items: center;
-  padding: 15px;
+  padding: 5px 10px 10px 10px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.07); /* Subtle shadow for depth */
+  background: rgba(0, 0, 0, 0.03); /* Subtle shadow for depth */
   border: 1px solid #c3c3c3;
   flex-wrap: wrap; /* Allows buttons to wrap if screen is too small */
 }
@@ -59,7 +59,7 @@
   cursor: pointer;
   background-color: #d3d3d3;
   border: 1px solid #c3c3c3;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-top: 10px;
   transition: all 0.3s ease;
 }
@@ -72,26 +72,6 @@
   background-color: #b0b0b0;
 }
 
-.tts-accordion-header {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 10px;
-  cursor: pointer;
-  background-color: #d3d3d3;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-/* Show settings only when open */
-.tts-controls-settings {
-  display: block;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  margin-top: 5px;
-}
-
 /* Accordion Content */
 .tts-controls-settings {
   width: 100%;
@@ -101,6 +81,7 @@
   border: 1px solid #c3c3c3;
   border-radius: 8px;
   margin-top: 10px;
+  padding: 10px;
 }
 
 .tts-controls-settings.closed {
@@ -218,15 +199,17 @@
 
   /* Keep the button size the same */
   .tts-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    line-height: 50px;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
   }
 
   /* Ensure .tts-radial still spaces buttons evenly */
   .tts-radial {
     justify-content: space-between;
+  }
+  .tts-accordion-header {
+    padding: 0px 5px 0px 5px;
   }
 }
 

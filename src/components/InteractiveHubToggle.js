@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/InteractiveHubToggle.css"; // Import styles
+import { FaBrain } from "react-icons/fa";
 
 const InteractiveHubToggle = () => {
   const [isOpen, setIsOpen] = useState(false); // Toggle state
@@ -8,14 +9,17 @@ const InteractiveHubToggle = () => {
     <div className="interactive-hub-container">
       {/* Toggle Button */}
       <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "Open AI Guidance Hub " : "Close AI Guidance Hub "}
+        {isOpen ? "Close Guidance Hub " : "Open Guidance Hub  "}
       </button>
 
       {/* Content Section (conditionally displayed) */}
       {isOpen && (
         <div className="interactive-hub-content">
+          <h2 className="feature">
+            Interactive Learning and Communication Hub <FaBrain />
+          </h2>
           <p>
-            Welcome to the Interactive Learning and Communication Hub , a
+            Welcome to the Interactive Learning and Communication Hub, a
             revolutionary feature of Spectrum Guide designed to enhance the
             daily lives of autistic individuals through personalized AI-driven
             support. Here's what you should know:

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaBookOpen } from "react-icons/fa";
 import { sendToAIService } from "../services/aiServiceImageGen";
+import { useUser } from "../context/UserContext";
 import useLocalStorage from "../hooks/useLocalStorage";
 import "../styles/SocialStories.css";
 import LoadingOverlay from "../components/LoadingOverlay";
-import StoryActions from "../components/StoryActions"; // This component should render the TTSRadialControls plus download/delete buttons
+import StoryActions from "../components/StoryActions";
 
 // Helper function to get the story background color based on story type
 const getColorForStoryType = (type) => {
@@ -59,7 +60,7 @@ const MAX_STORIES = 8;
 const SocialStories = () => {
   // Use custom hook to persist stories and chats separately.
   const [isLoading, setIsLoading] = useState(false);
-  const [chatHistory] = useLocalStorage("chatHistory", []);
+  const { chatHistory } = useUser(); // Use the chatHistory from UserContext
   const [stories, setStories] = useLocalStorage("socialStories", []);
 
   // States for generating a new story
@@ -75,6 +76,11 @@ const SocialStories = () => {
 
   // For controlling expansion of each saved story separately
   const [expandedSaved, setExpandedSaved] = useState({});
+
+  // Filter chatHistory to only include chats from forms
+  const formChats = chatHistory.filter(
+    (chat) => chat.type === "profileFormResponse"
+  );
 
   // Find the selected chat from chatHistory
   const selectedChat = chatHistory.find((msg) => msg.id === selectedChatId);
@@ -226,7 +232,7 @@ Make it engaging, supportive, and personalized for the child's needs.
               onChange={(e) => setSelectedChatId(e.target.value)}
             >
               <option value="">-- Choose a Chat --</option>
-              {chatHistory
+              {formChats
                 .slice()
                 .reverse()
                 .map((msg) => (

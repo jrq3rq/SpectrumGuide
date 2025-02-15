@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { firestore } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import LoadingOverlay from "./LoadingOverlay";
 
 const PublicRoute = () => {
   const { isAuthenticated, user, isLoading, login } = useUser();
@@ -36,8 +37,9 @@ const PublicRoute = () => {
     else setProfileChecked(true);
   }, [isAuthenticated, user, login]);
 
-  if (isLoading || !profileChecked)
-    return <div className="loading-message">Loading...</div>;
+  if (isLoading || !profileChecked) {
+    return <LoadingOverlay />; // Use LoadingOverlay instead of text
+  }
 
   const requiresProfileSetup =
     sessionStorage.getItem("requiresProfileSetup") === "true";

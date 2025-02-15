@@ -1,16 +1,15 @@
-// File: src/components/ChatModal.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "../styles/ChatModal.css";
 import { v4 as uuidv4 } from "uuid";
-// import { sendToAIService } from "../services/aiService";
 import { sendToAIService } from "../services/aiServiceImageGen";
 import ttsService from "../core/tts-service";
 import TTSRadialControls from "../components/TTSRadialControls";
+import { useUser } from "../context/UserContext"; // Adjust the path if necessary
 
-const ChatModal = ({ initialPrompt = "", onClose }) => {
+const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
   const chatContainerRef = useRef(null);
+  const { addMessageToHistory } = useUser(); // Use useUser to get context values
 
-  // Disable background scrolling when the modal is open
   useEffect(() => {
     const originalStyle = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -19,78 +18,49 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
     };
   }, []);
 
-  // Load existing chats from localStorage on initial render
   const [messages, setMessages] = useState(() => {
-    const savedChats = localStorage.getItem("chatHistory");
-    if (savedChats) {
-      let parsedMessages = JSON.parse(savedChats);
-      return parsedMessages.filter(
-        (msg, index, self) =>
-          index ===
-          self.findIndex(
-            (m) => m.role === msg.role && m.content === msg.content
-          )
-      );
+    if (initialPrompt.trim() && fromForm) {
+      return [
+        {
+          id: uuidv4(),
+          role: "assistant",
+          content: initialPrompt,
+          timestamp: new Date().toISOString(),
+          notes: [],
+          fromForm: true,
+        },
+      ];
     }
     return [];
   });
 
-  // User input and loading state
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Auto-scroll to top when messages update
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = 0;
     }
   }, [messages]);
 
-  // Inject initial prompt as an assistant message (and speak it via TTS)
-  useEffect(() => {
-    if (initialPrompt.trim()) {
-      const aiMessage = {
-        id: uuidv4(),
-        role: "assistant",
-        content: sanitizeContent(initialPrompt),
-        timestamp: new Date().toISOString(),
-        notes: [],
+  const sanitizeContent = (content) => content.replace(/[#_*`~]/g, "").trim();
+
+  const truncateContent = (content, maxLines = 3) => {
+    const lines = content.split("\n");
+    if (lines.length > maxLines) {
+      return {
+        truncated: lines.slice(0, maxLines).join("\n"),
+        isTruncated: true,
       };
-      if (
-        !messages.some(
-          (msg) => msg.content === aiMessage.content && msg.role === "assistant"
-        )
-      ) {
-        setMessages((prev) => {
-          const updated = [...prev, aiMessage];
-          saveMessagesToLocalStorage(updated);
-          // Trigger TTS for the initial prompt if enabled
-          if (ttsService.getTtsEnabled()) {
-            ttsService.speakText(aiMessage.content);
-          }
-          return updated;
-        });
-      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialPrompt]);
-
-  // Utility to remove unwanted markdown-like syntax from responses
-  const sanitizeContent = (content) => {
-    return content.replace(/[#_*`~]/g, "").trim();
+    return { truncated: content, isTruncated: false };
   };
 
-  // Save messages to localStorage without duplicates
-  const saveMessagesToLocalStorage = (updatedMessages) => {
-    const uniqueMessages = updatedMessages.filter(
-      (msg, index, self) =>
-        index ===
-        self.findIndex((m) => m.role === msg.role && m.content === msg.content)
-    );
-    localStorage.setItem("chatHistory", JSON.stringify(uniqueMessages));
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString();
   };
 
-  // Handle sending a message
   const handleSend = async () => {
     const content = userInput.trim();
     if (!content) return;
@@ -101,82 +71,30 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
       content,
       timestamp: new Date().toISOString(),
       notes: [],
+      fromForm: false,
     };
-
-    // Prevent duplicate user messages
-    if (
-      !messages.some((msg) => msg.role === "user" && msg.content === content)
-    ) {
-      setMessages((prev) => {
-        const updated = [...prev, userMessage];
-        saveMessagesToLocalStorage(updated);
-        return updated;
-      });
-    } else {
-      console.log("Duplicate user message prevented.");
-    }
-
+    setMessages((prev) => [userMessage, ...prev]);
     setUserInput("");
     setIsLoading(true);
 
     try {
       const aiResponse = await sendToAIService(content);
       const sanitizedResponse = sanitizeContent(aiResponse);
-      // Split response into sections if there are multiple parts
-      const sections = sanitizedResponse.split(/###\s*/).filter(Boolean);
-
-      // Create a message object for each section
-      const aiMessages = sections.map((section) => ({
+      const aiMessage = {
         id: uuidv4(),
         role: "assistant",
-        content: section.trim(),
+        content: sanitizedResponse,
         timestamp: new Date().toISOString(),
         notes: [],
-      }));
-
-      // Filter out duplicate assistant messages
-      const newAiMessages = aiMessages.filter(
-        (aiMsg) =>
-          !messages.some(
-            (msg) => msg.role === "assistant" && msg.content === aiMsg.content
-          )
-      );
-
-      if (newAiMessages.length > 0) {
-        setMessages((prev) => {
-          const updated = [...prev, ...newAiMessages];
-          saveMessagesToLocalStorage(updated);
-          return updated;
-        });
-        // Trigger TTS for the new assistant message(s) (example: speak the first one)
-        if (ttsService.getTtsEnabled()) {
-          ttsService.speakText(newAiMessages[0].content);
-        }
-      } else {
-        console.log("Duplicate assistant messages prevented.");
+        fromForm: fromForm, // Ensure this is set correctly based on whether the chat is from a form
+      };
+      setMessages((prev) => [aiMessage, ...prev]);
+      if (ttsService.getTtsEnabled()) {
+        ttsService.speakText(aiMessage.content);
       }
 
-      // Save interactions to localStorage (if applicable)
-      const newInteraction = {
-        id: uuidv4(),
-        prompt: content,
-        response: sanitizedResponse,
-        timestamp: new Date().toISOString(),
-      };
-      let existingInteractions =
-        JSON.parse(localStorage.getItem("interactions")) || [];
-      if (
-        !existingInteractions.some(
-          (interaction) =>
-            interaction.prompt === newInteraction.prompt &&
-            interaction.response === newInteraction.response
-        )
-      ) {
-        existingInteractions.push(newInteraction);
-        localStorage.setItem(
-          "interactions",
-          JSON.stringify(existingInteractions)
-        );
+      if (fromForm) {
+        addMessageToHistory(aiMessage);
       }
     } catch (error) {
       console.error("Error from AI service:", error);
@@ -186,43 +104,28 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
         content: "Sorry, something went wrong. Please try again.",
         timestamp: new Date().toISOString(),
         notes: [],
+        fromForm: false,
       };
-      setMessages((prev) => {
-        const updated = [...prev, errorMsg];
-        saveMessagesToLocalStorage(updated);
-        return updated;
-      });
+      setMessages((prev) => [errorMsg, ...prev]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Handle deleting a message
   const handleDeleteMessage = (messageId) => {
-    setMessages((prev) => {
-      const updated = prev.filter((msg) => msg.id !== messageId);
-      // Do not call saveMessagesToLocalStorage here
-      return updated;
-    });
+    setMessages((prev) => prev.filter((msg) => msg.id !== messageId));
   };
 
-  // Handle clearing the entire chat
   const handleClearChat = () => {
     if (window.confirm("Are you sure you want to clear the chat?")) {
       setMessages([]);
-      localStorage.removeItem("chatHistory");
     }
   };
 
-  // Send message on Enter (without Shift)
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
+  const handleCloseModal = () => {
+    onClose();
   };
 
-  // Download a single message as text
   const handleDownloadMessage = (message) => {
     const textContent = `[${message.role.toUpperCase()} - ${formatTimestamp(
       message.timestamp
@@ -236,14 +139,14 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
     URL.revokeObjectURL(url);
   };
 
-  // Download the entire chat as text
   const handleDownloadChat = () => {
     const textContent = messages
-      .map((msg) => {
-        return `[${msg.role.toUpperCase()} - ${formatTimestamp(
-          msg.timestamp
-        )}]\n${msg.content}\n`;
-      })
+      .map(
+        (msg) =>
+          `[${msg.role.toUpperCase()} - ${formatTimestamp(msg.timestamp)}]\n${
+            msg.content
+          }\n`
+      )
       .join("\n");
     const blob = new Blob([textContent], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -254,10 +157,63 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
     URL.revokeObjectURL(url);
   };
 
-  // Format timestamp for display
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleString();
+  const MessageBubble = ({ message }) => {
+    const [expanded, setExpanded] = useState(false);
+    const sanitizedContent = sanitizeContent(message.content);
+    const { truncated, isTruncated } = truncateContent(sanitizedContent);
+
+    return (
+      <div
+        key={message.id}
+        className={`chat-message ${
+          message.role === "user" ? "user" : "assistant"
+        }`}
+      >
+        <div className="message-content">
+          <p>
+            {expanded ? sanitizedContent : truncated}
+            {isTruncated && !expanded && (
+              <span
+                className="showMoreButton"
+                onClick={() => setExpanded(true)}
+              >
+                ... Show More
+              </span>
+            )}
+            {isTruncated && expanded && (
+              <span
+                className="showMoreButton showLess"
+                onClick={() => setExpanded(false)}
+              >
+                ... Show Less
+              </span>
+            )}
+          </p>
+          <span className="timestamp">
+            {formatTimestamp(message.timestamp)}
+          </span>
+          {message.role === "assistant" && (
+            <TTSRadialControls text={sanitizedContent} />
+          )}
+        </div>
+        <div className="message-actions">
+          <button
+            onClick={() => handleDownloadMessage(message)}
+            className="download-btn"
+            aria-label={`Download message from ${message.role}`}
+          >
+            Download
+          </button>
+          <button
+            onClick={() => handleDeleteMessage(message.id)}
+            className="delete-btn"
+            aria-label="Delete message"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -265,54 +221,18 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
       <div className="chat-header">
         <h2>AI Chat Assistant</h2>
         <button
-          onClick={onClose}
+          onClick={handleCloseModal}
           className="close-modal-btn"
           aria-label="Close Chat Modal"
         >
-          &times;
+          ×
         </button>
       </div>
 
       <div className="chat-container" ref={chatContainerRef}>
-        {messages
-          .slice()
-          .reverse()
-          .map((msg) => (
-            <div
-              key={msg.id}
-              className={`chat-message ${
-                msg.role === "user" ? "user" : "assistant"
-              }`}
-            >
-              <div className="message-content">
-                <p>{msg.content}</p>
-                <span className="timestamp">
-                  {formatTimestamp(msg.timestamp)}
-                </span>
-                {/* Render TTS controls inside the message container for assistant messages */}
-                {msg.role === "assistant" && (
-                  <TTSRadialControls text={msg.content} />
-                )}
-              </div>
-              <div className="message-actions">
-                <button
-                  onClick={() => handleDownloadMessage(msg)}
-                  className="download-btn"
-                  aria-label={`Download message from ${msg.role}`}
-                >
-                  Download
-                </button>
-                <button
-                  onClick={() => handleDeleteMessage(msg.id)}
-                  className="delete-btn"
-                  aria-label="Delete message"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-
+        {messages.map((msg) => (
+          <MessageBubble message={msg} />
+        ))}
         {isLoading && (
           <div className="loading-spinner">
             <div className="spinner"></div>
@@ -325,7 +245,6 @@ const ChatModal = ({ initialPrompt = "", onClose }) => {
         <textarea
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          onKeyDown={handleKeyDown}
           placeholder="Type your message..."
           rows={2}
           disabled={isLoading}

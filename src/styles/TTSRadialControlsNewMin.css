@@ -1,0 +1,153 @@
+.tts-controls-container {
+  width: 100%;
+  border-radius: 8px;
+}
+.tts-radial {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.07);
+  border: 1px solid #c3c3c3;
+  flex-wrap: wrap;
+}
+.tts-btn,
+.download-story-button,
+.delete-story-button {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 0;
+  background: #d3d3d3;
+  color: #000;
+  border: 1px solid #c3c3c3;
+  border-radius: 50%;
+  font: 0.7rem "Courier New", Courier, monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  line-height: 50px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.tts-btn:hover,
+.download-story-button:hover {
+  background: #b0b0b0;
+  transform: scale(1.05);
+}
+.delete-story-button {
+  background: #ff6b6b;
+}
+.delete-story-button:hover {
+  background: #d9534f;
+}
+.tts-controls-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(255 255 255 / 80%);
+  border: 1px solid #c3c3c3;
+  border-radius: 8px;
+}
+.tts-settings-row,
+.tts-speed-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+.tts-settings-row label,
+.tts-speed-control label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Courier New", Courier, monospace;
+}
+.tts-settings-row select {
+  flex-grow: 1;
+  max-width: 70%;
+  padding: 5px;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid #c3c3c3;
+  border-radius: 4px;
+  background: #d3d3d3;
+}
+.tts-speed-control input[type="range"] {
+  flex-grow: 1;
+  max-width: 75%;
+  min-width: 50px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #b0b0b0;
+  border-radius: 5px;
+  outline: 0;
+  transition: background 0.3s;
+  border: 1px solid #c3c3c3;
+}
+.tts-speed-control input[type="range"]::-webkit-slider-thumb,
+.tts-speed-control input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #d3d3d3;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  border: 1px solid #c3c3c3;
+}
+.tts-speed-control input[type="range"]::-webkit-slider-thumb:hover,
+.tts-speed-control input[type="range"]::-moz-range-thumb:hover {
+  background: #b0b0b0;
+  transform: scale(1.1);
+}
+.tts-speed-control input[type="range"]:active::-webkit-slider-thumb {
+  background: #999;
+}
+.tts-speed-control span {
+  font-size: 0.9rem;
+  min-width: 35px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Courier New", Courier, monospace;
+}
+@media (max-width: 600px) {
+  .tts-speed-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tts-speed-control input[type="range"] {
+    max-width: 100%;
+  }
+  .tts-speed-control span {
+    text-align: left;
+  }
+}
+@media (max-width: 480px) {
+  .tts-settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tts-speed-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tts-voice {
+    height: 20px;
+  }
+  .speedBar,
+  .voicesBox,
+  .tts-controls-settings,
+  .tts-btn {
+    font-size: 0.7rem;
+  }
+}

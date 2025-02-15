@@ -74,7 +74,7 @@
 .download-chat-btn,
 .clear-chat-btn {
   background-color: #00c7eb; /* Same blue as send-btn */
-  border: 1px solid #555555;
+  border: 1px solid #908f8f;
   color: #ffffff;
   border-radius: 4px;
   padding: 6px 12px;
@@ -221,7 +221,7 @@
 
 .send-btn {
   flex: 1 1 100%; /* Full width */
-  margin-top: 8px; /* Spacing from textarea */
+  margin-top: 8px;
   background-color: #00c7eb;
   border: 1px solid #908f8f;
   color: #ffffff;
@@ -319,7 +319,7 @@
 .bottom-buttons-container {
   display: flex;
   gap: 10px;
-  margin-top: 10px; /* Ensures spacing from the input/send area */
+  /* margin-top: 10px; */
   width: 100%; /* Span the entire width */
 }
 
@@ -345,6 +345,8 @@
 /* Override existing styles if necessary */
 .download-chat-btn,
 .clear-chat-btn {
+  margin-top: 10px;
+  width: 50%;
   background-color: #00c7eb !important; /* Overrides previous background colors */
   margin-left: 0 !important; /* Removes left margin to ensure even spacing */
 }
@@ -356,4 +358,12 @@
 .close-modal-btn:focus {
   outline: 2px solid #029cb8;
   outline-offset: 2px;
+}
+
+.showMoreButton {
+  color: #029cb8; /* Color for 'Show More' */
+  cursor: pointer;
+}
+.showMoreButton.showLess {
+  color: #029cb8; /* Color for 'Show Less' */
 }
