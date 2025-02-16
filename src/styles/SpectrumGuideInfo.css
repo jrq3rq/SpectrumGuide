@@ -1,0 +1,146 @@
+.spectrum-guide-container {
+  width: 100%;
+  padding: 20px 20px;
+  border-radius: 8px 8px 0px 0px;
+  background-color: #ffffff;
+  border: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 0px solid transparent;
+  border-left: 1px solid #c3c3c3;
+  font-family: "Arial", sans-serif;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #02c7eb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: 1px solid #c3c3c3;
+}
+
+.toggle-button:hover {
+  background-color: #0198b5;
+}
+
+.info-content {
+  overflow: hidden; /* Initially hidden for animation */
+  perspective: 1000px;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  max-height: 0;
+  opacity: 0;
+  /* background-color: #02c7eb; */
+  /* border-top: 1px solid #c3c3c3; */
+  /* border-right: 1px solid #c3c3c3;
+  border-bottom: 1px solid #c3c3c3;
+  border-left: 1px solid #c3c3c3;  */
+  border-radius: 5px 5px;
+}
+
+.info-content.open {
+  max-height: 500px; /* Adjust this to control how much content is visible without scrolling */
+  opacity: 1;
+}
+
+.info-content.closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px) rotateX(-45deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px) rotateX(-45deg);
+    opacity: 0;
+  }
+}
+
+.info-content.open {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+.info-content.closed {
+  animation: slideUp 0.5s ease-in forwards;
+}
+
+.info-inner {
+  padding: 15px;
+  background-color: transparent;
+  border-radius: 5px;
+  max-height: 480px; /* Slightly less than .info-content to allow for padding */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.info-inner h2 {
+  color: #02c7eb;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.info-inner p {
+  margin-bottom: 15px;
+}
+
+.pay-per-use {
+  background-color: #e6f9ff;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #00c7eb;
+  margin-bottom: 15px;
+}
+
+.privacy-data-security {
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #d32f2f;
+  margin-bottom: 15px;
+}
+
+.privacy-security {
+  background-color: #e3f8ed;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #02a35c;
+  margin-bottom: 15px;
+}
+
+.info-inner ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.info-inner ul li {
+  margin-bottom: 10px;
+}
+
+/* Ensure content doesn't jump on animation */
+.info-content > .info-inner {
+  transform-origin: top center;
+}
+
+/* If you want to add a shadow for depth */
+.info-content.open .info-inner {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -12,7 +12,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import About from "./pages/About";
 import Payment from "./pages/Payment";
 import ChatHistoryDisplay from "./pages/ChatHistoryDisplay"; // Ensure this uses context
 import SocialStories from "./pages/SocialStories";
@@ -70,7 +69,6 @@ const App = () => {
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/form" element={<ChildProfileForm />} />
-              <Route path="/about" element={<About />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/history" element={<ChatHistoryDisplay />} />{" "}
               {/* Uses context */}

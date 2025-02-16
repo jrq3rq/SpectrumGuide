@@ -6,7 +6,6 @@
   padding: 15px 20px;
   font-size: 14px;
   font-weight: 500;
-  margin-top: 60px;
   border-top: 1px solid #c3c3c3;
   border-right: 1px solid #c3c3c3;
   border-left: 1px solid #c3c3c3;
@@ -16,6 +15,14 @@
 }
 
 /* Flex container for text */
+.footer-SpectrumGuideInfo-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Adds spacing between elements */
+  margin: 0px 150px 0px 150px;
+}
+
 .footer-content {
   display: flex;
   justify-content: center;
@@ -68,5 +75,8 @@
   }
   .founder {
     margin-top: -10px;
+  }
+  .footer-SpectrumGuideInfo-content {
+    margin: 0px 20px 0px 20px;
   }
 }

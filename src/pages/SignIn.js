@@ -9,7 +9,6 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/SignIn.css";
-import SpectrumGuideInfo from "../components/SpectrumGuideInfo";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +16,7 @@ const SignIn = () => {
   const [testMode, setTestMode] = useState(false);
   const [error, setError] = useState(null);
   const { login, isAuthenticated, user } = useUser();
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated) {
@@ -25,9 +24,7 @@ const SignIn = () => {
       window.location.reload(); // Refresh the page if already authenticated
     }
   }, [isAuthenticated, navigate]);
-  const toggleAbout = () => {
-    setIsAboutOpen((prev) => !prev);
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -151,7 +148,7 @@ const SignIn = () => {
           </p>
 
           {/* Spectrum Guide Info Button & Section */}
-          <SpectrumGuideInfo isOpen={isAboutOpen} toggle={toggleAbout} />
+          {/* <SpectrumGuideInfo isOpen={isAboutOpen} toggle={toggleAbout} /> */}
         </div>
       </div>
     </div>
