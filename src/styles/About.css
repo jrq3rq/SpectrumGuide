@@ -5,77 +5,82 @@
   background-color: #fff;
   border: 1px solid #c3c3c3;
   border-radius: 8px;
-  color: #000;
+  color: #333; /* Darker text for better readability */
   font-family: "Helvetica Neue", Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds depth, making the content area pop out */
 }
 
 .about-page h1 {
   color: #00c7eb;
   font-size: 2.5rem;
-  margin-bottom: 25px;
+  margin-bottom: 30px; /* More space for breathing room */
   text-align: center;
-  font-weight: 600;
+  font-weight: 700; /* Bold for emphasis */
   letter-spacing: -0.5px;
 }
 
 .about-page p {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.1rem; /* Slightly larger for better readability */
+  line-height: 1.8; /* More line height for comfortable reading */
   color: #4a4a4a;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   letter-spacing: 0.1px;
 }
 
 .about-page ul {
   list-style-type: none;
   padding-left: 0;
-  margin-top: 20px; /* Adds space before the list */
+  margin-top: 25px; /* More space before list items */
 }
 
 .about-page li {
   margin-bottom: 15px;
   position: relative;
-  padding-left: 30px;
+  padding-left: 25px;
 }
 
 .about-page li::before {
-  content: none;
+  content: "•"; /* Add bullet points visually */
+  position: absolute;
+  left: 0;
+  color: #000; /* Match with the brand color */
+  /* color: #00c7eb;  */
 }
 
 .about-page .pay-per-use {
-  font-size: 1rem; /* Reset to match general text size */
-  font-weight: bold; /* Emphasize this key information */
+  font-size: 1rem;
+  font-weight: 600; /* Slightly less bold to not overshadow the content */
   color: #4a4a4a;
-  background-color: #e6f9ff; /* A lighter shade of blue for contrast */
-  padding: 15px;
-  margin-bottom: 20px;
+  background-color: #e6f9ff;
+  padding: 20px; /* More padding for visual emphasis */
+  margin-bottom: 25px;
   border-radius: 8px;
-  border: 1px solid #00c7eb; /* Adds a border for visual separation */
+  border: 1px solid #00c7eb; /* Thicker border for more visual impact */
 }
 
 .about-page .privacy-notice {
-  font-size: 0.8rem; /* Keep smaller for fingerprint effect */
-  color: #666; /* Lighter text for less prominence */
-  line-height: 1.5;
-  background-color: #f2f2f2; /* Light gray background for subtlety */
-  padding: 15px;
-  margin-bottom: 20px;
+  font-size: 0.9rem; /* Slightly larger for better readability */
+  color: #666;
+  line-height: 1.6;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-bottom: 25px;
   border-radius: 8px;
-  border: 1px solid #c3c3c3; /* Matches the page border for cohesion */
+  border: 1px solid #c3c3c3;
 }
 
 .about-page strong {
-  color: #000;
-  /* color: #00c7eb; */
+  color: #000; /* Black for strong emphasis */
+  font-weight: 600; /* Ensure strong text is bold */
 }
 
 .about-logo-container {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* More space for visual balance */
 }
 
 .about-logo {
-  max-width: 150px;
+  max-width: 200px; /* Larger logo for more brand presence */
   height: auto;
 }
 
@@ -87,40 +92,18 @@
   .about-page h1 {
     font-size: 2rem;
     letter-spacing: -0.3px;
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Consistent space */
   }
 
-  .about-page p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    letter-spacing: 0;
+  .about-page p,
+  .about-page .pay-per-use,
+  .about-page .privacy-notice {
+    font-size: 1rem; /* Keep text readable on smaller screens */
+    line-height: 1.7;
   }
 
   .about-page .pay-per-use,
   .about-page .privacy-notice {
-    font-size: 0.9rem; /* Adjust for mobile readability */
-    padding: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-page h1 {
-    font-size: 2rem;
-    letter-spacing: -0.3px;
-    margin-bottom: 20px;
-  }
-
-  .about-page p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    letter-spacing: 0;
-  }
-
-  .about-page .pay-per-use,
-  .about-page .privacy-notice {
-    font-size: 0.9rem; /* Adjust for mobile readability */
-    padding: 10px;
+    padding: 15px; /* Smaller padding for mobile */
   }
 }

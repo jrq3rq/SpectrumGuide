@@ -84,25 +84,23 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Silver Spectrum: Get 10 credits for $9.99, now covering 10,000 words of AI interaction. This can include:\n- Weekly personalized care plan adjustments\n- Two detailed social stories\n- Multiple sensory management strategies"
+                  "Spectrum Silver: $9.99 for 10 credits.\nEach credit includes:\n 1-10 Custom Care Plans,\n 1-10 Custom Stories,\n 100 AI Chats.\nCredits do not expire."
                 )
               }
               onMouseLeave={hideTooltip}
             >
-              Silver Spectrum: 10 credits (10,000 words) for $9.99
+              <b>Silver Spectrum</b>:{" "}
+              <b
+                style={{
+                  color: "#02C7EB",
+                }}
+              >
+                10
+              </b>{" "}
+              credits for $9.99
+              {/* <i>1-10 Plans, 1-10 Stories, 100 Chats</i> */}
             </span>
-            <button
-              onMouseEnter={(e) =>
-                showTooltip(
-                  e,
-                  "Silver Spectrum: Get 10 credits for $9.99, now covering 10,000 words of AI interaction. This can include:\n- Weekly personalized care plan adjustments\n- Two detailed social stories\n- Multiple sensory management strategies"
-                )
-              }
-              onMouseLeave={hideTooltip}
-              onClick={() => handlePurchase("silver")}
-            >
-              Buy Now
-            </button>
+            <button onClick={() => handlePurchase("silver")}>Buy Now</button>
           </li>
 
           <li>
@@ -110,28 +108,25 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Gold Spectrum: 50 credits for $29.99, now providing 50,000 words of AI interaction. This can include:\n- Monthly comprehensive care plans for multiple individuals\n- A series of 10 social stories\n- Extensive behavioral analysis and strategy adjustments\n- Continuous educational support and IEP modifications"
+                  "Spectrum Gold: $29.99 for 50 credits. Each credit allows:\n 1-50 Custom Care Plans,\n 1-50 Custom Stories,\n 500 AI Chats.\nCredits do not expire."
                 )
               }
               onMouseLeave={hideTooltip}
             >
-              Gold Spectrum: 50 credits (50,000 words) for $29.99
+              <b>Gold Spectrum</b>:{" "}
+              <b
+                style={{
+                  color: "#02C7EB",
+                }}
+              >
+                50
+              </b>{" "}
+              credits for $29.99
+              {/* <i>1-50 Plans, 1-50 Stories, 500 Chats</i> */}
             </span>
-            <button
-              onMouseEnter={(e) =>
-                showTooltip(
-                  e,
-                  "Gold Spectrum: 50 credits for $29.99, now providing 50,000 words of AI interaction. This can include:\n- Monthly comprehensive care plans for multiple individuals\n- A series of 10 social stories\n- Extensive behavioral analysis and strategy adjustments\n- Continuous educational support and IEP modifications"
-                )
-              }
-              onMouseLeave={hideTooltip}
-              onClick={() => handlePurchase("gold")}
-            >
-              Buy Now
-            </button>
+            <button onClick={() => handlePurchase("gold")}>Buy Now</button>
           </li>
         </ul>
-
         <p
           style={{
             backgroundColor: "#e3f2fd",

@@ -10,100 +10,136 @@ const About = () => {
       </div> */}
       <h1>About Spectrum Guide</h1>
       <p>
-        Spectrum Guide is an innovative tool designed to support parents and
-        caregivers of autistic individuals by providing personalized insights,
-        tailored recommendations, and actionable plans through advanced AI
-        technology.
+        Spectrum Guide is an innovative AI tool designed to support parents,
+        caregivers, educators, and professionals in nurturing individuals with
+        autism. It provides personalized insights, tailored recommendations, and
+        actionable plans to enhance understanding and manage daily challenges
+        effectively.
       </p>
+
       <h2>Our Mission</h2>
       <p>
-        We believe every autistic individual deserves customized support that
-        recognizes their unique needs, strengths, and challenges. Spectrum Guide
-        empowers families, educators, and therapists with AI-driven tools to
-        create supportive, growth-oriented environments.
+        At Spectrum Guide, we believe every autistic individual deserves
+        personalized support that acknowledges their unique needs, strengths,
+        and challenges. Our mission is to empower those involved in their care
+        with AI-driven tools, fostering environments where everyone can thrive.
       </p>
+
       <p className="pay-per-use">
-        <strong>Pay-Per-Use Model:</strong> Spectrum Guide is available through
-        a flexible Pay-Per-Use model, allowing users to purchase credits for
-        specific services or features. This model provides the freedom to use
-        only what you need when you need it, making personalized support
-        accessible and cost-effective for families and professionals alike.
-        Whether you require an update to a care plan, need to generate a new
-        social story, or want insights into behavioral management, you can
-        utilize Spectrum Guide’s advanced features on a per-use basis.
+        <strong>Pay-Per-Use Model:</strong> Spectrum Guide operates on a
+        flexible Pay-Per-Use model, where users purchase credits for specific
+        services or features. This model allows you to pay only for what you
+        use, making personalized support more accessible and cost-effective.
+        Whether you need to update a care plan, generate a new social story, or
+        gain insights into behavioral management, Spectrum Guide adapts to your
+        needs on demand.
       </p>
+
       <p
         style={{
           backgroundColor: "#e3f8ed",
           padding: "10px",
-          borderRadius: "5px",
+          borderRadius: "8px",
           borderLeft: "4px solid #02a35c",
+          // borderTop: "1px solid #02a35c",
+          // borderRight: "1px solid #02a35c",
+          // borderBottom: "1px solid #02a35c",
           marginBottom: "15px",
         }}
       >
-        <strong>Designed for Individual Use:</strong> Because Spectrum Guide
-        stores data directly on your device, each account is linked to a single
-        device. This means user progress, chat history, and personalized
-        insights cannot be transferred between devices. To ensure seamless
-        access to tailored support, we recommend using the same device for all
-        Spectrum Guide interactions.
+        <strong>Designed for Individual Use:</strong> Data with Spectrum Guide
+        is stored directly on your device, ensuring privacy but also meaning
+        that each account is device-specific. Your data, including progress,
+        chat history, and personalized insights, does not transfer between
+        devices. For continuity, we recommend using the same device for all
+        interactions with Spectrum Guide.
       </p>
 
+      <p>Our suite of features includes:</p>
+      <ul>
+        <li>
+          <strong>Customized Care Plans:</strong> Tailor daily routines and
+          strategies to match individual strengths, sensory preferences, and
+          triggers, fostering a supportive environment.
+        </li>
+        <li>
+          <strong>Educational Support:</strong> Develop personalized learning
+          approaches or Individualized Education Plans (IEPs) that align with
+          communication styles, learning methods, and interests for optimal
+          educational outcomes.
+        </li>
+        <li>
+          <strong>Behavioral and Sensory Management:</strong> Address sensory
+          sensitivities and behavioral challenges proactively with strategies
+          that minimize stress and enhance well-being.
+        </li>
+        <li>
+          <strong>Safety and Emergency Planning:</strong> Manage safety risks,
+          wandering behaviors, and allergies to ensure secure environments
+          across various settings.
+        </li>
+        <li>
+          <strong>Strength-Based Activities:</strong> Leverage individual
+          strengths and interests to boost confidence and encourage independence
+          through engaging activities.
+        </li>
+        <li>
+          <strong>Social Stories:</strong> Use AI to create personalized
+          narratives that help with social cues, routine management, and
+          emotional regulation, making learning both engaging and supportive.
+        </li>
+      </ul>
+
       <p>
-        Spectrum Guide offers a comprehensive suite of features tailored to
-        support individuals with autism. Our <b>Customized Care Plans</b> allow
-        for the tailoring of daily routines and care strategies to match each
-        person's unique strengths, sensory preferences, and specific triggers,
-        creating a nurturing and supportive environment. With{" "}
-        <b>Educational Support</b> we help develop personalized learning
-        approaches or Individualized Education Plans (IEPs) that are designed
-        based on an individual's preferred communication styles, learning
-        methods, and interests, aiming to optimize educational outcomes.
+        <strong>Spectrum Guide</strong> uses AI to turn complex data into
+        practical, actionable insights, ensuring personalized support for every
+        individual's journey. We continuously update our technology and
+        methodologies to meet the evolving needs of the autism community.
       </p>
-      <p>
-        In terms of<b> Behavioral and Sensory Management</b>, we focus on
-        proactively addressing sensory sensitivities and behavioral challenges,
-        employing strategies that help reduce stress and enhance overall
-        well-being. Our commitment to <b>Safety and Emergency Planning</b>{" "}
-        involves taking measures to manage safety risks, wandering behaviors,
-        and allergies, ensuring that environments like home, school, and public
-        spaces are secure for autistic individuals.
-      </p>
-      <p>
-        We also emphasize <b> Strength-Based Activities</b>, where we highlight
-        and leverage each individual's strengths and special interests to not
-        only boost their confidence but also to encourage independence through
-        activities that are both enjoyable and meaningful. Finally,{" "}
-        <b>Social Stories</b> are generated using AI technology to provide
-        personalized narratives that aid in navigating social situations,
-        understanding routines, and managing emotional regulation in a way
-        that's both engaging and supportive. This holistic approach ensures that
-        each aspect of life for individuals with autism is addressed with care
-        and precision.
-      </p>
-      <p>
-        <b>Spectrum Guide</b> harnesses the power of AI to transform data into
-        actionable insights, ensuring every individual receives personalized
-        support to thrive in their unique journey. Continuously updated with the
-        latest technology and methodologies, we are committed to evolving our
-        services to meet the dynamic needs of the autism community.
-      </p>
+
       <p
         style={{
           backgroundColor: "#ffebee",
           padding: "10px",
-          borderRadius: "5px",
+          borderRadius: "8px",
           borderLeft: "4px solid #d32f2f",
+          // borderTop: "1px solid #d32f2f",
+          // borderRight: "1px solid #d32f2f",
+          // borderBottom: "1px solid #d32f2f",
           marginBottom: "15px",
         }}
       >
-        <strong>Privacy and Data Security:</strong> At Spectrum Guide, we
-        prioritize your privacy. All chat history and generated stories are
-        stored locally on your device, not on external servers. This ensures
-        that your personal data and the sensitive details of your loved ones'
-        lives remain confidential and under your control. We commit to not using
-        external databases for storing these personal interactions, safeguarding
-        your information against unauthorized access.
+        <strong>Privacy and Data Security:</strong> We prioritize your privacy
+        at Spectrum Guide. All data is stored{" "}
+        <strong>locally on your device</strong>, not on external servers,
+        ensuring confidentiality and control over sensitive information.
+        However, consider these points:
+        <ul style={{ margin: "5px 0px 0px 20px", padding: "0" }}>
+          <li>
+            <b>
+              <em>Storage Limitation:</em>
+            </b>{" "}
+            You're limited by your device's storage capacity. You may need to
+            manage or delete older data to accommodate new content.
+          </li>
+          <li>
+            <b>
+              <em>Device Dependency:</em>
+            </b>{" "}
+            Data is accessible only on the device where it's stored. Losing or
+            changing devices requires manual data backup or transfer.
+          </li>
+          <li>
+            <b>
+              <em>No Cloud Sync:</em>
+            </b>{" "}
+            Data does not sync across devices, so using Spectrum Guide on
+            different devices involves additional steps for data management.
+          </li>
+        </ul>
+        We promise not to use external databases for your personal interactions,
+        protecting against unauthorized access. Nonetheless, always consider a
+        backup strategy for your essential data.
       </p>
     </div>
   );

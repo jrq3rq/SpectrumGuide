@@ -12,16 +12,17 @@ import "../styles/SignUp.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const planDisplayDescriptions = {
-  free: "Free Spectrum: Basic access with no credits; limited AI interactions.",
-  silver: "Silver Spectrum: 10 credits (10,000 words) for $9.99",
-  gold: "Gold Spectrum: 50 credits (50,000 words) for $29.99",
+  free: "Free Spectrum: 1 credit/week for 1 Care Plan + 1 Story or 10 AI Chats.",
+  silver:
+    "Silver Spectrum: $9.99 for 10 credits. Each credit = 1-10 Custom Care Plans + 1-10 Stories or 100 AI Chats.",
+  gold: "Gold Spectrum: $29.99 for 50 credits. Each credit = 1-50 Custom Care Plans + 1-50 Stories or 500 AI Chats.",
 };
 // Plan Descriptions for Tooltips
 const planTooltips = {
-  free: "This plan provides basic access to our AI features at no cost. Suitable for exploring the platform.",
+  free: "Free weekly credit for 1 Care Plan, 1 Story, or 10 AI Chats. Perfect for exploring Spectrum Guide.",
   silver:
-    "With 10 credits offering 10,000 words of interaction, this plan is suitable for individuals or small groups seeking personalized AI support.",
-  gold: "50 credits give you 50,000 words of interaction, ideal for those requiring extensive AI assistance, whether for family needs or professional use.",
+    "Silver Spectrum: $9.99 for 10 credits. Each credit offers 1-10 Custom Care Plans, 1-10 Stories, or 100 AI Chats. Ideal for small-scale personalized support.",
+  gold: "Gold Spectrum: $29.99 for 50 credits. Each credit provides 1-50 Custom Care Plans, 1-50 Stories, or 500 AI Chats. Best for extensive, ongoing support needs.",
 };
 // Account Creators (Dropdown Options)
 const accountCreators = [

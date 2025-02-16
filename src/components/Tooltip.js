@@ -6,10 +6,10 @@ const Tooltip = ({ text, x, y }) => {
     // Adjust position based on mouse coordinates (x, y)
     left: `${x + 10}px`,
     top: `${y + 10}px`,
-    backgroundColor: "#02C7EB",
-    color: "#000",
-    padding: "10px 10px",
-    width: "200px",
+    backgroundColor: "#E3F2FD",
+    // backgroundColor: "#02C7EB",
+    color: "#555",
+    padding: "20px 20px",
     borderRadius: "4px",
     fontSize: "12px",
     whiteSpace: "normal", // Allow text to wrap
@@ -19,8 +19,11 @@ const Tooltip = ({ text, x, y }) => {
     boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
     // opacity: 0.9,
     transition: "opacity 0.3s",
-    maxWidth: "200px",
-    border: "1px solid #555",
+    maxWidth: "300px",
+    borderLeft: "4px solid #00c7eb",
+    // borderTop: "1px solid #00c7eb",
+    // borderRight: "1px solid #00c7eb",
+    // borderBottom: "1px solid #00c7eb",
     textAlign: "left", // Add this to align text to the left
   };
 
