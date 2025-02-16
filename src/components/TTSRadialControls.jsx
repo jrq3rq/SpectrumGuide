@@ -138,10 +138,7 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
               onMouseEnter={() => setHoveredButton(action)}
               onMouseLeave={() => setHoveredButton(null)}
               style={{
-                backgroundColor:
-                  hoveredButton === action
-                    ? `hsl(0, 0%, 88.63%)` // Equivalent to #E2E2E2
-                    : storyColor || "#F0F0F0",
+                backgroundColor: storyColor || "#F0F0F0", // Default background color
                 borderColor: hoveredButton === action ? "#9c9c9c" : "#CCC",
                 color: hoveredButton === action ? "#9c9c9c" : "#C3C3C3",
                 transform:
@@ -151,6 +148,10 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
                   hoveredButton === action
                     ? "none"
                     : "2px 2px 3px rgba(0, 0, 0, 0.3)",
+                // Apply opacity overlay on hover
+                ...(hoveredButton === action && {
+                  backgroundBlendMode: "overlay",
+                }),
               }}
             >
               {icon}

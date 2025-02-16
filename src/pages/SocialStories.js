@@ -220,7 +220,7 @@ Make it engaging, supportive, and personalized for the child's needs.
         <p>
           Social Stories are custom narratives tailored to teach specific social
           skills or prepare for particular scenarios. They provide personalized
-          guidance that complements each child's unique needs.
+          guidance that complements each individual's unique needs.
         </p>
 
         {/* Section to generate a new story */}

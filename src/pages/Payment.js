@@ -131,21 +131,42 @@ const Payment = () => {
           style={{
             backgroundColor: "#e3f2fd",
             padding: "10px",
-            borderRadius: "5px",
+            borderRadius: "8px",
             borderLeft: "4px solid #02C7EB",
             marginBottom: "15px",
             textAlign: "left",
             fontSize: "14px",
           }}
         >
-          <strong>Pay-Per-Use Model:</strong> Spectrum Guide operates on a
-          flexible Pay-Per-Use model, allowing you to purchase credits for
-          specific services or features. Each credit grants access to AI-powered
-          support, enabling you to generate detailed care plans, manage sensory
-          strategies, develop IEPs, and create personalized social stories.
-          Every credit provides up to 1,000 words of interaction, ensuring you
-          receive precise, customized insights tailored to your needs—without
-          requiring a full subscription.
+          <strong>Pay-Per-Use Model:</strong> Spectrum Guide employs a flexible
+          Pay-Per-Use system designed for personalized, AI-driven support in
+          autism care. Here's how it works:
+          <ul style={{ paddingLeft: "20px", margin: "0" }}>
+            <li>
+              <strong>1 Custom Care Plan</strong> per credit, tailored to
+              individual needs.
+            </li>
+            <li>
+              <strong>1 Custom Story</strong> per credit, crafted for social
+              learning or routine management.
+            </li>
+            <li>
+              <strong>A Varying Number of AI Chats</strong> per credit, based on
+              your chosen plan, for direct AI interaction.
+            </li>
+          </ul>
+          Credits do not expire, offering you the flexibility to use them as
+          needed, whether for new plans, immediate behavioral support, or
+          educational strategies. This model allows you to access:
+          <ul style={{ paddingLeft: "20px", margin: "0" }}>
+            <li>Detailed care planning</li>
+            <li>Effective sensory strategy management</li>
+            <li>IEP development assistance</li>
+            <li>Personalized social stories</li>
+          </ul>
+          without the obligation of a subscription, ensuring you pay only for
+          the support you use and receive insights tailored to your specific
+          situation.
         </p>
         {/* Stripe Payment Form */}
         {clientSecret && (

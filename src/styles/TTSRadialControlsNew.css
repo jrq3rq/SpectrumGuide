@@ -10,7 +10,7 @@
   align-items: center;
   padding: 5px 10px 10px 10px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.03); /* Subtle shadow for depth */
+  background: rgba(0, 0, 0, 0.03);
   border: 1px solid #c3c3c3;
   flex-wrap: wrap; /* Allows buttons to wrap if screen is too small */
 }
@@ -27,7 +27,7 @@
   height: 50px; /* Equal to width for perfect circle */
   margin: 5px; /* Space between buttons */
   padding: 0;
-  background-color: #d3d3d3; /* Light gray for vintage look */
+  background-color: #d3d3d3;
   color: #000; /* Font color for icons */
   border: 1px solid #c3c3c3;
   border-radius: 50%; /* Perfect circle */
