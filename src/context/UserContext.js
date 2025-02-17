@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { doc, onSnapshot } from "firebase/firestore"; // ✅ Import Firestore functions
+import { doc, getDoc, onSnapshot } from "firebase/firestore"; // ✅ Import Firestore functions
 import { firestore } from "../firebase"; // ✅ Ensure Firestore instance is imported
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -12,6 +12,7 @@ export const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [userPlan, setUserPlan] = useState("free");
+  const [isAdmin, setIsAdmin] = useState(false); // ✅ Add isAdmin to state
 
   // ✅ Load all chat history, not just form responses
   const [chatHistory, setChatHistory] = useState(() => {
@@ -35,14 +36,15 @@ export const UserProvider = ({ children }) => {
       setIsAuthenticated(mockAuth.isAuthenticated);
       setUser(mockAuth.user);
       setUserPlan(mockAuth.plan || "free");
+      setIsAdmin(mockAuth.isAdmin || false); // Add this line if mockAuth includes isAdmin
     } else {
       const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
         if (firebaseUser) {
           setIsAuthenticated(true);
           setUser(firebaseUser);
-          const plan = await fetchUserPlanFromFirestore(firebaseUser.uid);
-          setUserPlan(plan || "free");
-
+          const userData = await fetchUserDataFromFirestore(firebaseUser.uid);
+          setUserPlan(userData.plan || "free");
+          setIsAdmin(userData.isAdmin || false); // Add this line to set isAdmin from Firestore data
           if (window.location.pathname === "/") {
             navigate("/form");
           }
@@ -50,6 +52,7 @@ export const UserProvider = ({ children }) => {
           setIsAuthenticated(false);
           setUser(null);
           setUserPlan("free");
+          setIsAdmin(false); // Reset isAdmin on logout
           if (window.location.pathname !== "/signup") {
             navigate("/");
           }
@@ -59,6 +62,19 @@ export const UserProvider = ({ children }) => {
       return () => unsubscribe();
     }
   }, [navigate]);
+
+  const fetchUserDataFromFirestore = async (uid) => {
+    const userRef = doc(firestore, "users", uid);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      return {
+        ...userData,
+        isAdmin: userData.isAdmin || false, // Ensure isAdmin is returned
+      };
+    }
+    return { isAdmin: false, plan: "free" }; // Default values if document doesn't exist
+  };
 
   const login = (userData, shouldNavigate = true) => {
     setIsAuthenticated(true);
@@ -172,6 +188,7 @@ export const UserProvider = ({ children }) => {
         isAuthenticated,
         user,
         userPlan,
+        isAdmin,
         login,
         logout,
         chatHistory, // ✅ Includes all messages now

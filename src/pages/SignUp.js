@@ -12,17 +12,21 @@ import "../styles/SignUp.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const planDisplayDescriptions = {
-  free: "Free Spectrum: 1 credit/week for 1 Care Plan + 1 Story or 10 AI Chats.",
+  free: "Free: 1 credit/week (1 Care Plan, 1 Story, 10 AI Chats).",
+  bronze:
+    "Bronze: $9.95 for 10 credits (10 Care Plans, 10 Stories, 100 AI Chats).",
   silver:
-    "Silver Spectrum: $9.99 for 10 credits. Each credit = 1-10 Custom Care Plans + 1-10 Stories or 100 AI Chats.",
-  gold: "Gold Spectrum: $29.99 for 50 credits. Each credit = 1-50 Custom Care Plans + 1-50 Stories or 500 AI Chats.",
+    "Silver: $19.95 for 25 credits (25 Care Plans, 25 Stories, 250 AI Chats).",
+  gold: "Gold: $29.95 for 50 credits (50 Care Plans, 50 Stories, 500 AI Chats).",
 };
-// Plan Descriptions for Tooltips
+
 const planTooltips = {
-  free: "Free weekly credit for 1 Care Plan, 1 Story, or 10 AI Chats. Perfect for exploring Spectrum Guide.",
+  free: "Free weekly credit regenerates weekly if fully used. Offers 1 Care Plan, 1 Story, or 10 AI Chats.",
+  bronze:
+    "Bronze Spectrum: $9.95 for 10 credits. Each credit provides 1 Care Plan, 1 Story, or 10 AI Chats.",
   silver:
-    "Silver Spectrum: $9.99 for 10 credits. Each credit offers 1-10 Custom Care Plans, 1-10 Stories, or 100 AI Chats. Ideal for small-scale personalized support.",
-  gold: "Gold Spectrum: $29.99 for 50 credits. Each credit provides 1-50 Custom Care Plans, 1-50 Stories, or 500 AI Chats. Best for extensive, ongoing support needs.",
+    "Silver Spectrum: $19.95 for 25 credits. Each credit is 1 Care Plan, 1 Story, or 10 AI Chats.",
+  gold: "Gold Spectrum: $29.95 for 50 credits. Each credit equals 1 Care Plan, 1 Story, or 10 AI Chats.",
 };
 // Account Creators (Dropdown Options)
 const accountCreators = [
@@ -87,8 +91,17 @@ const SignUp = () => {
         dob,
         accountCreator,
         plan: selectedPlan,
+
         credits:
-          selectedPlan === "free" ? 1 : selectedPlan === "silver" ? 10 : 50,
+          selectedPlan === "free"
+            ? 1
+            : selectedPlan === "bronze"
+            ? 10
+            : selectedPlan === "silver"
+            ? 25
+            : selectedPlan === "gold"
+            ? 50
+            : 0, // Default or error case
         createdAt: new Date(),
         lastLogin: new Date(),
       });
@@ -96,14 +109,18 @@ const SignUp = () => {
       if (selectedPlan !== "free") {
         let amount;
         switch (selectedPlan) {
+          case "bronze":
+            amount = 995; // $9.95 in cents for Bronze Spectrum
+            break;
           case "silver":
-            amount = 999; // $9.99 in cents
+            amount = 1995; // $19.95 in cents for Silver Spectrum
             break;
           case "gold":
-            amount = 2999; // $29.99 in cents
+            amount = 2995; // $29.95 in cents for Gold Spectrum
             break;
           default:
-            throw new Error("Invalid plan selected");
+            console.error("Invalid plan selected");
+            return;
         }
         const paymentIntent = await createPaymentIntent({
           amount,
@@ -125,9 +142,10 @@ const SignUp = () => {
         }, 100);
       } else {
         console.log("Free account created successfully");
-        navigate("/form");
+        // Navigate to form and refresh after a short delay
+        navigate("/form", { replace: true });
         setTimeout(() => {
-          window.location.reload();
+          window.location.reload(); // Refresh the page after navigation
         }, 100);
       }
     } catch (err) {
@@ -230,7 +248,7 @@ const SignUp = () => {
           {/* Plan Selection */}
           <h3 className="label">Select Your Plan:</h3>
           <div className="plan-selection">
-            {["free", "silver", "gold"].map((plan) => (
+            {["free", "bronze", "silver", "gold"].map((plan) => (
               <label
                 key={plan}
                 onMouseMove={(e) => handleMouseMove(e, plan)}

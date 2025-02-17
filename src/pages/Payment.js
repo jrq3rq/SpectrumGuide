@@ -84,45 +84,43 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Spectrum Silver: $9.99 for 10 credits.\nEach credit includes:\n 1-10 Custom Care Plans,\n 1-10 Custom Stories,\n 100 AI Chats.\nCredits do not expire."
+                  "Bronze Spectrum: $9.95 for 10 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
             >
-              <b>Silver Spectrum</b>:{" "}
-              <b
-                style={{
-                  color: "#02C7EB",
-                }}
-              >
-                10
-              </b>{" "}
-              credits for $9.99
-              {/* <i>1-10 Plans, 1-10 Stories, 100 Chats</i> */}
+              <b>Bronze Spectrum</b>: <b style={{ color: "#02C7EB" }}>10</b>{" "}
+              credits for $9.95
             </span>
-            <button onClick={() => handlePurchase("silver")}>Buy Now</button>
+            <button onClick={() => handlePurchase("bronze")}>Buy Now</button>
           </li>
-
           <li>
             <span
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Spectrum Gold: $29.99 for 50 credits. Each credit allows:\n 1-50 Custom Care Plans,\n 1-50 Custom Stories,\n 500 AI Chats.\nCredits do not expire."
+                  "Silver Spectrum: $19.95 for 25 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
             >
-              <b>Gold Spectrum</b>:{" "}
-              <b
-                style={{
-                  color: "#02C7EB",
-                }}
-              >
-                50
-              </b>{" "}
-              credits for $29.99
-              {/* <i>1-50 Plans, 1-50 Stories, 500 Chats</i> */}
+              <b>Silver Spectrum</b>: <b style={{ color: "#02C7EB" }}>25</b>{" "}
+              credits for $19.95
+            </span>
+            <button onClick={() => handlePurchase("silver")}>Buy Now</button>
+          </li>
+          <li>
+            <span
+              onMouseEnter={(e) =>
+                showTooltip(
+                  e,
+                  "Gold Spectrum: $29.95 for 50 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
+                )
+              }
+              onMouseLeave={hideTooltip}
+            >
+              <b>Gold Spectrum</b>: <b style={{ color: "#02C7EB" }}>50</b>{" "}
+              credits for $29.95
             </span>
             <button onClick={() => handlePurchase("gold")}>Buy Now</button>
           </li>
@@ -151,8 +149,8 @@ const Payment = () => {
               learning or routine management.
             </li>
             <li>
-              <strong>A Varying Number of AI Chats</strong> per credit, based on
-              your chosen plan, for direct AI interaction.
+              <strong>10 AI Chats</strong> per credit, offering direct AI
+              interaction across all plans.
             </li>
           </ul>
           Credits do not expire, offering you the flexibility to use them as
@@ -164,9 +162,11 @@ const Payment = () => {
             <li>IEP development assistance</li>
             <li>Personalized social stories</li>
           </ul>
-          without the obligation of a subscription, ensuring you pay only for
-          the support you use and receive insights tailored to your specific
-          situation.
+          with plans like <strong>Bronze,</strong> <strong>Silver,</strong> and{" "}
+          <strong>Gold</strong>. Each plan provides a set number of credits,
+          ensuring you pay only for the support you use, receiving insights
+          tailored to your specific situation without the obligation of a
+          subscription.
         </p>
         {/* Stripe Payment Form */}
         {clientSecret && (

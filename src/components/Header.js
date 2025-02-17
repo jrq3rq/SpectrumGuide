@@ -8,12 +8,11 @@ import "../styles/Header.css";
 import { useCredits } from "../hooks/useCredits";
 
 const Header = () => {
-  const { isAuthenticated, user, logout } = useUser();
+  const { isAuthenticated, user, logout, isAdmin } = useUser();
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
-  // const [credits, setCredits] = useState(0);
   const credits = useCredits();
 
   const navigate = useNavigate();
@@ -86,7 +85,9 @@ const Header = () => {
               {item.icon}
               {item.id === 4 && (
                 // <span className="credits-display">{credits}</span>
-                <span className="credits-display">{credits}</span>
+                <span className="credits-display">
+                  {isAdmin ? "∞" : credits} {/* Updated here to use isAdmin */}
+                </span>
               )}
               <span>{item.name}</span>
             </Link>

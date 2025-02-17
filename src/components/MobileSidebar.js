@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/MobileSidebar.css";
 import { useUser } from "../context/UserContext";
+import { useCredits } from "../hooks/useCredits";
 
 const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
-  const { user } = useUser(); // Get user data from context
-  const credits = user?.credits || 0; // Default to 0 if undefined
+  const { isAdmin } = useUser(); // Updated to get isAdmin from context
+  const credits = useCredits(); // Use the hook to get credits
 
   useEffect(() => {
     if (isOpen) {
@@ -36,7 +37,9 @@ const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
             >
               {item.icon}
               {item.id === 4 && ( // Check if this is the 'Buy Credits' link
-                <span className="credits-display-mobile">{credits}</span>
+                <span className="credits-display-mobile">
+                  {isAdmin ? "∞" : credits} {/* Updated here to use isAdmin */}
+                </span>
               )}
               <span>{item.name}</span>
             </Link>

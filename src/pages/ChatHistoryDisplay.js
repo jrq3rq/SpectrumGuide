@@ -121,7 +121,18 @@ const MessageCard = ({
         <button className="actionButton" onClick={() => onDownload(message)}>
           Download
         </button>
-        <button className="deleteButton" onClick={() => onDelete(message.id)}>
+        <button
+          className="deleteButton"
+          onClick={() => {
+            if (
+              window.confirm(
+                "Are you sure you want to delete this message? This action cannot be undone."
+              )
+            ) {
+              onDelete(message.id);
+            }
+          }}
+        >
           Delete
         </button>
         <button

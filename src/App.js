@@ -55,7 +55,6 @@ const App = () => {
               />
               <Route path="/signup" element={<SignUp />} />
             </Route>
-
             {/* Profile Completion Route (Handled in PublicRoute.js) */}
             <Route
               path="/create-profile"
@@ -65,17 +64,18 @@ const App = () => {
                 </Suspense>
               }
             />
-
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
-              <Route path="/form" element={<ChildProfileForm />} />
+              <Route
+                path="/form"
+                element={<ChildProfileForm key={Date.now()} />}
+              />
               <Route path="/payment" element={<Payment />} />
               <Route path="/history" element={<ChatHistoryDisplay />} />{" "}
               {/* Uses context */}
               <Route path="/social-stories" element={<SocialStories />} />
               <Route path="/interactive-hub" element={<InteractiveHub />} />
             </Route>
-
             {/* ✅ Fixed: Redirect unknown routes to last visited page or /form */}
             <Route
               path="*"
