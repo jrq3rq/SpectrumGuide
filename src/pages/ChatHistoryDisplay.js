@@ -172,6 +172,78 @@ const ChatHistoryDisplay = () => {
       return updatedMessages;
     });
   }, []);
+
+  /** Function to handle downloading a message */
+  /** Function to handle downloading a message with cleaned content and correct list numbering */
+  const handleDownloadMessage = (message) => {
+    // Helper function to clean text of markdown-like symbols
+    const cleanText = (text) => text.replace(/[_*`#]/g, "").trim();
+
+    // Function to fix and format lists, handling nested lists and major/minor numbering
+    const fixList = (text) => {
+      let lines = text.split("\n");
+      let newLines = [];
+      let majorCounter = 1;
+      let minorCounter = 1;
+
+      for (let line of lines) {
+        // Detect major sections
+        if (
+          line.startsWith("1.") &&
+          line.includes(":") &&
+          !line.includes("Step")
+        ) {
+          line = `${majorCounter++}.${line.slice(1)}`;
+          minorCounter = 1; // Reset for new section
+        } else if (line.includes("Step")) {
+          // Handle steps within sections
+          line = line.replace(/Step \d+:/, `Step ${minorCounter++}:`);
+        }
+        newLines.push(line);
+      }
+
+      return newLines.join("\n");
+    };
+
+    // Clean each line of content individually, then fix list numbering
+    const cleanContent = fixList(
+      message.content
+        .split("\n")
+        .map((line) => cleanText(line))
+        .join("\n")
+    );
+
+    const content = `Role: ${
+      message.role
+    }\nContent:\n${cleanContent}\nTimestamp: ${formatTimestamp(
+      message.timestamp
+    )}\nNotes:\n${
+      message.notes
+        ? message.notes
+            .map(
+              (note) =>
+                `- ${cleanText(note.content)} (${formatTimestamp(
+                  note.timestamp
+                )})`
+            )
+            .join("\n")
+        : "No notes."
+    }`;
+
+    // Create a Blob with the message details
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = `message-${message.id}.txt`;
+    document.body.appendChild(a); // Required for Firefox
+    a.click();
+    document.body.removeChild(a); // Remove the element
+
+    // Clean up
+    URL.revokeObjectURL(url);
+  };
   // Add a note to a specific message
   const handleAddNote = (messageId, noteContent) => {
     const newNote = {
@@ -216,13 +288,22 @@ const ChatHistoryDisplay = () => {
       <div className="chatContainer" ref={chatContainerRef}>
         {messages.length > 0 ? (
           messages.map((msg) => (
+            // <MessageCard
+            //   key={msg.id}
+            //   message={msg}
+            //   onDelete={handleDeleteMessage}
+            //   onAddNote={handleAddNote}
+            //   onDeleteNote={handleDeleteNote}
+            //   onDownload={() => console.log(`Downloading message ${msg.id}`)}
+            //   />
+
             <MessageCard
               key={msg.id}
               message={msg}
               onDelete={handleDeleteMessage}
               onAddNote={handleAddNote}
               onDeleteNote={handleDeleteNote}
-              onDownload={() => console.log(`Downloading message ${msg.id}`)}
+              onDownload={() => handleDownloadMessage(msg)}
             />
           ))
         ) : (
