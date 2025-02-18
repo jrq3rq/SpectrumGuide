@@ -84,13 +84,23 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Bronze Spectrum: $9.95 for 10 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
+                  "Bronze Spectrum: $9.95 for 10 credits. Each (1) credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
             >
               <b>Bronze Spectrum</b>: <b style={{ color: "#02C7EB" }}>10</b>{" "}
               credits for $9.95
+              <i
+                style={{
+                  fontSize: "16px",
+                  color: "#02C7EB",
+                }}
+              >
+                {" "}
+                (10 Personalized Care Plans, 10 Personalized Stories, 100 AI
+                Chats)
+              </i>
             </span>
             <button onClick={() => handlePurchase("bronze")}>Buy Now</button>
           </li>
@@ -99,13 +109,23 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Silver Spectrum: $19.95 for 25 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
+                  "Silver Spectrum: $19.95 for 25 credits. Each (1) credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
             >
+              {" "}
               <b>Silver Spectrum</b>: <b style={{ color: "#02C7EB" }}>25</b>{" "}
-              credits for $19.95
+              credits for $19.95{" "}
+              <i
+                style={{
+                  fontSize: "16px",
+                  color: "#02C7EB",
+                }}
+              >
+                (25 Personalized Care Plans, 25 Personalized Stories, 250 AI
+                Chats)
+              </i>
             </span>
             <button onClick={() => handlePurchase("silver")}>Buy Now</button>
           </li>
@@ -114,13 +134,22 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Gold Spectrum: $29.95 for 50 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
+                  "Gold Spectrum: $29.95 for 50 credits. Each (1) credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
             >
               <b>Gold Spectrum</b>: <b style={{ color: "#02C7EB" }}>50</b>{" "}
-              credits for $29.95
+              credits for $29.95{" "}
+              <i
+                style={{
+                  fontSize: "16px",
+                  color: "#02C7EB",
+                }}
+              >
+                (50 Personalized Care Plans, 50 Personalized Stories, 500 AI
+                Chats)
+              </i>
             </span>
             <button onClick={() => handlePurchase("gold")}>Buy Now</button>
           </li>
