@@ -12,21 +12,21 @@ import "../styles/SignUp.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const planDisplayDescriptions = {
-  free: "Free: 1 credit/week (1 Care Plan, 1 Story, 10 AI Chats).",
+  free: "Free: 1 credit/week (1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats).",
   bronze:
-    "Bronze: $9.95 for 10 credits (10 Care Plans, 10 Stories, 100 AI Chats).",
+    "Bronze: $9.95 for 10 credits (10 Personalized Care Plans, 10 Personalized Stories, 100 AI Chats).",
   silver:
-    "Silver: $19.95 for 25 credits (25 Care Plans, 25 Stories, 250 AI Chats).",
-  gold: "Gold: $29.95 for 50 credits (50 Care Plans, 50 Stories, 500 AI Chats).",
+    "Silver: $19.95 for 25 credits (25 Personalized Care Plans, 25 Personalized Stories, 250 AI Chats).",
+  gold: "Gold: $29.95 for 50 credits (50 Personalized Care Plans, 50 Personalized Stories, 500 AI Chats).",
 };
 
 const planTooltips = {
-  free: "Free weekly credit regenerates weekly if fully used. Offers 1 Care Plan, 1 Story, or 10 AI Chats.",
+  free: "Free weekly credit regenerates weekly if fully used. Offers 1 Personalized Care Plan, 1 Personalized Story, or 10 AI Chats.",
   bronze:
-    "Bronze Spectrum: $9.95 for 10 credits. Each credit provides 1 Care Plan, 1 Story, or 10 AI Chats.",
+    "Bronze Spectrum: $9.95 for 10 credits. Each credit provides 1 Personalized Care Plan, 1 Personalized Story, or 10 AI Chats.",
   silver:
-    "Silver Spectrum: $19.95 for 25 credits. Each credit is 1 Care Plan, 1 Story, or 10 AI Chats.",
-  gold: "Gold Spectrum: $29.95 for 50 credits. Each credit equals 1 Care Plan, 1 Story, or 10 AI Chats.",
+    "Silver Spectrum: $19.95 for 25 credits. Each credit is 1 Personalized Care Plan, 1 Personalized Story, or 10 AI Chats.",
+  gold: "Gold Spectrum: $29.95 for 50 credits. Each credit equals 1 Personalized Care Plan, 1 Personalized Story, or 10 AI Chats.",
 };
 // Account Creators (Dropdown Options)
 const accountCreators = [

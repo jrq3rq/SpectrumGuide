@@ -362,7 +362,7 @@ const ChildProfileForm = () => {
         <form onSubmit={handleSubmit} className="form-container">
           <div className="form-section">
             <div className="input-container">
-              <h3 className="h3">Important Roles:</h3>
+              <h3>Important Roles:</h3>
               <div className="important-roles-container">
                 {importantRoles.map((role) => (
                   <div key={role.id} className="important-role-option">

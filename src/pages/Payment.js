@@ -84,7 +84,7 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Bronze Spectrum: $9.95 for 10 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
+                  "Bronze Spectrum: $9.95 for 10 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
@@ -99,7 +99,7 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Silver Spectrum: $19.95 for 25 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
+                  "Silver Spectrum: $19.95 for 25 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
@@ -114,7 +114,7 @@ const Payment = () => {
               onMouseEnter={(e) =>
                 showTooltip(
                   e,
-                  "Gold Spectrum: $29.95 for 50 credits. Each credit = 1 Care Plan, 1 Story, 10 AI Chats."
+                  "Gold Spectrum: $29.95 for 50 credits. Each credit = 1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats."
                 )
               }
               onMouseLeave={hideTooltip}
@@ -141,12 +141,12 @@ const Payment = () => {
           autism care. Here's how it works:
           <ul style={{ paddingLeft: "20px", margin: "0" }}>
             <li>
-              <strong>1 Custom Care Plan</strong> per credit, tailored to
+              <strong>1 Personalized Care Plan</strong> per credit, tailored to
               individual needs.
             </li>
             <li>
-              <strong>1 Custom Story</strong> per credit, crafted for social
-              learning or routine management.
+              <strong>1 Personalized Story</strong> per credit, crafted for
+              social learning or routine management.
             </li>
             <li>
               <strong>10 AI Chats</strong> per credit, offering direct AI

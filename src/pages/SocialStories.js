@@ -155,9 +155,15 @@ Make it engaging, supportive, and personalized for the child's needs.
     }
   };
 
-  /** Delete a saved story */
+  /** Delete a saved story with a confirmation warning */
   const handleDeleteStory = (id) => {
-    setStories(stories.filter((s) => s.id !== id));
+    if (
+      window.confirm(
+        "Are you sure you want to delete this story? This action cannot be undone."
+      )
+    ) {
+      setStories(stories.filter((s) => s.id !== id));
+    }
   };
 
   /** Download a story */
