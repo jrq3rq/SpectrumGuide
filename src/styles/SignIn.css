@@ -1,24 +1,9 @@
 /* Ensure the root container is scrollable */
-.form-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between; /* Changed from center to space-between for spacing */
-  align-items: flex-start; /* Align items to the top */
-  width: 90%; /* Optional: add a max-width for larger screens */
-  margin: 20px auto; /* Center the form wrapper */
-  /* padding: 20px; */
-  box-sizing: border-box;
-  border: none;
+.main-form-wrapper {
+  padding: 60px 20px;
 }
 /* Mobile adjustments */
 @media (max-width: 768px) {
-  .form-wrapper {
-    flex-direction: column;
-    width: calc(100% - 10px);
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 20px;
-  }
 }
 
 .google-signin-button {

@@ -1,213 +1,3 @@
-// import React, { useState, useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { auth, firestore } from "../firebase";
-// import { updatePassword } from "firebase/auth";
-// import { doc, setDoc, getDoc } from "firebase/firestore";
-// import { useUser } from "../context/UserContext";
-// import "../styles/CreateProfile.css";
-// import LoadingOverlay from "../components/LoadingOverlay";
-
-// const CreateProfile = () => {
-//   const { user, isAuthenticated, login } = useUser();
-//   const navigate = useNavigate();
-//   const formRef = useRef(null); // ✅ Add a reference to the form
-
-//   // Form state
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
-//   const [dob, setDob] = useState("");
-//   const [selectedPlan, setSelectedPlan] = useState("free");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [error, setError] = useState(null);
-//   const [success, setSuccess] = useState(false);
-//   const [loading, setLoading] = useState(true);
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-
-//   // Effect to check user profile
-//   useEffect(() => {
-//     const checkUserProfile = async () => {
-//       if (!user || !isAuthenticated) {
-//         navigate("/");
-//         return;
-//       }
-//       try {
-//         const userRef = doc(firestore, "users", user.uid);
-//         const docSnap = await getDoc(userRef);
-//         if (docSnap.exists()) {
-//           sessionStorage.removeItem("requiresProfileSetup");
-//           login({ ...user, ...docSnap.data() });
-//           const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
-//           navigate(lastPage);
-//         } else {
-//           setLoading(false);
-//         }
-//       } catch (err) {
-//         console.error("Error checking profile:", err);
-//         setLoading(false);
-//       }
-//     };
-
-//     if (isAuthenticated) {
-//       checkUserProfile();
-//     } else {
-//       setLoading(false);
-//     }
-//   }, [user, isAuthenticated, login, navigate]);
-
-//   const isGoogleUser = user?.providerData?.some(
-//     (provider) => provider.providerId === "google.com"
-//   );
-//   if (!isGoogleUser || loading) {
-//     return <div className="loading-message">Loading...</div>;
-//   }
-
-//   const handleProfileSubmit = async (e) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-
-//     if (!firstName || !lastName || !dob) {
-//       setError("All fields are required.");
-//       setIsSubmitting(false);
-//       return;
-//     }
-//     if (password !== confirmPassword) {
-//       setError("Passwords do not match.");
-//       setIsSubmitting(false);
-//       return;
-//     }
-//     try {
-//       const userRef = doc(firestore, "users", user.uid);
-//       await setDoc(userRef, {
-//         firstName,
-//         lastName,
-//         email: user.email,
-//         dob,
-//         plan: selectedPlan,
-//         credits:
-//           selectedPlan === "silver" ? 10 : selectedPlan === "gold" ? 50 : 0,
-//         createdAt: new Date(),
-//         lastLogin: new Date(),
-//       });
-
-//       if (password) {
-//         await updatePassword(auth.currentUser, password);
-//       }
-
-//       sessionStorage.removeItem("requiresProfileSetup");
-//       login({ ...user, firstName, lastName, dob, plan: selectedPlan });
-
-//       setSuccess(true);
-//       setError(null);
-
-//       setTimeout(() => {
-//         const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
-//         navigate(lastPage);
-//       }, 3000);
-//     } catch (err) {
-//       console.error("Error saving profile:", err);
-//       setError("Failed to save profile. Please try again.");
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <div className="create-profile-page">
-//         <h1>Complete Your Profile</h1>
-//         {success ? (
-//           <div className="success-message">
-//             🎉 Your account has been created successfully! Redirecting...
-//           </div>
-//         ) : (
-//           <>
-//             {isSubmitting && <LoadingOverlay />}
-//             <form
-//               onSubmit={handleProfileSubmit}
-//               className="profile-form"
-//               ref={formRef}
-//             >
-//               <div className="profile-form-row">
-//                 <div className="profile-form-col">
-//                   <label>First Name:</label>
-//                   <input
-//                     type="text"
-//                     value={firstName}
-//                     onChange={(e) => setFirstName(e.target.value)}
-//                     required
-//                   />
-//                 </div>
-//                 <div className="profile-form-col">
-//                   <label>Last Name:</label>
-//                   <input
-//                     type="text"
-//                     value={lastName}
-//                     onChange={(e) => setLastName(e.target.value)}
-//                     required
-//                   />
-//                 </div>
-//               </div>
-//               <div className="profile-form-row">
-//                 <div className="profile-form-col">
-//                   <label>Date of Birth:</label>
-//                   <input
-//                     type="date"
-//                     value={dob}
-//                     onChange={(e) => setDob(e.target.value)}
-//                     required
-//                   />
-//                 </div>
-//                 <div className="profile-form-col">
-//                   <label>Select Plan:</label>
-//                   <select
-//                     value={selectedPlan}
-//                     onChange={(e) => setSelectedPlan(e.target.value)}
-//                   >
-//                     <option value="free">Free - Basic AI Access</option>
-//                     <option value="silver">Silver - 10 Credits ($9.99)</option>
-//                     <option value="gold">Gold - 50 Credits ($29.99)</option>
-//                   </select>
-//                 </div>
-//               </div>
-//               <div className="profile-form-row">
-//                 <div className="profile-form-col">
-//                   <label>Set a Password:</label>
-//                   <input
-//                     type="password"
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                     required
-//                   />
-//                 </div>
-//                 <div className="profile-form-col">
-//                   <label>Confirm Password:</label>
-//                   <input
-//                     type="password"
-//                     value={confirmPassword}
-//                     onChange={(e) => setConfirmPassword(e.target.value)}
-//                     required
-//                   />
-//                 </div>
-//               </div>
-//             </form>
-//           </>
-//         )}
-//         {error && <p className="error">{error}</p>}
-
-//         <button
-//           className="external-submit-button"
-//           onClick={() => formRef.current?.requestSubmit()}
-//           disabled={isSubmitting}
-//         >
-//           Submit Profile
-//         </button>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default CreateProfile;
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebase";
@@ -233,6 +23,16 @@ const CreateProfile = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Plan descriptions
+  const planDescriptions = {
+    free: "Free: 1 credit/week (1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats)",
+    bronze:
+      "Bronze Spectrum: $9.95 for 10 credits (10 Personalized Care Plans, 10 Personalized Stories, 100 AI Chats)",
+    silver:
+      "Silver Spectrum: $19.95 for 25 credits (25 Personalized Care Plans, 25 Personalized Stories, 250 AI Chats)",
+    gold: "Gold Spectrum: $29.95 for 50 credits (50 Personalized Care Plans, 50 Personalized Stories, 500 AI Chats)",
+  };
 
   // Effect to check if user already has a profile in Firestore
   useEffect(() => {
@@ -331,7 +131,15 @@ const CreateProfile = () => {
         dob,
         plan: selectedPlan,
         credits:
-          selectedPlan === "silver" ? 10 : selectedPlan === "gold" ? 50 : 0,
+          selectedPlan === "free"
+            ? 1
+            : selectedPlan === "bronze"
+            ? 10
+            : selectedPlan === "silver"
+            ? 25
+            : selectedPlan === "gold"
+            ? 50
+            : 0, // Updated credit allocation
         createdAt: new Date(),
         lastLogin: new Date(),
       });
@@ -408,9 +216,10 @@ const CreateProfile = () => {
                   value={selectedPlan}
                   onChange={(e) => setSelectedPlan(e.target.value)}
                 >
-                  <option value="free">Free - Basic AI Access</option>
-                  <option value="silver">Silver - 10 Credits ($9.99)</option>
-                  <option value="gold">Gold - 50 Credits ($29.99)</option>
+                  <option value="free">{planDescriptions.free}</option>
+                  <option value="bronze">{planDescriptions.bronze}</option>
+                  <option value="silver">{planDescriptions.silver}</option>
+                  <option value="gold">{planDescriptions.gold}</option>
                 </select>
               </div>
             </div>

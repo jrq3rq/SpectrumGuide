@@ -1,4 +1,3 @@
-/* Footer Styling */
 .footer {
   background-color: #ffffff;
   color: #000;
@@ -29,7 +28,7 @@
   align-items: center;
   gap: 5px; /* Adds spacing between elements */
   margin-top: 40px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 /* Brand Name */

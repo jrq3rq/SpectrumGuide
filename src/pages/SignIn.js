@@ -8,6 +8,7 @@ import { auth, firestore } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
+import LoadingOverlay from "../components/LoadingOverlay"; // Added import
 import "../styles/SignIn.css";
 
 const SignIn = () => {
@@ -15,23 +16,26 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [testMode, setTestMode] = useState(false);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
   const { login, isAuthenticated, user } = useUser();
-
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/form");
-      window.location.reload(); // Refresh the page if already authenticated
+      navigate("/form", { state: { refresh: true } });
     }
   }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted");
+    setIsLoading(true); // Start loading
     if (process.env.REACT_APP_DISABLE_AUTH === "true") {
       login({ uid: "mockUserId", email: "mock@example.com" }, false);
-      navigate("/form");
-      window.location.reload(); // Refresh the page after mock login
+      setTimeout(() => {
+        navigate("/form", { state: { refresh: true } });
+        setIsLoading(false);
+      }, 1500);
       return;
     }
     try {
@@ -47,15 +51,20 @@ const SignIn = () => {
       }
       console.log("User logged in:", result.user);
       login(result.user);
-      navigate("/form");
-      window.location.reload(); // Refresh the page after successful login
+      setTimeout(() => {
+        navigate("/form", { state: { refresh: true } });
+        setIsLoading(false);
+      }, 1500);
     } catch (error) {
       console.error("Sign-in error:", error);
       setError(error.message || "An error occurred during sign-in.");
+      setIsLoading(false);
     }
   };
+
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
+    setIsLoading(true); // Start loading
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -63,22 +72,27 @@ const SignIn = () => {
       const docSnap = await getDoc(userRef);
       if (!docSnap.exists()) {
         sessionStorage.setItem("requiresProfileSetup", "true");
-        navigate("/create-profile");
-        window.location.reload(); // Refresh the page if profile setup is required
+        setTimeout(() => {
+          navigate("/create-profile", { state: { refresh: true } });
+          setIsLoading(false);
+        }, 1500);
       } else {
         sessionStorage.removeItem("requiresProfileSetup");
         const profileData = docSnap.data();
         login({ ...user, ...profileData });
         const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
-        navigate(lastPage);
-        window.location.reload(); // Refresh the page after successful Google sign-in
+        setTimeout(() => {
+          navigate(lastPage, { state: { refresh: true } });
+          setIsLoading(false);
+        }, 1500);
       }
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       setError(error.message || "An error occurred during Google sign-in.");
+      setIsLoading(false);
     }
   };
-  // Rest of your component code remains the same
+
   if (process.env.REACT_APP_DISABLE_AUTH === "true") {
     return (
       <div className="social-stories-page">
@@ -104,52 +118,52 @@ const SignIn = () => {
 
   return (
     <div className="social-stories-page">
+      {isLoading && <LoadingOverlay />}
       <h1>Sign In</h1>
-      <div className="form-wrapper">
-        <div className="form-section">
-          <form onSubmit={handleSubmit}>
-            {/* <h3>Email Sign In</h3> */}
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit" className="generate-button">
-              Sign In
-            </button>
-            <button
-              onClick={handleGoogleSignIn}
-              className="google-signin-button"
-            >
-              Sign In with Google
-            </button>
-          </form>
-          {error && <div className="error">{error}</div>}
-          <p className="toggle-sign">
-            Don't have an account?{" "}
-            <button
-              type="button"
-              onClick={() => navigate("/signup")}
-              className="link-button"
-            >
-              Sign Up
-            </button>
-          </p>
-
-          {/* Spectrum Guide Info Button & Section */}
-          {/* <SpectrumGuideInfo isOpen={isAboutOpen} toggle={toggleAbout} /> */}
-        </div>
+      <div className="form-section">
+        {error && <div className="error">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="generate-button"
+            disabled={isLoading}
+          >
+            Sign In
+          </button>
+          <button
+            onClick={handleGoogleSignIn}
+            className="google-signin-button"
+            disabled={isLoading}
+          >
+            Sign In with Google
+          </button>
+        </form>
+        <p className="toggle-sign">
+          Don't have an account?{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/signup")}
+            className="link-button"
+          >
+            Sign Up
+          </button>
+        </p>
       </div>
     </div>
   );

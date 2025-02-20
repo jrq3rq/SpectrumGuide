@@ -142,5 +142,14 @@
 
 /* If you want to add a shadow for depth */
 .info-content.open .info-inner {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.foundation-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  gap: 5px; /* Adds spacing between elements */
+  color: #c3c3c3;
+  font-size: 12px;
 }

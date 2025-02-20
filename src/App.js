@@ -13,17 +13,17 @@ import PublicRoute from "./components/PublicRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Payment from "./pages/Payment";
-import ChatHistoryDisplay from "./pages/ChatHistoryDisplay"; // Ensure this uses context
+import ChatHistoryDisplay from "./pages/ChatHistoryDisplay";
 import SocialStories from "./pages/SocialStories";
 import SignUp from "./pages/SignUp";
 import LoadingOverlay from "./components/LoadingOverlay";
 import ChildProfileForm from "./components/ChildProfileForm";
 import InteractiveHub from "./components/InteractiveHub";
+import AboutPage from "./pages/AboutPage";
 
 const SignIn = lazy(() => import("./pages/SignIn"));
 const CreateProfile = lazy(() => import("./pages/CreateProfile"));
 
-/** ✅ Save the last visited page in sessionStorage */
 const SaveLastPage = () => {
   const location = useLocation();
   useEffect(() => {
@@ -35,63 +35,76 @@ const SaveLastPage = () => {
 };
 
 const App = () => {
+  const location = useLocation();
+  const pagesWithBackground = ["/", "/signup"];
+
+  useEffect(() => {
+    if (pagesWithBackground.includes(location.pathname)) {
+      document.body.classList.add("has-background");
+    } else {
+      document.body.classList.remove("has-background");
+    }
+  }, [location.pathname]);
+
   return (
-    <Router>
-      <UserProvider>
-        <ScrollToTop />
-        <SaveLastPage />
-        <Header />
-        <main>
-          <Routes>
-            {/* Public Routes (Sign In & Sign Up) */}
-            <Route element={<PublicRoute />}>
-              <Route
-                path="/"
-                element={
-                  <Suspense fallback={<LoadingOverlay />}>
-                    <SignIn />
-                  </Suspense>
-                }
-              />
-              <Route path="/signup" element={<SignUp />} />
-            </Route>
-            {/* Profile Completion Route (Handled in PublicRoute.js) */}
+    <div className="app-wrapper">
+      <ScrollToTop />
+      <SaveLastPage />
+      <Header />
+      <main>
+        <Routes>
+          <Route element={<PublicRoute />}>
             <Route
-              path="/create-profile"
+              path="/"
               element={
                 <Suspense fallback={<LoadingOverlay />}>
-                  <CreateProfile />
+                  <SignIn />
                 </Suspense>
               }
             />
-            {/* Protected Routes */}
-            <Route element={<PrivateRoute />}>
-              <Route
-                path="/form"
-                element={<ChildProfileForm key={Date.now()} />}
-              />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/history" element={<ChatHistoryDisplay />} />{" "}
-              {/* Uses context */}
-              <Route path="/social-stories" element={<SocialStories />} />
-              <Route path="/interactive-hub" element={<InteractiveHub />} />
-            </Route>
-            {/* ✅ Fixed: Redirect unknown routes to last visited page or /form */}
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
+          <Route
+            path="/create-profile"
+            element={
+              <Suspense fallback={<LoadingOverlay />}>
+                <CreateProfile />
+              </Suspense>
+            }
+          />
+          <Route element={<PrivateRoute />}>
             <Route
-              path="*"
-              element={
-                <Navigate
-                  to={sessionStorage.getItem("lastVisitedPage") || "/form"}
-                  replace
-                />
-              }
+              path="/form"
+              element={<ChildProfileForm key={Date.now()} />}
             />
-          </Routes>
-        </main>
-        <Footer />
-      </UserProvider>
-    </Router>
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/history" element={<ChatHistoryDisplay />} />
+            <Route path="/social-stories" element={<SocialStories />} />
+            <Route path="/interactive-hub" element={<InteractiveHub />} />
+          </Route>
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to={sessionStorage.getItem("lastVisitedPage") || "/form"}
+                replace
+              />
+            }
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 };
 
-export default App;
+const AppWithRouter = () => (
+  <Router>
+    <UserProvider>
+      <App />
+    </UserProvider>
+  </Router>
+);
+
+export default AppWithRouter;

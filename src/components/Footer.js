@@ -2,26 +2,17 @@ import React, { useState } from "react";
 import "../styles/Footer.css";
 import logo from "../assets/puzzle-1020410_640.jpg";
 import YearDisplay from "./YearDisplay";
-import SpectrumGuideInfo from "./SpectrumGuideInfo";
 
 const Footer = () => {
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
-
-  const toggleAbout = () => {
-    setIsAboutOpen((prev) => !prev);
-  };
   return (
     <>
-      <div className="footer-SpectrumGuideInfo-content">
-        <SpectrumGuideInfo isOpen={isAboutOpen} toggle={toggleAbout} />
-      </div>
       <footer className="footer">
         <div className="footer-content">
           <p>
             © <YearDisplay />{" "}
             <span className="brand-name">Spectrum Guide AI</span>
           </p>
-          <p className="founder">By Tatiana & Co.</p>
+          <p className="founder">By Tatiana & Co. </p>
           <div className="footer-logo-container">
             <img src={logo} alt="Spectrum Guide Logo" className="footer-logo" />
           </div>

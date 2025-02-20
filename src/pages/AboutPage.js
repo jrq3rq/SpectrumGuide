@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/About.css"; // Add styles specific to the About page if needed
+import "../styles/AboutPage.css"; // Add styles specific to the About page if needed
 // import logo from "../assets/puzzle-1020410_640.jpg";
 
-const About = () => {
+const AboutPage = () => {
   return (
     <div className="about-page">
       {/* <div className="about-logo-container">
@@ -97,52 +97,45 @@ const About = () => {
         methodologies to meet the evolving needs of the autism community.
       </p>
 
-      <p
-        style={{
-          backgroundColor: "#ffebee",
-          padding: "10px",
-          borderRadius: "8px",
-          borderLeft: "4px solid #d32f2f",
-          // borderTop: "1px solid #d32f2f",
-          // borderRight: "1px solid #d32f2f",
-          // borderBottom: "1px solid #d32f2f",
-          marginBottom: "15px",
-        }}
-      >
-        <strong>Privacy and Data Security:</strong> We prioritize your privacy
-        at Spectrum Guide. All data is stored{" "}
-        <strong>locally on your device</strong>, not on external servers,
-        ensuring confidentiality and control over sensitive information.
-        However, consider these points:
-        <ul style={{ margin: "5px 0px 0px 20px", padding: "0" }}>
+      <p className="privacy-intro">
+        <strong>Privacy and Data Security:</strong> At Spectrum Guide, your
+        privacy is our priority. All data is stored{" "}
+        <strong>locally on your device</strong>—never on external
+        servers—ensuring you maintain full control and confidentiality over
+        sensitive information. However, please note the following:
+      </p>
+      <div className="privacy-notice">
+        <ul className="privacy-list">
           <li>
-            <b>
+            <strong>
               <em>Storage Limitation:</em>
-            </b>{" "}
-            You're limited by your device's storage capacity. You may need to
-            manage or delete older data to accommodate new content.
+            </strong>{" "}
+            Your device’s storage capacity sets the limit. You might need to
+            manage or delete older data to make room for new content.
           </li>
           <li>
-            <b>
+            <strong>
               <em>Device Dependency:</em>
-            </b>{" "}
-            Data is accessible only on the device where it's stored. Losing or
-            changing devices requires manual data backup or transfer.
+            </strong>{" "}
+            Data stays on the device where it’s stored. If you lose or switch
+            devices, manual backup or transfer is required.
           </li>
           <li>
-            <b>
+            <strong>
               <em>No Cloud Sync:</em>
-            </b>{" "}
-            Data does not sync across devices, so using Spectrum Guide on
-            different devices involves additional steps for data management.
+            </strong>{" "}
+            Data doesn’t sync across devices, so using Spectrum Guide on
+            multiple devices requires extra data management steps.
           </li>
         </ul>
-        We promise not to use external databases for your personal interactions,
-        protecting against unauthorized access. Nonetheless, always consider a
-        backup strategy for your essential data.
+      </div>
+      <p className="privacy-footer">
+        We have no plans to use external databases for your personal
+        interactions, safeguarding against unauthorized access. That said, we
+        recommend maintaining a backup strategy for your essential data.
       </p>
     </div>
   );
 };
 
-export default About;
+export default AboutPage;

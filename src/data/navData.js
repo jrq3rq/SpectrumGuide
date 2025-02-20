@@ -11,12 +11,12 @@ import {
 import { MdDescription } from "react-icons/md";
 
 export const navItems = [
-  //   {
-  //     id: 1,
-  //     path: "/about",
-  //     name: "About",
-  //     icon: <FaInfoCircle />,
-  //   },
+  {
+    id: 1,
+    path: "/about",
+    name: "About",
+    icon: <FaInfoCircle />,
+  },
   {
     id: 2,
     path: "/form",

@@ -77,6 +77,7 @@ const Header = () => {
       <div className="header-container">
         <div className="logo" onClick={() => navigate("/")}>
           Spectrum <span className="blue-title">Guide</span>
+          {/* Spectrum <span className="blue-title">Foundation</span> */}
         </div>
 
         <nav className="nav desktop-links">

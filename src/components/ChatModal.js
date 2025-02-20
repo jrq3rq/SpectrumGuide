@@ -45,7 +45,7 @@
 
 //   const sanitizeContent = (content) => content.replace(/[#_*`~]/g, "").trim();
 
-//   const truncateContent = (content, maxLines = 4) => {
+//   const truncateContent = (content, maxLines = 3) => {
 //     const lines = content.split("\n");
 //     if (lines.length > maxLines) {
 //       return {
@@ -59,6 +59,29 @@
 //   const formatTimestamp = (timestamp) => {
 //     const date = new Date(timestamp);
 //     return date.toLocaleString();
+//   };
+
+//   // Helper function to clean text of markdown-like symbols
+//   const cleanText = (text) => text.replace(/[_*`#]/g, "").trim();
+
+//   // Function to fix and format lists, handling nested lists and major/minor numbering
+//   const fixList = (text) => {
+//     let lines = text.split("\n");
+//     let newLines = [];
+//     let majorCounter = 1;
+//     let minorCounter = 1;
+//     for (let line of lines) {
+//       // Detect major sections
+//       if (line.startsWith("1.") && line.includes(":")) {
+//         line = line.replace(/^\d+\./, `${majorCounter++}.`);
+//         minorCounter = 1; // Reset for new section
+//       } else if (line.includes("Step")) {
+//         // Handle steps within sections
+//         line = line.replace(/Step \d+:/, `Step ${minorCounter++}:`);
+//       }
+//       newLines.push(line);
+//     }
+//     return newLines.join("\n");
 //   };
 
 //   const handleSend = async () => {
@@ -127,15 +150,39 @@
 //   };
 
 //   const handleDownloadMessage = (message) => {
-//     const textContent = `[${message.role.toUpperCase()} - ${formatTimestamp(
+//     // Clean each line of content individually, then fix list numbering
+//     const cleanContent = fixList(
+//       message.content
+//         .split("\n")
+//         .map((line) => cleanText(line))
+//         .join("\n")
+//     );
+//     const content = `Role: ${
+//       message.role
+//     }\nContent:\n${cleanContent}\nTimestamp: ${formatTimestamp(
 //       message.timestamp
-//     )}]\n${message.content}\n`;
-//     const blob = new Blob([textContent], { type: "text/plain" });
+//     )}\nNotes:\n${
+//       message.notes
+//         ? message.notes
+//             .map(
+//               (note) =>
+//                 `- ${cleanText(note.content)} (${formatTimestamp(
+//                   note.timestamp
+//                 )})`
+//             )
+//             .join("\n")
+//         : "No notes."
+//     }`;
+//     // Create a Blob with the message details
+//     const blob = new Blob([content], { type: "text/plain" });
 //     const url = URL.createObjectURL(blob);
 //     const a = document.createElement("a");
 //     a.href = url;
 //     a.download = `message-${message.id}.txt`;
+//     document.body.appendChild(a); // Required for Firefox
 //     a.click();
+//     document.body.removeChild(a); // Remove the element
+//     // Clean up
 //     URL.revokeObjectURL(url);
 //   };
 
@@ -286,11 +333,11 @@ import { v4 as uuidv4 } from "uuid";
 import { sendToAIService } from "../services/aiServiceImageGen";
 import ttsService from "../core/tts-service";
 import TTSRadialControls from "../components/TTSRadialControls";
-import { useUser } from "../context/UserContext"; // Adjust the path if necessary
+import { useUser } from "../context/UserContext";
 
 const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
   const chatContainerRef = useRef(null);
-  const { addMessageToHistory } = useUser(); // Use useUser to get context values
+  const { addMessageToHistory } = useUser();
 
   useEffect(() => {
     const originalStyle = document.body.style.overflow;
@@ -343,8 +390,23 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
     return date.toLocaleString();
   };
 
-  // Helper function to clean text of markdown-like symbols
-  const cleanText = (text) => text.replace(/[_*`#]/g, "").trim();
+  // Enhanced function to clean text of all markdown symbols and unwanted sections
+  const cleanText = (text) => {
+    // Remove all markdown symbols
+    let cleaned = text.replace(/[#_*`~\[\]]/g, "").trim();
+    // Split into lines and filter out unwanted sections like "Instructions for AI"
+    const lines = cleaned.split("\n").filter((line) => {
+      const trimmedLine = line.trim();
+      // Remove lines starting with "Instructions for AI" or similar unwanted headers
+      return (
+        !trimmedLine.startsWith("Instructions for AI") &&
+        !trimmedLine.startsWith("###") &&
+        trimmedLine !== ""
+      ); // Remove empty lines
+    });
+    // Join lines with proper spacing
+    return lines.join("\n");
+  };
 
   // Function to fix and format lists, handling nested lists and major/minor numbering
   const fixList = (text) => {
@@ -352,17 +414,18 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
     let newLines = [];
     let majorCounter = 1;
     let minorCounter = 1;
+
     for (let line of lines) {
-      // Detect major sections
-      if (line.startsWith("1.") && line.includes(":")) {
-        line = line.replace(/^\d+\./, `${majorCounter++}.`);
+      const trimmedLine = line.trim();
+      if (trimmedLine.startsWith("1.") && trimmedLine.includes(":")) {
+        line = line.replace(/^\d+\.\s*/, `${majorCounter++}. `);
         minorCounter = 1; // Reset for new section
-      } else if (line.includes("Step")) {
-        // Handle steps within sections
-        line = line.replace(/Step \d+:/, `Step ${minorCounter++}:`);
+      } else if (trimmedLine.includes("Step")) {
+        line = line.replace(/Step \d+:\s*/, `Step ${minorCounter++}: `);
       }
       newLines.push(line);
     }
+
     return newLines.join("\n");
   };
 
@@ -391,7 +454,7 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
         content: sanitizedResponse,
         timestamp: new Date().toISOString(),
         notes: [],
-        fromForm: fromForm, // Ensure this is set correctly based on whether the chat is from a form
+        fromForm: fromForm,
       };
       setMessages((prev) => [aiMessage, ...prev]);
       if (ttsService.getTtsEnabled()) {
@@ -432,7 +495,6 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
   };
 
   const handleDownloadMessage = (message) => {
-    // Clean each line of content individually, then fix list numbering
     const cleanContent = fixList(
       message.content
         .split("\n")
@@ -455,27 +517,27 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
             .join("\n")
         : "No notes."
     }`;
-    // Create a Blob with the message details
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = `message-${message.id}.txt`;
-    document.body.appendChild(a); // Required for Firefox
+    document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a); // Remove the element
-    // Clean up
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
   const handleDownloadChat = () => {
     const textContent = messages
-      .map(
-        (msg) =>
-          `[${msg.role.toUpperCase()} - ${formatTimestamp(msg.timestamp)}]\n${
-            msg.content
-          }\n`
-      )
+      .map((msg) => {
+        const cleanContent = fixList(
+          cleanText(msg.content) // Clean and fix list formatting
+        );
+        return `[${msg.role.toUpperCase()} - ${formatTimestamp(
+          msg.timestamp
+        )}]\n${cleanContent}\n`;
+      })
       .join("\n");
     const blob = new Blob([textContent], { type: "text/plain" });
     const url = URL.createObjectURL(blob);

@@ -1,7 +1,7 @@
-/* Define a CSS variable for header height */
 :root {
-  --header-height: 60px; /* Adjust based on your header's actual height */
-  --footer-height: 40px; /* Adjust if you have a fixed footer */
+  --header-height: 60px; /* Adjust if your Header height differs */
+  --footer-height: 40px; /* Adjust if your Footer height differs */
+  --background-image: none; /* Default: no background */
 }
 
 html,
@@ -14,8 +14,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  background-color: #f4f4f9;
+  background-color: #00d9ff; /* Default for all other pages */
+  /* background-color: #f4f4f9;  */
+  /* background-image: var(--background-image); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 100%;
+}
+
+/* Enable background only on SignIn and SignUp */
+body.has-background {
+  --background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)),
+    url("/public/images/white-puzzle-bg3.jpg");
 }
 
 *,
@@ -24,10 +35,9 @@ body {
   box-sizing: inherit;
 }
 
-/* Ensure main takes full available space minus header and footer */
 main {
   padding-top: var(--header-height);
-  padding-bottom: var(--footer-height); /* If footer is fixed */
+  padding-bottom: var(--footer-height);
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
   width: 100%;
   box-sizing: border-box;
