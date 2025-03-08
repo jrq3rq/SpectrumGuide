@@ -13,18 +13,6 @@
   z-index: 999; /* Below header's z-index */
 }
 
-.credits-display-mobile {
-  display: inline-block;
-  background-color: #fff; /* Light grey background to match the style */
-  color: #000000; /* Black text */
-  font-size: 14px; /* Smaller than sidebar-link text */
-  padding: 10px 15px; /* Small padding */
-  margin-right: 5px; /* Small margin to separate from icon */
-  border-radius: 4px; /* Rounded corners */
-  vertical-align: middle; /* Align with the text vertically */
-  line-height: 1; /* To ensure it's the same height as the text */
-}
-
 .mobile-sidebar.open {
   height: 100vh; /* Expand to full viewport height */
 }
@@ -55,6 +43,24 @@
   transform: translateY(2px);
 }
 
+/* Credits Display Styling */
+.sidebar-link h3.h3 {
+  display: inline;
+  margin: 0 5px; /* Space between icon and text */
+  font-size: 1rem; /* Match surrounding text size */
+}
+
+.credits-display {
+  display: inline-block;
+  background-color: #fff; /* Adjusted background color (light grey) */
+  color: #000000; /* Black text for contrast */
+  font-size: 14px; /* Slightly smaller than sidebar-link text */
+  padding: 5px 10px; /* Reduced padding for a compact look */
+  border-radius: 4px; /* Rounded corners */
+  vertical-align: middle; /* Align with surrounding text */
+  line-height: 1; /* Match height of text */
+}
+
 /* Overlay Style */
 .sidebar-overlay {
   position: fixed;
@@ -67,11 +73,12 @@
   cursor: pointer;
 }
 
+/* Rest of your existing styles remain unchanged */
 .sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px; /* Adjust padding to match header if necessary */
+  padding: 10px 20px;
 }
 
 .logo-sidebar {
@@ -86,12 +93,12 @@
 .sidebar-right-icons {
   display: flex;
   align-items: center;
-  gap: 10px; /* This should match the gap in header-right-icons */
+  gap: 10px;
 }
 
 .identity-rectangle-sidebar {
-  width: 50px; /* Adjust as needed to match header */
-  height: 30px; /* Same height as sidebar-link for consistency */
+  width: 50px;
+  height: 30px;
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;
@@ -109,7 +116,7 @@
 
 .identity-tooltip-sidebar {
   position: absolute;
-  top: calc(100% + 5px); /* Adjust spacing between rectangle and tooltip */
+  top: calc(100% + 5px);
   left: 50%;
   transform: translateX(-50%);
   background-color: #333;
@@ -120,8 +127,7 @@
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-
-  pointer-events: none; /* Prevents tooltip from interfering with clicks */
+  pointer-events: none;
 }
 
 .identity-rectangle-sidebar:hover .identity-tooltip-sidebar {

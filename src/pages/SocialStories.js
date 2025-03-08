@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBookOpen } from "react-icons/fa";
 import { sendToAIService } from "../services/aiServiceImageGen";
 import { useUser } from "../context/UserContext";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { useLocation } from "react-router-dom";
 import "../styles/SocialStories.css";
 import LoadingOverlay from "../components/LoadingOverlay";
 import StoryActions from "../components/StoryActions";
+import useCreditTracker from "../hooks/useCreditTracker";
+import { firestore } from "../firebase";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { v4 as uuidv4 } from "uuid"; // Added for unique story IDs
 
-// Helper function to get the story background color based on story type
 const getColorForStoryType = (type) => {
   const colors = {
     "Social Skills": "#E6F7FF",
@@ -21,21 +24,18 @@ const getColorForStoryType = (type) => {
     "Coping Strategies": "#F5E6FF",
     "Empathy Building": "#FFE6E6",
   };
-  return colors[type] || "#FFFFFF"; // Default to white if type not found
+  return colors[type] || "#FFFFFF";
 };
 
-/** Format a timestamp into a human-readable string */
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
   return date.toLocaleString();
 }
 
-/** Sanitize text by removing markdown symbols like *, [, ], and ` */
 function sanitizeContent(content) {
   return content.replace(/[*[\]`]/g, "").trim();
 }
 
-/** Truncate content to a maximum number of lines (default 3) */
 function truncateContent(content, maxLines = 3) {
   const lines = content.split("\n");
   if (lines.length > maxLines) {
@@ -47,7 +47,6 @@ function truncateContent(content, maxLines = 3) {
   return { truncated: content, isTruncated: false };
 }
 
-/** Build formatted text for downloads */
 function buildDownloadContent(story) {
   const sanitized = sanitizeContent(story.content);
   return `[SPECTRUM STORY - ${
@@ -55,37 +54,54 @@ function buildDownloadContent(story) {
   }]\n${sanitized}\n`;
 }
 
-const MAX_STORIES = 8;
-
 const SocialStories = () => {
-  // Use custom hook to persist stories and chats separately.
   const [isLoading, setIsLoading] = useState(false);
-  const { chatHistory } = useUser(); // Use the chatHistory from UserContext
-  const [stories, setStories] = useLocalStorage("socialStories", []);
+  const {
+    user,
+    userPlan,
+    isAdmin,
+    credits: initialCredits,
+    aiUsage: initialAiUsage,
+    chatHistory,
+    socialStories = [],
+    addSocialStory,
+    removeSocialStory,
+    updateSocialStory,
+  } = useUser();
+  const { credits, interactWithAIFeature } = useCreditTracker({
+    firestore,
+    uid: user?.uid,
+    initialCredits: isAdmin ? 999999 : initialCredits || 0,
+    initialAiUsage: initialAiUsage || { carePlans: 0, stories: 0, aiChats: 0 },
+    plan: userPlan,
+    isAdmin,
+  });
+  const location = useLocation();
 
-  // States for generating a new story
   const [selectedChatId, setSelectedChatId] = useState("");
   const [storyType, setStoryType] = useState("Social Skills");
+  const [supportLevel, setSupportLevel] = useState(
+    "Level 1 (Low Support Needs)"
+  );
+  const [tone, setTone] = useState("Calm and Reassuring");
+  const [context, setContext] = useState("Home");
   const [generatedStory, setGeneratedStory] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // States for inline renaming of saved stories
   const [isRenamingId, setIsRenamingId] = useState(null);
   const [renameValue, setRenameValue] = useState("");
-
-  // For controlling expansion of each saved story separately
   const [expandedSaved, setExpandedSaved] = useState({});
 
-  // Filter chatHistory to only include chats from forms
+  useEffect(() => {
+    console.log("ChatHistory in SocialStories:", chatHistory);
+  }, [chatHistory]);
+
   const formChats = chatHistory.filter(
     (chat) => chat.type === "profileFormResponse"
   );
-
-  // Find the selected chat from chatHistory
   const selectedChat = chatHistory.find((msg) => msg.id === selectedChatId);
 
-  /** Build an AI prompt based on the selected chat and chosen story type */
   const buildPrompt = () => {
     if (!selectedChat) return "";
     const dateTimeStr = selectedChat.timestamp
@@ -99,16 +115,30 @@ We have a chat from ${childName} at ${dateTimeStr} with the following text:
 
 "${chatContent}"
 
-Generate a ${storyType} story that teaches relevant social skills, routines, or prepares for specific scenarios.
-Make it engaging, supportive, and personalized for the child's needs.
+Generate a ${storyType} story tailored for a child with ${supportLevel} autism spectrum needs.
+The story should have a ${tone} tone and be set in a ${context} context.
+Make it engaging, supportive, and personalized to teach relevant skills or prepare for scenarios,
+using language and structure appropriate to the child's support level.
     `;
   };
 
-  /** Handle story generation */
   const handleGenerateStory = async () => {
-    if (!selectedChatId) return;
+    if (!selectedChatId) {
+      console.log("No chat selected, cannot generate story.");
+      return;
+    }
+    console.log("Selected chat for story generation:", selectedChat);
     setIsGenerating(true);
     setIsLoading(true);
+
+    // Check and deduct credits for story generation
+    const canProceed = await interactWithAIFeature("story", 1); // 0.25 credits per story
+    if (!canProceed) {
+      alert("Not enough credits to generate a story.");
+      setIsGenerating(false);
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const prompt = buildPrompt();
@@ -116,34 +146,19 @@ Make it engaging, supportive, and personalized for the child's needs.
       const sanitizedResponse = sanitizeContent(response);
       const timestamp = selectedChat.timestamp || Date.now();
       const newStory = {
-        id: Date.now(),
+        id: uuidv4(), // Added unique ID
         chatId: selectedChatId,
         date: timestamp,
         customName: "",
         content: sanitizedResponse,
         type: storyType,
+        supportLevel,
+        tone,
+        context,
         color: getColorForStoryType(storyType),
       };
 
-      let updatedStories = [...stories];
-      if (updatedStories.length >= MAX_STORIES) {
-        if (
-          window.confirm(
-            "Maximum story limit reached. The oldest story will be deleted to make room for a new one. Do you agree?"
-          )
-        ) {
-          updatedStories.shift(); // Remove the oldest story
-        } else {
-          alert(
-            "Maximum story limit reached. Please delete old stories to make room for new ones."
-          );
-          setIsGenerating(false);
-          setIsLoading(false);
-          return;
-        }
-      }
-      updatedStories.unshift(newStory);
-      setStories(updatedStories);
+      addSocialStory(newStory);
       setGeneratedStory(sanitizedResponse);
       setIsExpanded(false);
     } catch (error) {
@@ -155,18 +170,16 @@ Make it engaging, supportive, and personalized for the child's needs.
     }
   };
 
-  /** Delete a saved story with a confirmation warning */
   const handleDeleteStory = (id) => {
     if (
       window.confirm(
         "Are you sure you want to delete this story? This action cannot be undone."
       )
     ) {
-      setStories(stories.filter((s) => s.id !== id));
+      removeSocialStory(id);
     }
   };
 
-  /** Download a story */
   const handleDownloadStory = (story) => {
     const content = buildDownloadContent(story);
     const blob = new Blob([content], { type: "text/plain" });
@@ -178,50 +191,39 @@ Make it engaging, supportive, and personalized for the child's needs.
     URL.revokeObjectURL(url);
   };
 
-  /** Begin renaming a story */
   const handleRenameStart = (story) => {
     setIsRenamingId(story.id);
     setRenameValue(story.customName || "");
   };
 
-  /** Save the new name */
   const handleRenameSave = (story) => {
-    setStories(
-      stories.map((s) =>
-        s.id === story.id ? { ...s, customName: renameValue.trim() } : s
-      )
-    );
+    const updatedStory = { ...story, customName: renameValue.trim() };
+    updateSocialStory(story.id, updatedStory);
     setIsRenamingId(null);
     setRenameValue("");
   };
 
-  /** Cancel renaming */
   const handleRenameCancel = () => {
     setIsRenamingId(null);
     setRenameValue("");
   };
 
-  /** Toggle expansion of a saved story's content */
   const toggleSavedExpand = (id) => {
     setExpandedSaved((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  // Truncate the generated story for preview (3 lines maximum)
-  const { truncated, isTruncated } = (() => {
-    if (!generatedStory) return { truncated: "", isTruncated: false };
-    const lines = generatedStory.split("\n");
-    if (lines.length > 3) {
-      return { truncated: lines.slice(0, 3).join("\n"), isTruncated: true };
-    }
-    return { truncated: generatedStory, isTruncated: false };
-  })();
+  const { truncated, isTruncated } = truncateContent(generatedStory);
 
   return (
     <>
       {isLoading && <LoadingOverlay />}
       <div className="social-stories-page">
         <h1>
-          <FaBookOpen size={40} color="#00c7eb" /> Social Stories
+          <FaBookOpen size={40} color="#00c7eb" /> Social Stories{" "}
+          <span className="credits-display">
+            {" "}
+            Credit balance: {credits || 0}
+          </span>
         </h1>
         <p>
           Social Stories are custom narratives tailored to teach specific social
@@ -229,7 +231,6 @@ Make it engaging, supportive, and personalized for the child's needs.
           guidance that complements each individual's unique needs.
         </p>
 
-        {/* Section to generate a new story */}
         <div className="generate-section">
           <label className="label-inline">
             Select a Chat:
@@ -308,6 +309,50 @@ Make it engaging, supportive, and personalized for the child's needs.
               </option>
             </select>
           </label>
+
+          <label className="label-inline">
+            Support Level:
+            <select
+              value={supportLevel}
+              onChange={(e) => setSupportLevel(e.target.value)}
+            >
+              <option value="Level 1 (Low Support Needs)">
+                Level 1 (Low Support Needs)
+              </option>
+              <option value="Level 2 (Moderate Support Needs)">
+                Level 2 (Moderate Support Needs)
+              </option>
+              <option value="Level 3 (High Support Needs)">
+                Level 3 (High Support Needs)
+              </option>
+            </select>
+          </label>
+
+          <label className="label-inline">
+            Tone:
+            <select value={tone} onChange={(e) => setTone(e.target.value)}>
+              <option value="Calm and Reassuring">Calm and Reassuring</option>
+              <option value="Positive and Encouraging">
+                Positive and Encouraging
+              </option>
+              <option value="Direct and Instructional">
+                Direct and Instructional
+              </option>
+            </select>
+          </label>
+
+          <label className="label-inline">
+            Context:
+            <select
+              value={context}
+              onChange={(e) => setContext(e.target.value)}
+            >
+              <option value="Home">Home</option>
+              <option value="School">School</option>
+              <option value="Community">Community</option>
+            </select>
+          </label>
+
           <button
             onClick={handleGenerateStory}
             disabled={isGenerating}
@@ -339,14 +384,13 @@ Make it engaging, supportive, and personalized for the child's needs.
 
         <hr />
 
-        {/* Display saved stories */}
         <div className="saved-stories-section">
           <h2>Saved Stories</h2>
-          {stories.length === 0 ? (
+          {socialStories.length === 0 ? (
             <p>No stories saved yet.</p>
           ) : (
             <div className="stories-list">
-              {stories.map((story) => {
+              {socialStories.map((story) => {
                 const displayDate = formatTimestamp(story.date);
                 const displayTitle = story.customName || displayDate;
                 const isStoryRenaming = isRenamingId === story.id;

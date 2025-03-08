@@ -1,81 +1,82 @@
 ```markdown
-autism-support-app/
-├── backend/
-│ ├── server.js # Express server handling Stripe payments
-│ ├── package.json # Backend dependencies and scripts
-│ ├── .env # Backend environment variables (e.g., STRIPE_SECRET_KEY)
-│ └── README.md # Backend-specific documentation (optional)
-├── config/
-│ └── serviceAccountKey.json # Firebase service account key
-├── public/
-│ ├── favicon.ico # Favicon for the app
-│ ├── index.html # Root HTML file
-│ ├── logo192.png # Logo assets
-│ ├── logo512.png # Logo assets
-│ ├── manifest.json # Web app manifest
-│ └── 404.html # Custom error page (optional)
-├── src/
-│ ├── components/
-│ │ ├── StoryActions.js
-│ │ ├── Tooltip.js
-│ │ ├── ChatModal.js # Modal for displaying AI interactions
-│ │ ├── CheckoutForm.js
-│ │ ├── ChildProfileForm.js # Form for inputting child data
-│ │ ├── Footer.js
-│ │ ├── Header.js # Header with navigation
-│ │ ├── LoadingOverlay.js
-│ │ ├── MobileSidebar.js
-│ │ ├── PaymentComponent.js
-│ │ ├── TTSRadialControls.jsx
-│ │ └── PrivateRoute.js # New file for protecting routes
-│ ├── context/
-│ │ └── UserContext.js # New file for user context
-│ ├── core/
-│ │ └── tts-service.js
-│ ├── data/
-│ │ └── navData.js
-│ ├── hooks/
-│ │ └── useLocalStorage.js
-│ ├── pages/
-│ │ ├── CreateProfile.js
-│ │ ├── SignIn.js
-│ │ ├── SignUp.js
-│ │ ├── SocialStories.js
-│ │ ├── About.js # About page
-│ │ ├── ChatHistoryDisplay.js
-│ │ ├── Interactions.js # Page for viewing saved interactions
-│ │ └── Payment.js # Payment page
-│ ├── services/
-│ │ ├── paymentService.js
-│ │ └── aiService.js # AI service for handling API requests
-│ ├── styles/
-│ │ ├── CreateProfile.css
-│ │ ├── SignIn.css
-│ │ ├── SignUp.css
-│ │ ├── About.css
-│ │ ├── SocialStories.css
-│ │ ├── StoryActions.css
-│ │ ├── Header.css # Styles for the header
-│ │ ├── Footer.css # Styles for the footer
-│ │ ├── Interaction.css
-│ │ ├── Payment.css
-│ │ ├── App.css # General/global styles for the app
-│ │ ├── ChildProfileForm.css # Specific styles for the form
-│ │ └── ChatModal.css # Specific styles for the chat modal
-├── hooks/
-│ │ ├── useBodyScrollLock.js
-│ │ └── useLocalStorage.js
-│ ├── utils/
-│ │ ├── rateLimiter.js
-│ │ └── ScrollToTop.js
-│ ├── firebase.js # Firebase configuration file
-│ ├── App.js # Main app component
-│ ├── index.js # Entry point
-│ └── index.css # Basic global styles
-├── .env # Environment variables (e.g., AI API keys, Firebase config)
-├── .gitignore # Ignored files
-├── package.json # Dependencies and scripts
-└── README.md # Documentation
+autism-support-app/ # Root directory of the autism support application
+├── backend/ # Backend-related files for server-side logic
+│ ├── server.js # Express server handling Stripe payments and API routes
+│ ├── package.json # Backend dependencies (e.g., Express, Stripe) and scripts
+│ ├── .env # Backend environment variables (e.g., STRIPE_SECRET_KEY, PORT)
+│ └── README.md # Optional backend-specific setup and usage instructions
+├── config/ # Configuration files for external services
+│ └── serviceAccountKey.json # Firebase service account key for admin SDK access
+├── public/ # Static assets served to the browser
+│ ├── favicon.ico # Icon displayed in browser tabs
+│ ├── index.html # Root HTML file with app mounting point
+│ ├── logo192.png # 192x192 logo for PWA (Progressive Web App) support
+│ ├── logo512.png # 512x512 logo for PWA splash screens
+│ ├── manifest.json # Web app manifest for PWA features (e.g., app name, icons)
+│ └── 404.html # Optional custom 404 error page for invalid routes
+├── src/ # Source code for the frontend application
+│ ├── components/ # Reusable React components
+│ │ ├── StoryActions.js # Component for story-related actions (e.g., save, share)
+│ │ ├── Tooltip.js # Component for displaying tooltips
+│ │ ├── ChatModal.js # Modal for displaying AI chat interactions
+│ │ ├── CheckoutForm.js # Form for processing payments via Stripe
+│ │ ├── ChildProfileForm.js # Form for inputting child data to create custom care plans
+│ │ ├── Footer.js # Footer component with links or info
+│ │ ├── Header.js # Header with navigation links or branding
+│ │ ├── LoadingOverlay.js # Overlay for loading states across the app
+│ │ ├── MobileSidebar.js # Sidebar navigation for mobile devices
+│ │ ├── PaymentComponent.js # Component for payment-related UI
+│ │ ├── TTSRadialControls.jsx # Radial controls for text-to-speech (TTS) functionality
+│ │ ├── PublicRoute.js # Route wrapper for public-access pages
+│ │ └── PrivateRoute.js # Route wrapper for authenticated users only
+│ ├── context/ # React context for state management
+│ │ └── UserContext.js # Context for managing user authentication state
+│ ├── core/ # Core logic or utilities
+│ │ └── tts-service.js # Service for text-to-speech functionality
+│ ├── data/ # Static data files
+│ │ └── navData.js # Data for navigation links or menu items
+│ ├── hooks/ # Custom React hooks
+│ │ ├── useCreditTracker.js # Hook to track user credits (e.g., for AI usage)
+│ │ ├── useLocalStorage.js # Hook to manage data in local storage
+│ │ └── useBodyScrollLock.js # Hook to lock body scroll (e.g., for modals)
+│ ├── pages/ # Page-level components for routing
+│ │ ├── CreateProfile.js # Page for creating a user or child profile
+│ │ ├── SignIn.js # Sign-in page for user authentication
+│ │ ├── SignUp.js # Sign-up page for new user registration
+│ │ ├── SocialStories.js # Page to generate custom social stories
+│ │ ├── AboutPage.js # Informational page about the app
+│ │ ├── ChatHistoryDisplay.js # Page to view past AI chat interactions
+│ │ ├── Interactions.js # Page for viewing saved user interactions
+│ │ └── Payment.js # Page for handling payment flows
+│ ├── services/ # API or external service integrations
+│ │ ├── paymentService.js # Logic for payment processing (e.g., Stripe API calls)
+│ │ └── aiService.js # Logic for AI API requests (e.g., generating stories)
+│ ├── styles/ # CSS files for styling components
+│ │ ├── CreateProfile.css # Styles for the CreateProfile page
+│ │ ├── SignIn.css # Styles for the SignIn page
+│ │ ├── SignUp.css # Styles for the SignUp page
+│ │ ├── AboutPage.css # Styles for the AboutPage
+│ │ ├── SocialStories.css # Styles for the SocialStories page
+│ │ ├── StoryActions.css # Styles for story action buttons/components
+│ │ ├── Header.css # Styles for the Header component
+│ │ ├── Footer.css # Styles for the Footer component
+│ │ ├── Interaction.css # Styles for the Interactions page
+│ │ ├── Payment.css # Styles for the Payment page
+│ │ ├── App.css # Global styles applied across the app
+│ │ ├── ChildProfileForm.css # Styles specific to the ChildProfileForm component
+│ │ └── ChatModal.css # Styles specific to the ChatModal component
+│ ├── utils/ # Utility functions
+│ │ ├── rateLimiter.js # Function to limit API request frequency
+│ │ └── ScrollToTop.js # Utility to scroll to top on route change
+│ ├── App.js # Main app component with routing and layout
+│ ├── firebase.js # Firebase configuration and initialization
+│ ├── index.js # Entry point for React app rendering
+│ └── index.css # Basic global CSS (e.g., resets, typography)
+├── firestore.rules # Security rules for Firestore database
+├── .env # Frontend environment variables (e.g., Firebase config, AI API keys)
+├── .gitignore # Files and directories to ignore in Git (e.g., node_modules)
+├── package.json # Frontend dependencies (e.g., React, Firebase) and scripts
+└── README.md # Project overview, setup instructions, and documentation
 ```
 
 # 🎉 Stripe Subscription Payments Integration

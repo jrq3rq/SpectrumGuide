@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
   useLocation,
 } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
@@ -36,9 +35,10 @@ const SaveLastPage = () => {
 
 const App = () => {
   const location = useLocation();
-  const pagesWithBackground = ["/", "/signup"];
+  const pagesWithBackground = ["/", "/signup", "/signin"];
 
   useEffect(() => {
+    console.log("App - Pathname changed to:", location.pathname);
     if (pagesWithBackground.includes(location.pathname)) {
       document.body.classList.add("has-background");
     } else {
@@ -52,47 +52,29 @@ const App = () => {
       <SaveLastPage />
       <Header />
       <main>
-        <Routes>
-          <Route element={<PublicRoute />}>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<LoadingOverlay />}>
-                  <SignIn />
-                </Suspense>
-              }
-            />
-            <Route path="/signup" element={<SignUp />} />
-          </Route>
-          <Route
-            path="/create-profile"
-            element={
-              <Suspense fallback={<LoadingOverlay />}>
-                <CreateProfile />
-              </Suspense>
-            }
-          />
-          <Route element={<PrivateRoute />}>
-            <Route
-              path="/form"
-              element={<ChildProfileForm key={Date.now()} />}
-            />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/history" element={<ChatHistoryDisplay />} />
-            <Route path="/social-stories" element={<SocialStories />} />
-            <Route path="/interactive-hub" element={<InteractiveHub />} />
-          </Route>
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to={sessionStorage.getItem("lastVisitedPage") || "/form"}
-                replace
+        <Suspense fallback={<LoadingOverlay />}>
+          <Routes>
+            <Route element={<PublicRoute />}>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route
+                path="/form"
+                element={<ChildProfileForm key={Date.now()} />}
               />
-            }
-          />
-        </Routes>
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/history" element={<ChatHistoryDisplay />} />
+              <Route path="/social-stories" element={<SocialStories />} />
+              <Route path="/interactive-hub" element={<InteractiveHub />} />
+              <Route path="/create-profile" element={<CreateProfile />} />
+            </Route>
+            {/* Removed wildcard redirect to prevent loops */}
+            <Route path="*" element={<SignIn />} /> {/* Fallback to SignIn */}
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

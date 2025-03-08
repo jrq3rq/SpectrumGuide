@@ -2,11 +2,21 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/MobileSidebar.css";
 import { useUser } from "../context/UserContext";
-import { useCredits } from "../hooks/useCredits";
+import useCreditTracker from "../hooks/useCreditTracker"; // Corrected from useCredits
+import { firestore } from "../firebase"; // Import firestore for useCreditTracker
 
 const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
-  const { isAdmin } = useUser(); // Updated to get isAdmin from context
-  const credits = useCredits(); // Use the hook to get credits
+  const { isAdmin, user, userPlan, credits: contextCredits } = useUser(); // Get necessary data from UserContext
+
+  // Use useCreditTracker to get the current credit count
+  const { credits } = useCreditTracker({
+    firestore,
+    uid: user?.uid || null, // Use null if no uid yet
+    initialCredits: isAdmin ? 999999 : contextCredits || 0, // Start with UserContext credits
+    initialAiUsage: user?.aiUsage || { carePlans: 0, stories: 0, aiChats: 0 },
+    plan: userPlan || "free",
+    isAdmin,
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -19,6 +29,17 @@ const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
       document.body.style.overflow = "auto"; // Reset on unmount
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    console.log(
+      "MobileSidebar - Credits:",
+      credits,
+      "isAdmin:",
+      isAdmin,
+      "localStorage credits:",
+      localStorage.getItem(`credits_${user?.uid}`)
+    );
+  }, [credits, isAdmin, user?.uid]); // Debug log to verify credits
 
   return (
     <>
@@ -36,9 +57,9 @@ const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
               onClick={toggleSidebar}
             >
               {item.icon}
-              {item.id === 4 && ( // Check if this is the 'Buy Credits' link
-                <span className="credits-display-mobile">
-                  {isAdmin ? "∞" : credits} {/* Updated here to use isAdmin */}
+              {item.name === "Credits" && ( // Updated to use name instead of id for consistency
+                <span className="credits-display">
+                  {isAdmin ? "∞" : credits || 0}
                 </span>
               )}
               <span>{item.name}</span>

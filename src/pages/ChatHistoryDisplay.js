@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "../styles/ChatHistoryDisplay.css";
+import { useUser } from "../context/UserContext";
 
 /** Format timestamp for display */
 function formatTimestamp(timestamp) {
@@ -147,44 +148,27 @@ const MessageCard = ({
 };
 
 const ChatHistoryDisplay = () => {
-  const [messages, setMessages] = useState([]);
-  const chatContainerRef = React.useRef(null);
-  // Load only "profileFormResponse" chat history from localStorage
-  useEffect(() => {
-    const savedMessages = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    // ✅ Only keep messages with type "profileFormResponse"
-    const filteredMessages = savedMessages.filter(
-      (msg) => msg.type === "profileFormResponse"
-    );
-    // Reverse the list here so that the most recent message is at the top
-    setMessages(filteredMessages.reverse());
-  }, []);
-  // Ensure only profile form responses are saved in localStorage
-  useEffect(() => {
-    if (messages.length > 0) {
-      // Save in reverse order so that when loaded, it's in the correct sequence
-      localStorage.setItem("chatHistory", JSON.stringify(messages.reverse()));
-    }
-  }, [messages]);
-  // Scroll to top when messages change, since the most recent message is now at the top
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = 0; // Scroll to top
-    }
-  }, [messages]);
-  // Delete a single message by ID
-  const handleDeleteMessage = useCallback((id) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = prevMessages.filter((msg) => msg.id !== id);
-      localStorage.setItem(
-        "chatHistory",
-        JSON.stringify(updatedMessages.reverse())
-      ); // Save reversed
-      return updatedMessages;
-    });
-  }, []);
+  const {
+    chatHistory,
+    addMessageToHistory,
+    removeMessageFromHistory,
+    addNoteToMessage,
+    deleteNoteFromMessage,
+  } = useUser();
 
-  /** Function to handle downloading a message */
+  // Filter and reverse directly from chatHistory
+  const messages = chatHistory
+    .filter((msg) => msg.type === "profileFormResponse")
+    .reverse();
+
+  // Delete a single message by ID
+  const handleDeleteMessage = useCallback(
+    (id) => {
+      removeMessageFromHistory(id);
+    },
+    [removeMessageFromHistory]
+  );
+
   /** Function to handle downloading a message with cleaned content and correct list numbering */
   const handleDownloadMessage = (message) => {
     // Helper function to clean text of markdown-like symbols
@@ -255,59 +239,29 @@ const ChatHistoryDisplay = () => {
     // Clean up
     URL.revokeObjectURL(url);
   };
+
   // Add a note to a specific message
-  const handleAddNote = (messageId, noteContent) => {
-    const newNote = {
-      id: uuidv4(),
-      content: sanitizeContent(noteContent),
-      timestamp: Date.now(),
-    };
-    setMessages((prevMessages) => {
-      const updatedMessages = prevMessages.map((msg) =>
-        msg.id === messageId ? { ...msg, notes: [...msg.notes, newNote] } : msg
-      );
-      localStorage.setItem(
-        "chatHistory",
-        JSON.stringify(updatedMessages.reverse())
-      ); // Save reversed
-      return updatedMessages;
-    });
-  };
+  const handleAddNote = useCallback(
+    (messageId, noteContent) => {
+      addNoteToMessage(messageId, noteContent);
+    },
+    [addNoteToMessage]
+  );
+
   // Delete a single note by message ID and note ID
-  const handleDeleteNote = (messageId, noteId) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = prevMessages.map((msg) => {
-        if (msg.id === messageId) {
-          return {
-            ...msg,
-            notes: msg.notes.filter((note) => note.id !== noteId),
-          };
-        }
-        return msg;
-      });
-      localStorage.setItem(
-        "chatHistory",
-        JSON.stringify(updatedMessages.reverse())
-      ); // Save reversed
-      return updatedMessages;
-    });
-  };
+  const handleDeleteNote = useCallback(
+    (messageId, noteId) => {
+      deleteNoteFromMessage(messageId, noteId);
+    },
+    [deleteNoteFromMessage]
+  );
 
   return (
     <div className="container">
       <h1 className="title">Chat History</h1>
-      <div className="chatContainer" ref={chatContainerRef}>
+      <div className="chatContainer">
         {messages.length > 0 ? (
           messages.map((msg) => (
-            // <MessageCard
-            //   key={msg.id}
-            //   message={msg}
-            //   onDelete={handleDeleteMessage}
-            //   onAddNote={handleAddNote}
-            //   onDeleteNote={handleDeleteNote}
-            //   onDownload={() => console.log(`Downloading message ${msg.id}`)}
-            //   />
-
             <MessageCard
               key={msg.id}
               message={msg}

@@ -1,51 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { firestore } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
 import LoadingOverlay from "./LoadingOverlay";
 
 const PublicRoute = () => {
-  const { isAuthenticated, user, isLoading, login } = useUser();
-  const [profileChecked, setProfileChecked] = useState(false);
+  const { isAuthenticated, isLoading } = useUser();
+  const location = useLocation();
 
-  useEffect(() => {
-    const checkUserProfile = async () => {
-      if (!user || !isAuthenticated) {
-        setProfileChecked(true); // No user, allow public routes
-        return;
-      }
+  console.log(
+    "PublicRoute - Rendered: isLoading:",
+    isLoading,
+    "isAuthenticated:",
+    isAuthenticated,
+    "pathname:",
+    location.pathname
+  );
 
-      try {
-        const userRef = doc(firestore, "users", user.uid);
-        const docSnap = await getDoc(userRef);
-
-        if (docSnap.exists()) {
-          sessionStorage.removeItem("requiresProfileSetup");
-          login({ ...user, ...docSnap.data() });
-        } else {
-          sessionStorage.setItem("requiresProfileSetup", "true");
-        }
-      } catch (error) {
-        console.error("Error fetching user profile:", error);
-      }
-
-      setProfileChecked(true);
-    };
-
-    if (isAuthenticated) checkUserProfile();
-    else setProfileChecked(true);
-  }, [isAuthenticated, user, login]);
-
-  if (isLoading || !profileChecked) {
-    return <LoadingOverlay />; // Use LoadingOverlay instead of text
+  if (isLoading) {
+    console.log("PublicRoute - Showing LoadingOverlay");
+    return <LoadingOverlay />;
   }
 
   const requiresProfileSetup =
     sessionStorage.getItem("requiresProfileSetup") === "true";
   const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
 
-  if (isAuthenticated) {
+  if (isAuthenticated && !["/signin", "/signup"].includes(location.pathname)) {
+    console.log(
+      "PublicRoute - Redirecting to:",
+      requiresProfileSetup ? "/create-profile" : lastPage
+    );
     return requiresProfileSetup ? (
       <Navigate to="/create-profile" replace />
     ) : (
@@ -53,6 +37,7 @@ const PublicRoute = () => {
     );
   }
 
+  console.log("PublicRoute - Rendering Outlet for:", location.pathname);
   return <Outlet />;
 };
 

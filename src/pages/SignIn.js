@@ -5,31 +5,36 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, firestore } from "../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
-import LoadingOverlay from "../components/LoadingOverlay"; // Added import
+import LoadingOverlay from "../components/LoadingOverlay";
 import "../styles/SignIn.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [testMode, setTestMode] = useState(false);
+  const [testMode] = useState(false); // Remove unused setter
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated, user } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(
+      "SignIn - useEffect triggered, isAuthenticated:",
+      isAuthenticated
+    );
     if (isAuthenticated) {
-      navigate("/form", { state: { refresh: true } });
+      const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
+      navigate(lastPage, { state: { refresh: true } });
     }
   }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
-    setIsLoading(true); // Start loading
+    console.log("SignIn - Form submitted");
+    setIsLoading(true);
     if (process.env.REACT_APP_DISABLE_AUTH === "true") {
       login({ uid: "mockUserId", email: "mock@example.com" }, false);
       setTimeout(() => {
@@ -49,14 +54,14 @@ const SignIn = () => {
       } else {
         result = await signInWithEmailAndPassword(auth, email, password);
       }
-      console.log("User logged in:", result.user);
+      console.log("SignIn - User logged in:", result.user);
       login(result.user);
       setTimeout(() => {
         navigate("/form", { state: { refresh: true } });
         setIsLoading(false);
       }, 1500);
     } catch (error) {
-      console.error("Sign-in error:", error);
+      console.error("SignIn - Sign-in error:", error);
       setError(error.message || "An error occurred during sign-in.");
       setIsLoading(false);
     }
@@ -64,7 +69,7 @@ const SignIn = () => {
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -87,11 +92,20 @@ const SignIn = () => {
         }, 1500);
       }
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
+      console.error("SignIn - Google Sign-In Error:", error);
       setError(error.message || "An error occurred during Google sign-in.");
       setIsLoading(false);
     }
   };
+
+  console.log(
+    "SignIn - Rendering, isAuthenticated:",
+    isAuthenticated,
+    "isLoading:",
+    isLoading,
+    "user:",
+    user
+  );
 
   if (process.env.REACT_APP_DISABLE_AUTH === "true") {
     return (
@@ -108,7 +122,7 @@ const SignIn = () => {
         </button>
         {isAuthenticated && (
           <div>
-            <p>You are now logged in as {user.email}</p>
+            <p>You are now logged in as {user?.email || "Mock User"}</p>
             <Link to="/form">Go to Form</Link>
           </div>
         )}
@@ -156,13 +170,9 @@ const SignIn = () => {
         </form>
         <p className="toggle-sign">
           Don't have an account?{" "}
-          <button
-            type="button"
-            onClick={() => navigate("/signup")}
-            className="link-button"
-          >
+          <Link to="/signup" className="link-button">
             Sign Up
-          </button>
+          </Link>
         </p>
       </div>
     </div>

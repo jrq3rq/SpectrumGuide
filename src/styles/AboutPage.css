@@ -1,3 +1,4 @@
+/* src/styles/AboutPage.css */
 :root {
   --brand-color: #00c7eb; /* Define reusable brand color */
   --text-dark: #333;
@@ -8,7 +9,7 @@
 
 .about-page {
   max-width: 1200px;
-  margin: 60px auto;
+  margin: -40px auto;
   padding: 40px;
   background-color: #fff;
   border: 1px solid #c3c3c3;
@@ -72,6 +73,20 @@
   margin-bottom: 15px;
 }
 
+.proposed-improvements {
+  background-color: #fff3cd;
+  border-radius: 8px 0px 0px 8px;
+  border-left: 4px solid #ffc107;
+  padding: 20px;
+}
+
+.proposed-improvements li {
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 8px 0px 0px 8px;
+  border-bottom: 1px dashed #ffc107;
+}
+
 .privacy-notice {
   background-color: #ffebee;
   padding: 15px;
@@ -124,9 +139,90 @@
   height: auto;
 }
 
+/* New Navigation Section Styles */
+
+.navigation-section-page {
+  max-width: 1200px;
+  margin: 60px auto;
+  /* padding: 20px 40px; */
+  /* background-color: #fff; */
+  /* border: 1px solid #c3c3c3; */
+  border-radius: 8px;
+  color: var(--text-dark);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.navigation-section {
+  /* padding: 20px; */
+  background-color: #00d9ff; /* Light gray to complement #f8f9fa and #e3f8ed */
+  border-radius: 10px;
+  /* box-shadow: var(--shadow); */
+  width: 100%;
+}
+
+.navigation-section h2 {
+  color: #000000; /* Blue to match #00c7eb, for consistency */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Three columns on large screens, responsive */
+  gap: 20px; /* Space between buttons */
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 1px solid var(--brand-color);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-dark);
+  padding: 20px;
+  /* box-shadow: var(--shadow); */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f0f8ff; /* Light blue hover effect */
+}
+
+.nav-button span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: var(--brand-color);
+}
+
+.nav-button p {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+  color: var(--text-light);
+}
+
+/* Mobile Breakpoint Optimization (Reduce Height, Show Only Text) */
 @media (max-width: 768px) {
   .about-page {
-    margin: 60px 20px;
+    margin: -40px 20px;
+    padding: 20px;
+  }
+
+  .navigation-section-page {
+    margin: 40px 0px;
     padding: 20px;
   }
 
@@ -151,5 +247,27 @@
 
   .privacy-notice {
     padding: 12px;
+  }
+
+  .nav-button {
+    height: 80px; /* Reduced height for mobile */
+    padding: 10px; /* Reduced padding */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-button span {
+    font-size: 1.1rem; /* Slightly smaller text */
+    margin-top: 0; /* Remove margin to fit */
+  }
+
+  .nav-button p {
+    display: none; /* Hide description on mobile */
+  }
+
+  .nav-button > :first-child {
+    /* Hide icon on mobile */
+    display: none;
   }
 }

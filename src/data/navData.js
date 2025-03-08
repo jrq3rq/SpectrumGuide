@@ -41,10 +41,10 @@ export const navItems = [
     name: "Logs",
     icon: <MdDescription />,
   },
-  {
-    id: 6,
-    path: "/interactive-hub",
-    name: "Interactive Hub",
-    icon: <FaBrain />,
-  },
+  // {
+  //   id: 6,
+  //   path: "/interactive-hub",
+  //   name: "Interactive Hub",
+  //   icon: <FaBrain />,
+  // },
 ];

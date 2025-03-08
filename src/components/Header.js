@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import MobileSidebar from "./MobileSidebar";
 import { navItems } from "../data/navData";
 import { useUser } from "../context/UserContext";
 import "../styles/Header.css";
-import { useCredits } from "../hooks/useCredits";
 
 const Header = () => {
-  const { isAuthenticated, user, logout, isAdmin } = useUser();
+  const { isAuthenticated, user, logout, userPlan, isAdmin, credits } =
+    useUser();
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
-  const credits = useCredits();
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(
+      "Header updated - isAuthenticated:",
+      isAuthenticated,
+      "user:",
+      user,
+      "isAdmin:",
+      isAdmin,
+      "credits:",
+      credits
+    );
+  }, [isAuthenticated, user, isAdmin, credits]);
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -42,18 +54,14 @@ const Header = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (confirmed) {
       try {
-        await logout(); // Ensure async logout completes
-        navigate("/signin"); // Redirect user to SignIn page
-        setTimeout(() => {
-          window.location.reload(); // Refresh the page after navigating
-        }, 100); // Small delay to ensure smooth transition
+        await logout();
+        navigate("/signin", { replace: true });
       } catch (error) {
         console.error("Error logging out:", error);
       }
     }
   };
 
-  // Conditional rendering based on authentication status
   if (!isAuthenticated) {
     return (
       <header
@@ -61,8 +69,11 @@ const Header = () => {
         role="banner"
       >
         <div className="header-container">
-          <div className="logo" onClick={() => navigate("/")}>
-            Spectrum <span className="blue-title">Guide</span>
+          <div
+            className="logo"
+            onClick={() => navigate("/signin", { replace: true })}
+          >
+            Spectrum's <span className="blue-title">AI Guide</span>
           </div>
         </div>
       </header>
@@ -75,19 +86,40 @@ const Header = () => {
       role="banner"
     >
       <div className="header-container">
-        <div className="logo" onClick={() => navigate("/")}>
-          Spectrum <span className="blue-title">Guide</span>
-          {/* Spectrum <span className="blue-title">Foundation</span> */}
+        <div
+          className="logo"
+          onClick={() => navigate("/about", { replace: true })}
+        >
+          Spectrum's <span className="blue-title">AI Guide</span>
         </div>
 
         <nav className="nav desktop-links">
           {navItems.map((item) => (
-            <Link key={item.id} to={item.path} className="nav-link">
+            <Link
+              key={item.id}
+              to={item.path}
+              className="nav-link"
+              onClick={(e) => {
+                console.log(`Navbar clicked ${item.name} link to ${item.path}`);
+                if (
+                  !isAuthenticated &&
+                  item.path !== "/signin" &&
+                  item.path !== "/signup"
+                ) {
+                  console.warn(
+                    "Not authenticated, blocking navigation to private route"
+                  );
+                  e.preventDefault();
+                  navigate("/signin", { replace: true });
+                } else {
+                  sessionStorage.setItem("lastVisitedPage", item.path);
+                }
+              }}
+            >
               {item.icon}
-              {item.id === 4 && (
-                // <span className="credits-display">{credits}</span>
+              {item.name === "Credits" && (
                 <span className="credits-display">
-                  {isAdmin ? "∞" : credits} {/* Updated here to use isAdmin */}
+                  {isAdmin ? "∞" : credits || 0}
                 </span>
               )}
               <span>{item.name}</span>
@@ -100,7 +132,7 @@ const Header = () => {
             {isProfileOpen && (
               <div className="profile-dropdown">
                 <span className="profile-name">
-                  {user?.displayName || "User"}
+                  {user?.displayName || user?.email || "User"}
                 </span>
                 <button onClick={handleLogout} className="profile-button">
                   Logout
@@ -121,6 +153,10 @@ const Header = () => {
         isOpen={isMobileMenuOpen}
         toggleSidebar={toggleMobileMenu}
         navItems={navItems}
+        isAuthenticated={isAuthenticated}
+        isAdmin={isAdmin}
+        credits={credits}
+        userPlan={userPlan}
       />
     </header>
   );

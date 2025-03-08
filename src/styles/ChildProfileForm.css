@@ -13,6 +13,19 @@
   border: 1px solid #c3c3c3;
 }
 
+.credits-display-form {
+  display: inline-block;
+  background-color: #ffffff; /* Light grey background to match the style */
+  color: #555555; /* Black text */
+  font-size: 14px; /* Smaller than sidebar-link text */
+  padding: 5px 10px; /* Small padding */
+  border-radius: 4px; /* Rounded corners */
+  vertical-align: middle; /* Align with the text vertically */
+  line-height: 1; /* To ensure it's the same height as the text */
+  width: auto;
+  border: 1px solid #c3c3c3;
+}
+
 /* Form Container: Layout inside the form */
 .form-container {
   display: flex;
@@ -200,6 +213,7 @@ textarea:focus {
 .button-container button[type="submit"] {
   background-color: #00c7eb; /* Green */
   border: 1px solid #908f8f; /* Add the desired border */
+  border-radius: 6px;
 }
 
 /* Refresh Button */
@@ -211,14 +225,14 @@ textarea:focus {
 /* Disabled Button State */
 .button-container button:disabled {
   background-color: #a5d6a7; /* Light green when disabled */
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #c3c3c3; /* Add the desired border */
   cursor: not-allowed;
 }
 
 /* Hover Effect for Buttons */
 .button-container button:hover {
   background-color: #00c7eb; /* Darker shade on hover */
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #c3c3c3; /* Add the desired border */
   transform: translateY(-2px); /* Slight lift effect */
 }
 
@@ -286,7 +300,7 @@ textarea::placeholder {
   align-items: center;
   padding: 5px 0px 5px 0px;
   background-color: #00c7eb;
-  border: 1px solid #555555; /* Add the desired border */
+  border: 1px solid #c3c3c3; /* Add the desired border */
   color: #ffffff;
   border-radius: 6px;
 }

@@ -1,13 +1,13 @@
 .footer {
-  background-color: #ffffff;
-  color: #000;
+  background-color: #00d9ff;
+  color: #555555;
   text-align: center;
   padding: 15px 20px;
   font-size: 14px;
   font-weight: 500;
-  border-top: 1px solid #c3c3c3;
-  border-right: 1px solid #c3c3c3;
-  border-left: 1px solid #c3c3c3;
+  border-top: 1px solid #00d9ff;
+  border-right: 1px solid #00d9ff;
+  border-left: 1px solid #00d9ff;
   /* border-top-right-radius: 10px;
   border-top-left-radius: 10px; */
   width: 100%;

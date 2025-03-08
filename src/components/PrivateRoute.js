@@ -10,21 +10,38 @@ const PrivateRoute = () => {
   const hasProfile = user?.firstName && user?.lastName && user?.dob;
 
   useEffect(() => {
+    console.log(
+      "PrivateRoute - Rendered: isLoading:",
+      isLoading,
+      "isAuthenticated:",
+      isAuthenticated,
+      "hasProfile:",
+      hasProfile,
+      "pathname:",
+      location.pathname
+    );
     if (isAuthenticated && hasProfile) {
       sessionStorage.setItem("lastVisitedPage", location.pathname);
     }
   }, [isAuthenticated, hasProfile, location.pathname]);
 
-  if (isLoading) return <LoadingOverlay />;
+  // Wait for auth to resolve (isAuthenticated is null initially)
+  if (isLoading || isAuthenticated === null) {
+    console.log("PrivateRoute - Showing LoadingOverlay");
+    return <LoadingOverlay />;
+  }
 
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    console.log("PrivateRoute - Redirecting to /signin");
+    return <Navigate to="/signin" replace />;
   }
 
   if (!hasProfile) {
+    console.log("PrivateRoute - Redirecting to /create-profile");
     return <Navigate to="/create-profile" replace />;
   }
 
+  console.log("PrivateRoute - Rendering Outlet for:", location.pathname);
   return <Outlet />;
 };
 
