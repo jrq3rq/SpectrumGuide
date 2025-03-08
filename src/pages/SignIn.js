@@ -9,14 +9,17 @@ import { doc, getDoc } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import LoadingOverlay from "../components/LoadingOverlay";
+import FloatingInfoBot from "../components/FloatingInfoBot";
+import InfoModal from "../components/InfoModal";
 import "../styles/SignIn.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [testMode] = useState(false); // Remove unused setter
+  const [testMode] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const { login, isAuthenticated, user } = useUser();
   const navigate = useNavigate();
 
@@ -126,6 +129,12 @@ const SignIn = () => {
             <Link to="/form">Go to Form</Link>
           </div>
         )}
+        <FloatingInfoBot onClick={() => setIsInfoModalOpen(true)} />
+        {isInfoModalOpen && (
+          <div className="modal-overlay">
+            <InfoModal onClose={() => setIsInfoModalOpen(false)} />
+          </div>
+        )}
       </div>
     );
   }
@@ -175,6 +184,12 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
+      <FloatingInfoBot onClick={() => setIsInfoModalOpen(true)} />
+      {isInfoModalOpen && (
+        <div className="modal-overlay">
+          <InfoModal onClose={() => setIsInfoModalOpen(false)} />
+        </div>
+      )}
     </div>
   );
 };

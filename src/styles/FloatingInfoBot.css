@@ -1,0 +1,30 @@
+.floating-info-bot {
+  position: fixed;
+  bottom: 20px;
+  right: -60px; /* Start off-screen */
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff; /* Blue to complement FaInfoCircle */
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  border: 1px solid #c3c3c3;
+}
+
+.floating-info-bot.slide-in {
+  right: 20px; /* Slide in to visible position */
+}
+
+.info-icon {
+  color: #00d9ff;
+  font-size: 24px;
+}
+
+.floating-info-bot:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

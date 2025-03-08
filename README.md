@@ -16,6 +16,8 @@ autism-support-app/ # Root directory of the autism support application
 │ └── 404.html # Optional custom 404 error page for invalid routes
 ├── src/ # Source code for the frontend application
 │ ├── components/ # Reusable React components
+│ │ ├── InfoModal.js
+│ │ ├── FloatingInfoBot.js
 │ │ ├── StoryActions.js # Component for story-related actions (e.g., save, share)
 │ │ ├── Tooltip.js # Component for displaying tooltips
 │ │ ├── ChatModal.js # Modal for displaying AI chat interactions
@@ -52,6 +54,8 @@ autism-support-app/ # Root directory of the autism support application
 │ │ ├── paymentService.js # Logic for payment processing (e.g., Stripe API calls)
 │ │ └── aiService.js # Logic for AI API requests (e.g., generating stories)
 │ ├── styles/ # CSS files for styling components
+│ │ ├── InfoModal.css
+│ │ ├── FloatingInfoBot.css
 │ │ ├── CreateProfile.css # Styles for the CreateProfile page
 │ │ ├── SignIn.css # Styles for the SignIn page
 │ │ ├── SignUp.css # Styles for the SignUp page

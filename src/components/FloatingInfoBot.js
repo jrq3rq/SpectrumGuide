@@ -9,6 +9,7 @@ const FloatingInfoBot = ({ onClick }) => {
 
   useEffect(() => {
     if (location.pathname === "/signin") {
+      // Delay for a smooth slide-in effect
       setTimeout(() => setIsVisible(true), 100);
     } else {
       setIsVisible(false);
