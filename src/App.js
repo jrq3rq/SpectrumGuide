@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import ScrollToTop from "./utils/ScrollToTop";
@@ -71,8 +72,8 @@ const App = () => {
               <Route path="/interactive-hub" element={<InteractiveHub />} />
               <Route path="/create-profile" element={<CreateProfile />} />
             </Route>
-            {/* Removed wildcard redirect to prevent loops */}
-            <Route path="*" element={<SignIn />} /> {/* Fallback to SignIn */}
+            {/* Fallback for unmatched routes */}
+            <Route path="*" element={<Navigate to="/signin" replace />} />
           </Routes>
         </Suspense>
       </main>

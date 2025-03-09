@@ -16,6 +16,10 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const requiresProfileSetup =
+    sessionStorage.getItem("requiresProfileSetup") === "true";
+  const isOnCreateProfile = location.pathname === "/create-profile";
+
   useEffect(() => {
     console.log(
       "Header updated - isAuthenticated:",
@@ -25,9 +29,11 @@ const Header = () => {
       "isAdmin:",
       isAdmin,
       "credits:",
-      credits
+      credits,
+      "requiresProfileSetup:",
+      requiresProfileSetup
     );
-  }, [isAuthenticated, user, isAdmin, credits]);
+  }, [isAuthenticated, user, isAdmin, credits, requiresProfileSetup]);
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -94,60 +100,55 @@ const Header = () => {
         </div>
 
         <nav className="nav desktop-links">
-          {navItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="nav-link"
-              onClick={(e) => {
-                console.log(`Navbar clicked ${item.name} link to ${item.path}`);
-                if (
-                  !isAuthenticated &&
-                  item.path !== "/signin" &&
-                  item.path !== "/signup"
-                ) {
-                  console.warn(
-                    "Not authenticated, blocking navigation to private route"
+          {!isOnCreateProfile &&
+            !requiresProfileSetup &&
+            navItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.path}
+                className="nav-link"
+                onClick={(e) => {
+                  console.log(
+                    `Navbar clicked ${item.name} link to ${item.path}`
                   );
-                  e.preventDefault();
-                  navigate("/signin", { replace: true });
-                } else {
                   sessionStorage.setItem("lastVisitedPage", item.path);
-                }
-              }}
-            >
-              {item.icon}
-              {item.name === "Credits" && (
-                <span className="credits-display">
-                  {isAdmin ? "∞" : credits || 0}
-                </span>
-              )}
-              <span>{item.name}</span>
-            </Link>
-          ))}
+                }}
+              >
+                {item.icon}
+                {item.name === "Credits" && (
+                  <span className="credits-display">
+                    {isAdmin ? "∞" : credits || 0}
+                  </span>
+                )}
+                <span>{item.name}</span>
+              </Link>
+            ))}
         </nav>
-        <div className="header-right-icons">
-          <div className="profile-menu" onClick={toggleProfileMenu}>
-            <FaUserCircle className="profile-icon" />
-            {isProfileOpen && (
-              <div className="profile-dropdown">
-                <span className="profile-name">
-                  {user?.displayName || user?.email || "User"}
-                </span>
-                <button onClick={handleLogout} className="profile-button">
-                  Logout
-                </button>
-              </div>
-            )}
+        {/* Hide header-right-icons until profile setup is complete */}
+        {!requiresProfileSetup && (
+          <div className="header-right-icons">
+            <div className="profile-menu" onClick={toggleProfileMenu}>
+              <FaUserCircle className="profile-icon" />
+              {isProfileOpen && (
+                <div className="profile-dropdown">
+                  <span className="profile-name">
+                    {user?.displayName || user?.email || "User"}
+                  </span>
+                  <button onClick={handleLogout} className="profile-button">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+            <button
+              className={`mobile-menu-icon ${isMobileMenuOpen ? "open" : ""}`}
+              onClick={toggleMobileMenu}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <FaBars />
+            </button>
           </div>
-          <button
-            className={`mobile-menu-icon ${isMobileMenuOpen ? "open" : ""}`}
-            onClick={toggleMobileMenu}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <FaBars />
-          </button>
-        </div>
+        )}
       </div>
       <MobileSidebar
         isOpen={isMobileMenuOpen}

@@ -1,10 +1,12 @@
-/* src/styles/AboutPage.css */
 :root {
   --brand-color: #00c7eb; /* Define reusable brand color */
   --text-dark: #333;
   --text-medium: #4a4a4a;
   --text-light: #666;
   --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --neutral-light: #f5f5f0; /* Soft beige for neutrality */
+  --neutral-accent: #8a9a5b; /* Subtle earthy green */
+  --curtain-color: #e0e0d1; /* Light grayish curtain effect */
 }
 
 .about-page {
@@ -39,7 +41,7 @@
 .about-page ul {
   list-style: none;
   padding: 0;
-  margin: 25px 0 20px;
+  /* margin: 25px 0 20px; */
 }
 
 .about-page li {
@@ -76,15 +78,14 @@
 .proposed-improvements {
   background-color: #fff3cd;
   border-radius: 8px 0px 0px 8px;
-  border-left: 4px solid #ffc107;
   padding: 20px;
 }
 
 .proposed-improvements li {
   padding: 10px;
-  margin-left: 10px;
+  margin: 10px 20px;
   border-radius: 8px 0px 0px 8px;
-  border-bottom: 1px dashed #ffc107;
+  /* border-bottom: 1px dashed #ffc107; */
 }
 
 .privacy-notice {
@@ -214,6 +215,66 @@
   color: var(--text-light);
 }
 
+/* Enhanced Nature-Inspired Dropdowns with Smoother Animations */
+.expandable-section {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  padding: 15px 20px;
+  background-color: #fff3cd;
+  /* border: 1px solid #e0e0e0; */
+  border-left: 4px solid #ffc107;
+  /* border-top: 1px solid #ffc107;
+  border-right: 1px solid #ffc107;
+  border-bottom: 1px solid #ffc107; */
+  border-radius: 10px 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align text and icon evenly */
+}
+
+.expandable-section:hover {
+  background-color: #fae49e; /* Slightly darker beige on hover */
+}
+
+.expandable-section .expand-icon {
+  margin-left: 10px; /* Small space between text and icon */
+  font-size: 1.8rem; /* Increased icon size for better visibility */
+  color: #ffc107;
+  transition: transform 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6); /* Smoother elastic easing */
+}
+
+.expandable-section .expand-icon.open {
+  transform: rotate(180deg); /* Full rotation for open state */
+}
+
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  /* border-top: 0px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0; */
+  padding: 0 20px;
+  margin-top: -10px;
+  border-radius: 0 0 10px 10px;
+  transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; /* Smoother with opacity fade */
+  opacity: 0;
+}
+
+.expandable-content.open {
+  max-height: inherit; /* Inherit from parent or adjust dynamically */
+  padding: 15px 20px;
+  opacity: 1; /* Fade in effect */
+}
+
 /* Mobile Breakpoint Optimization (Reduce Height, Show Only Text) */
 @media (max-width: 768px) {
   .about-page {
@@ -269,5 +330,15 @@
   .nav-button > :first-child {
     /* Hide icon on mobile */
     display: none;
+  }
+
+  .expandable-section {
+    font-size: 1.5rem;
+    padding: 10px 15px;
+  }
+
+  .expandable-section .expand-icon {
+    font-size: 1.5rem; /* Adjusted for mobile */
+    margin-left: 8px; /* Adjusted spacing for mobile */
   }
 }

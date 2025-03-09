@@ -1,10 +1,37 @@
-// src/pages/AboutPage.js
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
-import { FaBookOpen, FaHistory, FaRobot } from "react-icons/fa"; // Import only relevant icons
+import { FaBookOpen, FaHistory, FaRobot, FaChevronDown } from "react-icons/fa"; // Import FaChevronDown
 import "../styles/AboutPage.css"; // Use or update styles specific to the About page
 
 const AboutPage = () => {
+  // State to control dropdown visibility
+  const [isImprovementsOpen, setIsImprovementsOpen] = useState(false);
+  const [isSymptomsOpen, setIsSymptomsOpen] = useState(false);
+
+  // Refs to measure content height
+  const improvementsRef = useRef(null);
+  const symptomsRef = useRef(null);
+
+  // Set max-height dynamically based on content
+  const [improvementsHeight, setImprovementsHeight] = useState(0);
+  const [symptomsHeight, setSymptomsHeight] = useState(0);
+
+  useEffect(() => {
+    if (isImprovementsOpen && improvementsRef.current) {
+      setImprovementsHeight(improvementsRef.current.scrollHeight);
+    } else {
+      setImprovementsHeight(0);
+    }
+  }, [isImprovementsOpen]);
+
+  useEffect(() => {
+    if (isSymptomsOpen && symptomsRef.current) {
+      setSymptomsHeight(symptomsRef.current.scrollHeight);
+    } else {
+      setSymptomsHeight(0);
+    }
+  }, [isSymptomsOpen]);
+
   return (
     <>
       <div className="navigation-section-page">
@@ -171,143 +198,179 @@ const AboutPage = () => {
             interactions, safeguarding against unauthorized access. That said,
             we recommend maintaining a backup strategy for your essential data.
           </p>
-          <h2>Proposed Improvements</h2>
-          <ul className="proposed-improvements">
-            <li>
-              <b>Predictive Behavioral Forecasting</b> – Turns reactivity into
-              prevention. Enhance Spectrum Guide’s behavioral and sensory
-              management with real-time pattern analysis and proactive alerts to
-              anticipate needs.
-            </li>
-            <li>
-              <b>Non-Verbal Communication Interpretation</b> – Unlocks
-              understanding for non-verbal individuals. Integrate voice and
-              gesture recognition into Spectrum Guide’s AI suite to provide
-              real-time communication support for non-verbal users.
-            </li>
-            <li>
-              <b>Sensory Environment Optimization</b> – Directly tackles a
-              near-universal need. Connect Spectrum Guide’s sensory management
-              capabilities to external devices for automated environmental
-              adjustments tailored to user preferences.
-            </li>
-            <li>
-              <b>Long-Term Skill Development Tracking</b> – Bridges childhood to
-              independence. Upgrade Spectrum Guide’s data tracking into a
-              comprehensive, long-term development dashboard to monitor progress
-              over time.
-            </li>
-            <li>
-              <b>Social Relationship Building</b> – Fosters lasting connections.
-              Expand Spectrum Guide’s social stories feature into a dynamic
-              social simulation or peer-matching tool to foster relationship
-              development.
-            </li>
-            <li>
-              <b>Mental Health Monitoring</b> – Addresses a hidden crisis.
-              Incorporate mental health analytics into Spectrum Guide’s AI,
-              linking it with behavioral data for holistic well-being insights.
-            </li>
-            <li>
-              <b>Transition Support</b> – Prepares for adulthood. Adapt Spectrum
-              Guide’s Individualized Education Plans (IEPs) into frameworks that
-              support transitions into adulthood, such as school-to-work
-              pathways.
-            </li>
-          </ul>
-          <h2>
+
+          {/* Proposed Improvements Dropdown */}
+          <p
+            className="expandable-section"
+            onClick={() => setIsImprovementsOpen(!isImprovementsOpen)}
+          >
+            Proposed Improvements
+            <FaChevronDown
+              className={`expand-icon ${isImprovementsOpen ? "open" : ""}`}
+              size={20}
+            />
+          </p>
+          <div
+            className={`expandable-content ${isImprovementsOpen ? "open" : ""}`}
+            style={{ maxHeight: `${improvementsHeight}px` }}
+            ref={improvementsRef}
+          >
+            <ul className="proposed-improvements">
+              <li>
+                <b>Predictive Behavioral Forecasting</b> – Turns reactivity into
+                prevention. Enhance Spectrum Guide’s behavioral and sensory
+                management with real-time pattern analysis and proactive alerts
+                to anticipate needs.
+              </li>
+              <li>
+                <b>Non-Verbal Communication Interpretation</b> – Unlocks
+                understanding for non-verbal individuals. Integrate voice and
+                gesture recognition into Spectrum Guide’s AI suite to provide
+                real-time communication support for non-verbal users.
+              </li>
+              <li>
+                <b>Sensory Environment Optimization</b> – Directly tackles a
+                near-universal need. Connect Spectrum Guide’s sensory management
+                capabilities to external devices for automated environmental
+                adjustments tailored to user preferences.
+              </li>
+              <li>
+                <b>Long-Term Skill Development Tracking</b> – Bridges childhood
+                to independence. Upgrade Spectrum Guide’s data tracking into a
+                comprehensive, long-term development dashboard to monitor
+                progress over time.
+              </li>
+              <li>
+                <b>Social Relationship Building</b> – Fosters lasting
+                connections. Expand Spectrum Guide’s social stories feature into
+                a dynamic social simulation or peer-matching tool to foster
+                relationship development.
+              </li>
+              <li>
+                <b>Mental Health Monitoring</b> – Addresses a hidden crisis.
+                Incorporate mental health analytics into Spectrum Guide’s AI,
+                linking it with behavioral data for holistic well-being
+                insights.
+              </li>
+              <li>
+                <b>Transition Support</b> – Prepares for adulthood. Adapt
+                Spectrum Guide’s Individualized Education Plans (IEPs) into
+                frameworks that support transitions into adulthood, such as
+                school-to-work pathways.
+              </li>
+            </ul>
+          </div>
+
+          {/* Symptoms and Dualities Dropdown */}
+          <p
+            className="expandable-section"
+            onClick={() => setIsSymptomsOpen(!isSymptomsOpen)}
+          >
             List of Autism Symptoms and Their Dualities, Ranked by Commonality
-          </h2>
-          <ul className="proposed-improvements">
-            <li>
-              <b>Social Interaction Difficulties</b> – Trouble with social cues,
-              eye contact, reciprocity, or forming relationships (affects ~90%
-              of autistic individuals, per CDC). <b>Duality:</b> Interactive
-              Social Simulations – Use AI-driven virtual or augmented reality
-              (e.g., avatars or AR overlays) to practice social scenarios in a
-              safe, controlled way, building confidence and skills. Directly
-              counters isolation by providing structured, repeatable social
-              exposure.
-            </li>
-            <li>
-              <b>Sensory Sensitivities (Hyper- or Hyposensitivity)</b> – Over-
-              or under-reaction to sounds, lights, textures, etc. (affects
-              ~80–90%, per Sensory Processing Disorder research).{" "}
-              <b>Duality:</b> Adaptive Environmental Control – AI-integrated
-              wearables or smart home systems adjust sensory inputs (e.g., dim
-              lights, reduce noise) in real-time based on detected distress.
-              Balances sensory overload or under-stimulation with tailored
-              environmental responses.
-            </li>
-            <li>
-              <b>Repetitive Behaviors or Restricted Interests</b> – Repetitive
-              movements (e.g., hand-flapping) or intense focus on specific
-              topics (affects ~70–80%, per DSM-5 studies). <b>Duality:</b>{" "}
-              Strength-Based Redirection – Channel these behaviors into
-              productive outlets (e.g., a repetitive hand motion becomes a game
-              controller input; a train obsession fuels a coding project).
-              Transforms rigidity into creative or functional engagement.
-            </li>
-            <li>
-              <b>Communication Challenges (Verbal or Non-Verbal)</b> – Delayed
-              speech, echolalia, or complete non-verbal status (affects ~60–70%,
-              with 25–30% minimally verbal, per CDC). <b>Duality:</b> Sound and
-              Gesture Interpretation – AI uses sound therapy (e.g., musical
-              cues) or gesture recognition to translate non-verbal signals into
-              communication, enhancing expression. Counters silence or
-              repetition with alternative, meaningful output.
-            </li>
-            <li>
-              <b>Difficulty with Change or Transitions</b> – Resistance to
-              routine changes or new environments (affects ~50–60%, per clinical
-              observations). <b>Duality:</b> Predictive Transition Coaching – AI
-              forecasts upcoming changes (e.g., school to home) and provides
-              gradual, visual, or auditory prep (e.g., a countdown with calming
-              tones). Eases rigidity by preempting and smoothing disruptions.
-            </li>
-            <li>
-              <b>Emotional Regulation Issues</b> – Meltdowns, anxiety, or
-              difficulty managing emotions (affects ~40–50%, with higher rates
-              in co-occurring conditions, per NIH). <b>Duality:</b> Real-Time
-              Emotional Feedback – AI via wearables detects stress (e.g., heart
-              rate spikes) and offers instant calming strategies (e.g.,
-              breathing exercises via haptic feedback). Stabilizes volatility
-              with immediate, personalized support.
-            </li>
-            <li>
-              <b>Executive Functioning Deficits</b> – Trouble with planning,
-              organizing, or completing tasks (affects ~30–50%, per autism
-              research). <b>Duality:</b> Task Decomposition AI – Breaks goals
-              into micro-steps with visual or auditory prompts (e.g., “Put on
-              socks” → “Find socks”), adapting to the individual’s pace.
-              Simplifies complexity with structured guidance.
-            </li>
-            <li>
-              <b>Motor Skill Challenges</b> – Fine or gross motor difficulties
-              (e.g., handwriting, coordination) (affects ~20–40%, per studies
-              like Jaswal & Akhtar, 2019). <b>Duality:</b> Motion-Enhancing
-              Interfaces – AI-driven tools (e.g., adaptive styluses or gamified
-              exercises) guide and strengthen motor actions through real-time
-              feedback. Counters physical limitations with assistive, engaging
-              tech.
-            </li>
-            <li>
-              <b>Cognitive Processing Variability</b> – Uneven skills (e.g.,
-              advanced math but poor verbal reasoning) (affects ~20–30%, per
-              splinter skills research). <b>Duality:</b> Adaptive Learning
-              Pathways – AI tailors education to leverage strengths (e.g.,
-              visual math puzzles) while scaffolding weaknesses (e.g., verbal
-              games). Balances uneven abilities with customized growth.
-            </li>
-            <li>
-              <b>Co-occurring Conditions (e.g., Anxiety, ADHD)</b> – Additional
-              mental health or attention issues (affects ~10–40%, per NIH
-              comorbidity data). <b>Duality:</b> Integrated Symptom Monitoring –
-              AI tracks overlapping symptoms (e.g., restlessness from ADHD) and
-              adjusts strategies (e.g., fidget prompts for focus). Addresses
-              complexity by harmonizing support across conditions.
-            </li>
-          </ul>
+            <FaChevronDown
+              className={`expand-icon ${isSymptomsOpen ? "open" : ""}`}
+              size={20}
+            />
+          </p>
+          <div
+            className={`expandable-content ${isSymptomsOpen ? "open" : ""}`}
+            style={{ maxHeight: `${symptomsHeight}px` }}
+            ref={symptomsRef}
+          >
+            <ul className="proposed-improvements">
+              <li>
+                <b>Social Interaction Difficulties</b> – Trouble with social
+                cues, eye contact, reciprocity, or forming relationships
+                (affects ~90% of autistic individuals, per CDC). <b>Duality:</b>{" "}
+                Interactive Social Simulations – Use AI-driven virtual or
+                augmented reality (e.g., avatars or AR overlays) to practice
+                social scenarios in a safe, controlled way, building confidence
+                and skills. Directly counters isolation by providing structured,
+                repeatable social exposure.
+              </li>
+              <li>
+                <b>Sensory Sensitivities (Hyper- or Hyposensitivity)</b> – Over-
+                or under-reaction to sounds, lights, textures, etc. (affects
+                ~80–90%, per Sensory Processing Disorder research).{" "}
+                <b>Duality:</b> Adaptive Environmental Control – AI-integrated
+                wearables or smart home systems adjust sensory inputs (e.g., dim
+                lights, reduce noise) in real-time based on detected distress.
+                Balances sensory overload or under-stimulation with tailored
+                environmental responses.
+              </li>
+              <li>
+                <b>Repetitive Behaviors or Restricted Interests</b> – Repetitive
+                movements (e.g., hand-flapping) or intense focus on specific
+                topics (affects ~70–80%, per DSM-5 studies). <b>Duality:</b>{" "}
+                Strength-Based Redirection – Channel these behaviors into
+                productive outlets (e.g., a repetitive hand motion becomes a
+                game controller input; a train obsession fuels a coding
+                project). Transforms rigidity into creative or functional
+                engagement.
+              </li>
+              <li>
+                <b>Communication Challenges (Verbal or Non-Verbal)</b> – Delayed
+                speech, echolalia, or complete non-verbal status (affects
+                ~60–70%, with 25–30% minimally verbal, per CDC). <b>Duality:</b>{" "}
+                Sound and Gesture Interpretation – AI uses sound therapy (e.g.,
+                musical cues) or gesture recognition to translate non-verbal
+                signals into communication, enhancing expression. Counters
+                silence or repetition with alternative, meaningful output.
+              </li>
+              <li>
+                <b>Difficulty with Change or Transitions</b> – Resistance to
+                routine changes or new environments (affects ~50–60%, per
+                clinical observations). <b>Duality:</b> Predictive Transition
+                Coaching – AI forecasts upcoming changes (e.g., school to home)
+                and provides gradual, visual, or auditory prep (e.g., a
+                countdown with calming tones). Eases rigidity by preempting and
+                smoothing disruptions.
+              </li>
+              <li>
+                <b>Emotional Regulation Issues</b> – Meltdowns, anxiety, or
+                difficulty managing emotions (affects ~40–50%, with higher rates
+                in co-occurring conditions, per NIH). <b>Duality:</b> Real-Time
+                Emotional Feedback – AI via wearables detects stress (e.g.,
+                heart rate spikes) and offers instant calming strategies (e.g.,
+                breathing exercises via haptic feedback). Stabilizes volatility
+                with immediate, personalized support.
+              </li>
+              <li>
+                <b>Executive Functioning Deficits</b> – Trouble with planning,
+                organizing, or completing tasks (affects ~30–50%, per autism
+                research). <b>Duality:</b> Task Decomposition AI – Breaks goals
+                into micro-steps with visual or auditory prompts (e.g., “Put on
+                socks” → “Find socks”), adapting to the individual’s pace.
+                Simplifies complexity with structured guidance.
+              </li>
+              <li>
+                <b>Motor Skill Challenges</b> – Fine or gross motor difficulties
+                (e.g., handwriting, coordination) (affects ~20–40%, per studies
+                like Jaswal & Akhtar, 2019). <b>Duality:</b> Motion-Enhancing
+                Interfaces – AI-driven tools (e.g., adaptive styluses or
+                gamified exercises) guide and strengthen motor actions through
+                real-time feedback. Counters physical limitations with
+                assistive, engaging tech.
+              </li>
+              <li>
+                <b>Cognitive Processing Variability</b> – Uneven skills (e.g.,
+                advanced math but poor verbal reasoning) (affects ~20–30%, per
+                splinter skills research). <b>Duality:</b> Adaptive Learning
+                Pathways – AI tailors education to leverage strengths (e.g.,
+                visual math puzzles) while scaffolding weaknesses (e.g., verbal
+                games). Balances uneven abilities with customized growth.
+              </li>
+              <li>
+                <b>Co-occurring Conditions (e.g., Anxiety, ADHD)</b> –
+                Additional mental health or attention issues (affects ~10–40%,
+                per NIH comorbidity data). <b>Duality:</b> Integrated Symptom
+                Monitoring – AI tracks overlapping symptoms (e.g., restlessness
+                from ADHD) and adjusts strategies (e.g., fidget prompts for
+                focus). Addresses complexity by harmonizing support across
+                conditions.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

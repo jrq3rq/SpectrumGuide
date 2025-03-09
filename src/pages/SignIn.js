@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -22,17 +22,6 @@ const SignIn = () => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const { login, isAuthenticated, user } = useUser();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(
-      "SignIn - useEffect triggered, isAuthenticated:",
-      isAuthenticated
-    );
-    if (isAuthenticated) {
-      const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
-      navigate(lastPage, { state: { refresh: true } });
-    }
-  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,10 +48,8 @@ const SignIn = () => {
       }
       console.log("SignIn - User logged in:", result.user);
       login(result.user);
-      setTimeout(() => {
-        navigate("/form", { state: { refresh: true } });
-        setIsLoading(false);
-      }, 1500);
+      navigate("/form", { state: { refresh: true } });
+      setIsLoading(false);
     } catch (error) {
       console.error("SignIn - Sign-in error:", error);
       setError(error.message || "An error occurred during sign-in.");
@@ -74,29 +61,17 @@ const SignIn = () => {
     const provider = new GoogleAuthProvider();
     setIsLoading(true);
     try {
+      console.log("SignIn - Initiating Google Sign-In");
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const userRef = doc(firestore, "users", user.uid);
-      const docSnap = await getDoc(userRef);
-      if (!docSnap.exists()) {
-        sessionStorage.setItem("requiresProfileSetup", "true");
-        setTimeout(() => {
-          navigate("/create-profile", { state: { refresh: true } });
-          setIsLoading(false);
-        }, 1500);
-      } else {
-        sessionStorage.removeItem("requiresProfileSetup");
-        const profileData = docSnap.data();
-        login({ ...user, ...profileData });
-        const lastPage = sessionStorage.getItem("lastVisitedPage") || "/form";
-        setTimeout(() => {
-          navigate(lastPage, { state: { refresh: true } });
-          setIsLoading(false);
-        }, 1500);
-      }
+      console.log("SignIn - Google Sign-In successful, user:", user);
+      login(user, true); // Let UserContext handle navigation
+      setIsLoading(false);
     } catch (error) {
       console.error("SignIn - Google Sign-In Error:", error);
-      setError(error.message || "An error occurred during Google sign-in.");
+      setError(
+        `Google Sign-In failed: ${error.message || "Please try again."}`
+      );
       setIsLoading(false);
     }
   };

@@ -1,22 +1,14 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/MobileSidebar.css";
 import { useUser } from "../context/UserContext";
-import useCreditTracker from "../hooks/useCreditTracker"; // Corrected from useCredits
-import { firestore } from "../firebase"; // Import firestore for useCreditTracker
 
 const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
-  const { isAdmin, user, userPlan, credits: contextCredits } = useUser(); // Get necessary data from UserContext
-
-  // Use useCreditTracker to get the current credit count
-  const { credits } = useCreditTracker({
-    firestore,
-    uid: user?.uid || null, // Use null if no uid yet
-    initialCredits: isAdmin ? 999999 : contextCredits || 0, // Start with UserContext credits
-    initialAiUsage: user?.aiUsage || { carePlans: 0, stories: 0, aiChats: 0 },
-    plan: userPlan || "free",
-    isAdmin,
-  });
+  const { isAdmin, user, userPlan, credits } = useUser();
+  const location = useLocation();
+  const requiresProfileSetup =
+    sessionStorage.getItem("requiresProfileSetup") === "true";
+  const isOnCreateProfile = location.pathname === "/create-profile";
 
   useEffect(() => {
     if (isOpen) {
@@ -49,22 +41,24 @@ const MobileSidebar = ({ isOpen, toggleSidebar, navItems = [] }) => {
         aria-hidden={!isOpen}
       >
         <nav className="sidebar-nav">
-          {navItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.path}
-              className="sidebar-link"
-              onClick={toggleSidebar}
-            >
-              {item.icon}
-              {item.name === "Credits" && ( // Updated to use name instead of id for consistency
-                <span className="credits-display">
-                  {isAdmin ? "∞" : credits || 0}
-                </span>
-              )}
-              <span>{item.name}</span>
-            </Link>
-          ))}
+          {!isOnCreateProfile &&
+            !requiresProfileSetup &&
+            navItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.path}
+                className="sidebar-link"
+                onClick={toggleSidebar}
+              >
+                {item.icon}
+                {item.name === "Credits" && (
+                  <span className="credits-display">
+                    {isAdmin ? "∞" : credits || 0}
+                  </span>
+                )}
+                <span>{item.name}</span>
+              </Link>
+            ))}
         </nav>
       </aside>
       {isOpen && (
