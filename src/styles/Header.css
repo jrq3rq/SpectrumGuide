@@ -243,6 +243,7 @@
     right: 10px; /* Adjust this value to match the header's padding right */
     color: #000000; /* Ensure the icons are black in mobile view */
     background-color: #00d9ff;
+    max-width: 50px;
   }
   .profile-menu {
     color: #000000; /* Ensure the profile menu icon is black in mobile view */

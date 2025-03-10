@@ -38,9 +38,9 @@ const Header = () => {
   useEffect(() => {
     const controlNavbar = () => {
       if (window.scrollY > lastScrollY) {
-        setIsHidden(true);
+        setIsHidden(window.scrollY > 0); // Only hide if not at top (scrollY > 0)
       } else {
-        setIsHidden(false);
+        setIsHidden(false); // Always show when scrolling up or at top
       }
       setLastScrollY(window.scrollY);
     };
@@ -124,7 +124,6 @@ const Header = () => {
               </Link>
             ))}
         </nav>
-        {/* Hide header-right-icons until profile setup is complete */}
         {!requiresProfileSetup && (
           <div className="header-right-icons">
             <div className="profile-menu" onClick={toggleProfileMenu}>

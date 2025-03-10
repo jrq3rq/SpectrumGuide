@@ -79,8 +79,7 @@ input:focus {
 }
 
 /* Buttons - Uniform style for all buttons in the form */
-.generate-button,
-.link-button {
+.generate-button {
   padding: 12px 20px; /* Consistent padding for all buttons */
   border-radius: 5px;
   cursor: pointer;
@@ -102,7 +101,13 @@ input:focus {
 }
 
 .link-button {
-  background: none;
+  padding: 12px 20px 12px 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  background-color: none;
   border: none;
   color: #00c7eb;
   text-decoration: underline;

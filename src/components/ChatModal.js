@@ -308,9 +308,7 @@ const ChatModal = ({ initialPrompt = "", onClose, fromForm }) => {
       <div className="chat-header">
         <h2>
           AI Chat Assistant{" "}
-          <span className="credits-display">
-            Credit balance: {credits || 0}
-          </span>
+          <span className="credits-display">Credits: {credits || 0}</span>
         </h2>
         <button
           onClick={handleCloseModal}
