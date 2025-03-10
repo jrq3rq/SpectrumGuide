@@ -3,23 +3,24 @@
   display: flex;
   flex-wrap: nowrap; /* Prevent wrapping unless in mobile view */
   justify-content: space-between; /* Space between sections in desktop mode */
-  gap: 20px; /* Spacing between sections */
+  gap: 10px; /* Reduced from 20px */
   width: calc(100% - 80px); /* Subtract margin (20px on each side) */
   box-sizing: border-box; /* Include padding and borders in the total width */
-  margin: 60px auto; /* Ensure the 20px margin around the entire perimeter */
-  padding-bottom: 20px;
+  margin: 60px auto; /* Reduced from 60px */
+  padding: 10px; /* Reduced from 20px */
   background-color: white; /* White background for the form */
-  border-radius: 8px;
+  border-radius: 6px; /* Reduced from 8px */
   border: 1px solid #c3c3c3;
 }
 
+/* Credits Display */
 .credits-display-form {
   display: inline-block;
   background-color: #ffffff; /* Light grey background to match the style */
   color: #555555; /* Black text */
-  font-size: 14px; /* Smaller than sidebar-link text */
-  padding: 5px 10px; /* Small padding */
-  border-radius: 4px; /* Rounded corners */
+  font-size: 12px; /* Reduced from 14px */
+  padding: 3px 6px; /* Reduced from 5px 10px */
+  border-radius: 3px; /* Reduced from 4px */
   vertical-align: middle; /* Align with the text vertically */
   line-height: 1; /* To ensure it's the same height as the text */
   width: auto;
@@ -30,16 +31,16 @@
 .form-container {
   display: flex;
   flex-direction: row;
-  gap: 15px; /* Space between form elements */
+  gap: 10px; /* Reduced from 15px */
   width: 100%;
 }
 
 /* Form Sections: Left and Right */
 .form-section {
   flex: 1; /* Each section takes equal space in desktop mode */
-  padding: 20px;
+  padding: 10px; /* Reduced from 20px */
   background-color: #ffffff; /* White background for sections */
-  border-radius: 8px;
+  border-radius: 6px; /* Reduced from 8px */
   border: 1px solid transparent; /* Initially transparent border */
   box-sizing: border-box;
 }
@@ -47,12 +48,12 @@
 /* Labels: Style all label text */
 label {
   display: block; /* Ensure labels are block elements */
-  font-size: 16px; /* Slightly larger for better readability */
+  font-size: 14px; /* Reduced from 16px */
   text-align: left;
   font-weight: 600; /* Semi-bold for emphasis */
   color: #2e3136; /* Darker gray for modern and professional look */
-  margin-bottom: 8px; /* Space between label text and input field */
-  line-height: 1.5; /* Improves readability for multiline labels */
+  margin-bottom: 4px; /* Reduced from 8px */
+  line-height: 1.3; /* Reduced from 1.5 */
 }
 
 /* Input Fields, Selects, and Textareas */
@@ -61,13 +62,14 @@ input[type="date"],
 select,
 textarea {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
+  padding: 6px; /* Reduced from 10px */
+  margin-top: 3px; /* Reduced from 5px */
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 3px; /* Reduced from 4px */
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px; /* Reduced from 16px */
   font-family: inherit;
+  height: 30px; /* Reduced height for compactness */
 }
 
 /* Input Focus Styles */
@@ -76,7 +78,7 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: #4a90e2;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  box-shadow: 0 0 3px rgba(74, 144, 226, 0.5); /* Reduced from 5px */
 }
 
 /* Highlight Input Fields with Errors */
@@ -88,8 +90,8 @@ textarea:focus {
 .care-plans-container {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between each care plan option */
-  margin-bottom: 10px; /* Space below the care plans section */
+  gap: 5px; /* Reduced from 10px */
+  margin-bottom: 5px; /* Reduced from 10px */
   position: relative; /* For error overlay positioning */
 }
 
@@ -99,7 +101,7 @@ textarea:focus {
   align-items: center;
   cursor: pointer; /* Change cursor to pointer on hover */
   position: relative; /* For positioning pseudo-elements */
-  padding-left: 30px; /* Space for custom checkbox */
+  padding-left: 20px; /* Reduced from 30px */
   user-select: none; /* Prevent text selection on click */
 }
 
@@ -119,12 +121,12 @@ textarea:focus {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  border: 2px solid #555;
-  border-radius: 4px;
+  width: 16px; /* Reduced from 20px */
+  height: 16px; /* Reduced from 20px */
+  border: 1px solid #555; /* Reduced from 2px */
+  border-radius: 3px; /* Reduced from 4px */
   background-color: #fff;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: border-color 0.3s; /* Only transition border-color */
 }
 
 /* Custom Checkbox - Checked State */
@@ -137,22 +139,22 @@ textarea:focus {
 .care-plan-option input:checked ~ .care-plan-label::after {
   content: "✔";
   position: absolute;
-  left: 5px;
+  left: 3px; /* Reduced from 5px */
   top: 50%;
   transform: translateY(-50%);
   color: white;
-  font-size: 16px;
+  font-size: 12px; /* Reduced from 16px */
 }
 
-/* Hover Effect on the Custom Checkbox */
+/* Hover Effect on the Custom Checkbox - Isolated to Border Color */
 .care-plan-option:hover .care-plan-label::before {
   border-color: #000; /* Darker border on hover */
 }
 
 /* Label Text Styling for Care Plans */
 .care-plan-label {
-  margin-left: 10px; /* Space between checkbox and label text */
-  font-size: 16px; /* Readable font size */
+  margin-left: 5px; /* Reduced from 10px */
+  font-size: 14px; /* Reduced from 16px */
   color: #333; /* Dark text color */
 }
 
@@ -160,12 +162,12 @@ textarea:focus {
 .important-roles-container {
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Reduce spacing between options */
-  max-height: 150px; /* Limit the height */
+  gap: 3px; /* Reduced from 5px */
+  max-height: 120px; /* Reduced from 150px */
   overflow-y: auto; /* Enable vertical scrolling */
   border: 1px solid #ccc; /* Add a subtle border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 5px; /* Inner padding */
+  border-radius: 3px; /* Reduced from 4px */
+  padding: 3px; /* Reduced from 5px */
   background-color: #f9f9f9; /* Subtle background color */
 }
 
@@ -173,15 +175,15 @@ textarea:focus {
 .important-role-option {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between checkbox and label */
-  font-size: 14px; /* Smaller font size for compactness */
+  gap: 5px; /* Reduced from 8px */
+  font-size: 12px; /* Reduced from 14px */
   cursor: pointer;
 }
 
 /* Checkbox Style for Important Roles */
 .important-role-option input {
-  width: 16px;
-  height: 16px;
+  width: 14px; /* Reduced from 16px */
+  height: 14px; /* Reduced from 16px */
   cursor: pointer;
 }
 
@@ -189,75 +191,73 @@ textarea:focus {
 .button-container {
   display: grid; /* Use CSS Grid for layout */
   grid-template-columns: repeat(2, 1fr); /* Two columns, evenly spaced */
-  gap: 20px; /* Space between buttons */
+  gap: 10px; /* Reduced from 20px */
   width: 100%; /* Full-width container */
-  max-width: 600px; /* Optional: Limit the container width */
+  max-width: 500px; /* Reduced from 600px */
   box-sizing: border-box;
-  margin-top: 1em; /* Space above the buttons */
+  margin-top: 0.5em; /* Reduced from 1em */
 }
 
 /* Buttons */
 .button-container button {
-  padding: 10px 20px; /* Add padding for clickable area */
-  border: none;
-  border-radius: 6px; /* Rounded corners */
+  padding: 8px 12px;
+  border: 1px solid #c3c3c3; /* Consistent border */
+  border-radius: 6px !important; /* Enforce consistent border radius */
   cursor: pointer;
-  font-size: 16px; /* Set font size */
-  font-weight: bold; /* Make text bold */
-  color: white; /* Text color */
-  background-color: #00c7eb; /* Button background color */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #00d9ff !important; /* Enforce uniform color with !important */
+  transition: background-color 0.3s ease; /* Only transition background-color */
+  box-sizing: border-box;
+  height: 36px; /* Explicit height to prevent changes */
+  line-height: 20px; /* Match text height to prevent reflow */
 }
 
-/* Submit Button */
-.button-container button[type="submit"] {
-  background-color: #00c7eb; /* Green */
-  border: 1px solid #908f8f; /* Add the desired border */
-  border-radius: 6px;
+/* Hover Effect for Both Buttons - Color Change Only */
+.button-container button:hover:not(:disabled) {
+  background-color: #00c0e6 !important; /* Slightly darker shade on hover */
+  border: 1px solid #c3c3c3; /* Consistent hover border */
+  border-radius: 6px !important; /* Enforce consistent border radius */
+  padding: 8px 12px; /* Maintain original padding */
+  height: 36px; /* Explicitly maintain height */
 }
 
-/* Refresh Button */
-.button-container button[type="button"] {
-  background-color: #00c7eb; /* Orange */
-  border: 1px solid #908f8f; /* Add the desired border */
-}
-
-/* Disabled Button State */
-.button-container button:disabled {
-  background-color: #a5d6a7; /* Light green when disabled */
-  border: 1px solid #c3c3c3; /* Add the desired border */
-  cursor: not-allowed;
-}
-
-/* Hover Effect for Buttons */
-.button-container button:hover {
-  background-color: #00c7eb; /* Darker shade on hover */
-  border: 1px solid #c3c3c3; /* Add the desired border */
-  transform: translateY(-2px); /* Slight lift effect */
-}
-
-/* Active Effect for Buttons */
+/* Active Effect for Both Buttons */
 .button-container button:active {
-  transform: translateY(0); /* Reset lift on click */
+  border-radius: 6px !important; /* Enforce consistent border radius */
+  padding: 8px 12px; /* Maintain original padding */
+  height: 36px; /* Explicitly maintain height */
+}
+
+/* Disabled Button State for Both Buttons */
+.button-container button:disabled {
+  background-color: #00d9ff !important; /* Match the active color */
+  border: 1px solid #c3c3c3; /* Consistent disabled border */
+  border-radius: 6px !important; /* Enforce consistent border radius */
+  cursor: not-allowed;
+  padding: 8px 12px; /* Maintain original padding */
+  height: 36px; /* Explicitly maintain height */
+  opacity: 0.5; /* Visual cue for disabled state */
 }
 
 /* Div Container Styles */
 .div-container {
-  font-size: 12px;
-  height: 50px; /* Set the height of the container */
+  font-size: 10px; /* Reduced from 12px */
+  height: 40px; /* Reduced from 50px */
   display: flex; /* Enable Flexbox */
   justify-content: center; /* Center items horizontally */
   align-items: center; /* Center items vertically */
   text-align: center; /* Center-align text within elements */
   background-color: #dddddd;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 8px; /* Reduced from 10px */
+  border-bottom-left-radius: 8px; /* Reduced from 10px */
 }
 
 /* Error Text Styling (if using separate error texts) */
 .error-text {
   color: red;
-  font-size: 12px;
+  font-size: 10px; /* Reduced from 12px */
 }
 
 /* Enhance the Textarea Placeholder Color */
@@ -279,9 +279,9 @@ textarea::placeholder {
 .error-overlay::after {
   /* content: ""; */
   /* position: absolute; */
-  /* bottom: -5px;  */
-  /* left: 10px;  */
-  border-width: 3px;
+  /* bottom: -5px; */
+  /* left: 10px; */
+  border-width: 2px; /* Reduced from 3px */
   border-style: solid;
   border-color: #000;
   /* border-color: rgba(217, 83, 79, 0.9) transparent transparent transparent; */
@@ -290,32 +290,32 @@ textarea::placeholder {
 /* ... previous CSS ... */
 
 .input-container {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em; /* Reduced from 1em */
 }
 
 .input-container h3 {
-  font-size: 18px;
+  font-size: 16px; /* Reduced from 18px */
   font-weight: bold;
   text-align: center;
   align-items: center;
-  padding: 5px 0px 5px 0px;
-  background-color: #00c7eb;
+  padding: 3px 0; /* Reduced from 5px 0px 5px 0px */
+  background-color: #00d9ff; /* Matches buttons */
   border: 1px solid #c3c3c3; /* Add the desired border */
   color: #ffffff;
-  border-radius: 6px;
+  border-radius: 4px; /* Reduced from 6px */
 }
 
 .important-role-option,
 .care-plan-option {
   display: block;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.05em; /* Reduced from 0.1em */
 }
 
 .error-overlay {
   position: static;
   display: block;
   color: red;
-  font-size: 15px;
+  font-size: 12px; /* Reduced from 15px */
   opacity: 1;
   border: none;
   padding: 0;
@@ -326,19 +326,73 @@ textarea::placeholder {
 }
 
 .input-container .sensorySensitivities {
-  height: 150px;
+  height: 120px; /* Reduced from 150px */
 }
 
 .input-container label .error-overlay {
   position: absolute;
   left: 0;
-  bottom: -1.5em;
-  height: 300px;
+  bottom: -1.2em; /* Reduced from -1.5em */
+  height: 240px; /* Reduced from 300px */
 }
 
 .important-roles-container,
 .care-plans-container {
-  padding-left: 1em;
+  padding-left: 0.5em; /* Reduced from 1em */
+}
+
+.custom-multi-select {
+  position: relative;
+}
+
+.select-display {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: inherit;
+  height: 30px;
+  line-height: 18px;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-display.input-error {
+  border: 1px solid #d9534f; /* Red border for errors */
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-option input {
+  margin-right: 5px;
 }
 
 /* Mobile Adjustments */
@@ -354,27 +408,40 @@ textarea::placeholder {
   }
   .button-container {
     grid-template-columns: 1fr; /* Single column layout */
-    gap: 15px; /* Reduce spacing for smaller screens */
-    margin-bottom: 20px;
+    gap: 8px; /* Reduced from 15px */
+    min-width: 100%;
+  }
+  /* Make buttons span full width in column layout */
+  .button-container button {
+    width: 100%; /* Span full width */
+    border-radius: 6px !important; /* Enforce consistent border radius on mobile */
+    padding: 8px 12px; /* Maintain original padding */
+    height: 36px; /* Explicitly maintain height */
   }
 }
 
 /* Responsive Adjustments for Care Plans */
 @media (max-width: 600px) {
   .care-plan-option {
-    padding-left: 25px; /* Adjust padding for smaller screens */
+    padding-left: 20px; /* Reduced from 25px */
   }
 
   .care-plan-option .care-plan-label::before {
-    width: 18px;
-    height: 18px;
+    width: 14px; /* Reduced from 18px */
+    height: 14px; /* Reduced from 18px */
   }
 
   .care-plan-option input:checked ~ .care-plan-label::after {
-    font-size: 14px;
+    font-size: 10px; /* Reduced from 14px */
   }
 
   .care-plan-label {
-    font-size: 14px;
+    font-size: 12px; /* Reduced from 14px */
+  }
+  .button-container button {
+    width: 100%; /* Span full width */
+    border-radius: 6px !important; /* Enforce consistent border radius */
+    padding: 8px 12px; /* Maintain original padding */
+    height: 36px; /* Explicitly maintain height */
   }
 }

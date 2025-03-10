@@ -10,7 +10,7 @@ const InfoModal = ({ onClose }) => {
   const [visitedNodes, setVisitedNodes] = useState(new Set());
   const [currentNodeId, setCurrentNodeId] = useState(null);
 
-  // Prevent body scrolling when modal is open, utilizing useBodyScrollLock hook context
+  // Prevent body scrolling when modal is open
   useEffect(() => {
     const originalStyle = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -29,181 +29,110 @@ const InfoModal = ({ onClose }) => {
     }
   }, [messages]);
 
-  // Flat conversation nodes for managing the interactive flow
+  // Conversation nodes for managing the interactive flow
   const conversationNodes = {
     start: {
-      response: "Explore Spectrum's AI Guide! Click to start.",
+      response:
+        "Welcome! Explore Spectrum's AI Guide. What would you like to know?",
       options: [
         "what_is_spectrum",
-        "what_does_app_do",
-        "how_to_sign_up",
-        "is_it_free",
+        "features",
         "who_can_use",
+        "pricing",
+        "privacy",
+        "how_to_sign_up",
       ],
     },
     what_is_spectrum: {
       response:
-        "Spectrum's AI Guide is a tool to assist caregivers and users with autism-related needs, offering care plans, social stories, and more.",
-      options: ["how_does_it_work", "who_can_use_it"],
+        "Spectrum's AI Guide is an innovative AI tool designed to support parents, caregivers, educators, and professionals in nurturing individuals with autism. It provides personalized insights, tailored recommendations, and actionable plans to enhance understanding and manage daily challenges effectively.",
+      options: ["mission", "features", "how_to_sign_up"],
     },
-    what_does_app_do: {
+    mission: {
       response:
-        "This app offers tools like care plans, social stories, and chat support for autism care.",
+        "At Spectrum's AI Guide, we believe every autistic individual deserves personalized support that acknowledges their unique needs, strengths, and challenges. Our mission is to empower those involved in their care with AI-driven tools, fostering environments where everyone can thrive.",
+      options: ["features", "who_can_use"],
+    },
+    features: {
+      response:
+        "Spectrum's AI Guide offers a suite of features including: Customized Care Plans, Educational Support, Behavioral and Sensory Management, Safety and Emergency Planning, Strength-Based Activities, and Social Stories.",
       options: [
-        "explore_care_plans",
-        "explore_social_stories",
-        "try_chat_support",
+        "care_plans",
+        "educational_support",
+        "behavioral_management",
+        "safety_planning",
+        "strength_activities",
+        "social_stories",
       ],
     },
-    how_to_sign_up: {
+    care_plans: {
       response:
-        "Click 'Sign Up' below the sign-in form to create an account with your email and password or use Google sign-in.",
-      options: ["get_started", "learn_plans"],
+        "Customized Care Plans: Tailor daily routines and strategies to match individual strengths, sensory preferences, and triggers, fostering a supportive environment.",
+      options: ["learn_more_features", "how_to_sign_up"],
     },
-    is_it_free: {
+    educational_support: {
       response:
-        "Yes, it offers a free tier with limited credits; premium plans unlock more features.",
-      options: ["see_pricing", "free_includes"],
+        "Educational Support: Develop personalized learning approaches or Individualized Education Plans (IEPs) that align with communication styles, learning methods, and interests for optimal educational outcomes.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    behavioral_management: {
+      response:
+        "Behavioral and Sensory Management: Address sensory sensitivities and behavioral challenges proactively with strategies that minimize stress and enhance well-being.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    safety_planning: {
+      response:
+        "Safety and Emergency Planning: Manage safety risks, wandering behaviors, and allergies to ensure secure environments across various settings.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    strength_activities: {
+      response:
+        "Strength-Based Activities: Leverage individual strengths and interests to boost confidence and encourage independence through engaging activities.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    social_stories: {
+      response:
+        "Social Stories: Use AI to create personalized narratives that help with social cues, routine management, and emotional regulation, making learning both engaging and supportive.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    learn_more_features: {
+      response:
+        "Spectrum's AI Guide uses AI to turn complex data into practical, actionable insights, ensuring personalized support for every individual's journey. We continuously update our technology to meet the evolving needs of the autism community.",
+      options: ["how_to_sign_up", "privacy"],
     },
     who_can_use: {
       response:
-        "Anyone can sign up, but it’s tailored for caregivers, educators, and autism support professionals.",
-      options: ["more_info_who"],
+        "Anyone can sign up, but Spectrum's AI Guide is tailored for parents, caregivers, educators, and professionals supporting autistic individuals.",
+      options: ["features", "how_to_sign_up"],
     },
-    how_does_it_work: {
+    pricing: {
       response:
-        "It uses AI to create personalized care plans and social stories based on user input.",
-      options: ["what_are_care_plans", "what_are_social_stories"],
-    },
-    who_can_use_it: {
-      response:
-        "It’s designed for caregivers, educators, and professionals supporting autistic individuals.",
-      options: ["more_details_who"],
-    },
-    explore_care_plans: {
-      response:
-        "Care Plans help structure daily routines for autistic individuals.",
-      options: ["learn_more_care_plans"],
-    },
-    explore_social_stories: {
-      response: "Social Stories assist with social skills through narratives.",
-      options: ["learn_more_social_stories"],
-    },
-    try_chat_support: {
-      response: "Chat with an assistant for real-time autism support.",
-      options: ["sign_up_chat_support"],
-    },
-    get_started: {
-      response: "Ready to join? Click below.",
-      url: "/signup",
-    },
-    learn_plans: {
-      response: "We offer free and premium plans (bronze, silver, gold).",
-      options: ["see_pricing_plans"],
-    },
-    see_pricing: {
-      response: "Explore our plans on the signup page.",
-      url: "/signup",
+        "Spectrum's Guide operates on a flexible Pay-Per-Use model, where users purchase credits for specific services or features. This model allows you to pay only for what you use, making personalized support more accessible and cost-effective. It offers a free tier with limited credits; premium plans unlock more features.",
+      options: ["free_includes", "premium_plans"],
     },
     free_includes: {
-      response: "Free tier includes basic care plans and social stories.",
-      options: ["sign_up_free"],
-    },
-    more_info_who: {
-      response: "It’s optimized for autism support with professional tools.",
-      options: ["sign_up_who"],
-    },
-    what_are_care_plans: {
       response:
-        "Care Plans are tailored schedules to support daily routines for autistic individuals.",
-      options: ["create_care_plan", "benefits_care_plans"],
+        "The free tier includes basic care plans and social stories. Ready to try it?",
+      options: ["how_to_sign_up"],
     },
-    what_are_social_stories: {
+    premium_plans: {
       response:
-        "Social Stories are short narratives to help with social skills and understanding.",
-      options: ["create_social_story", "benefits_social_stories"],
+        "Premium plans (bronze, silver, gold) offer more credits and advanced features. Check them out on the signup page.",
+      options: ["how_to_sign_up"],
     },
-    more_details_who: {
+    privacy: {
       response:
-        "Anyone can sign up, but it’s optimized for autism support professionals.",
-      options: ["sign_up_details_who"],
+        "At Spectrum's AI Guide, your privacy is our priority. All data is stored locally on your device—never on external servers—ensuring you maintain full control and confidentiality over sensitive information.",
+      options: ["privacy_details", "how_to_sign_up"],
     },
-    learn_more_care_plans: {
-      response: "Sign up to create and customize care plans.",
-      options: ["sign_up_learn_care_plans"],
-    },
-    learn_more_social_stories: {
-      response: "Sign up to create tailored social stories.",
-      options: ["sign_up_learn_social_stories"],
-    },
-    sign_up_chat_support: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    see_pricing_plans: {
-      response: "Check our plans on the signup page.",
-      url: "/signup",
-    },
-    sign_up_free: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    sign_up_who: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    create_care_plan: {
-      response: "Sign up to access tools for creating personalized care plans.",
-      options: ["sign_up_create_care_plan"],
-    },
-    benefits_care_plans: {
+    privacy_details: {
       response:
-        "They improve consistency and reduce stress for caregivers and users.",
-      options: ["see_examples_care_plans"],
+        "Important notes: Storage Limitation: Your device’s storage capacity sets the limit. You might need to manage or delete older data to make room for new content. Device Dependency: Data stays on the device where it’s stored. If you lose or switch devices, manual backup or transfer is required. No Cloud Sync: Data doesn’t sync across devices, so using Spectrum's AI Guide on multiple devices requires extra data management steps. We recommend maintaining a backup strategy for your essential data.",
+      options: ["how_to_sign_up"],
     },
-    create_social_story: {
+    how_to_sign_up: {
       response:
-        "Sign up to design custom social stories for specific situations.",
-      options: ["sign_up_create_social_story"],
-    },
-    benefits_social_stories: {
-      response: "They enhance social comprehension and reduce anxiety.",
-      options: ["see_examples_social_stories"],
-    },
-    sign_up_details_who: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    sign_up_learn_care_plans: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    sign_up_learn_social_stories: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    sign_up_create_care_plan: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    see_examples_care_plans: {
-      response: "Examples are available after signing up.",
-      options: ["sign_up_examples_care_plans"],
-    },
-    sign_up_create_social_story: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    see_examples_social_stories: {
-      response: "Examples are available after signing up.",
-      options: ["sign_up_examples_social_stories"],
-    },
-    sign_up_examples_care_plans: {
-      response: "Click below to create your account.",
-      url: "/signup",
-    },
-    sign_up_examples_social_stories: {
-      response: "Click below to create your account.",
+        "Click 'Sign Up' below the sign-in form to create an account with your email and password, or use Google sign-in. Ready to get started?",
       url: "/signup",
     },
   };
