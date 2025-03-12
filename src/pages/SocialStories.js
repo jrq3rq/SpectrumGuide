@@ -9,7 +9,7 @@ import StoryActions from "../components/StoryActions";
 import useCreditTracker from "../hooks/useCreditTracker";
 import { firestore } from "../firebase";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { v4 as uuidv4 } from "uuid"; // Added for unique story IDs
+import { v4 as uuidv4 } from "uuid";
 
 const getColorForStoryType = (type) => {
   const colors = {
@@ -62,7 +62,7 @@ const SocialStories = () => {
     isAdmin,
     credits: initialCredits,
     aiUsage: initialAiUsage,
-    chatHistory,
+    profileFormResponses, // Use profileFormResponses instead of chatHistory
     socialStories = [],
     addSocialStory,
     removeSocialStory,
@@ -94,13 +94,14 @@ const SocialStories = () => {
   const [expandedSaved, setExpandedSaved] = useState({});
 
   useEffect(() => {
-    console.log("ChatHistory in SocialStories:", chatHistory);
-  }, [chatHistory]);
+    console.log("ProfileFormResponses in SocialStories:", profileFormResponses);
+  }, [profileFormResponses]);
 
-  const formChats = chatHistory.filter(
-    (chat) => chat.type === "profileFormResponse"
+  // Filter to include only ChildProfileForm responses
+  const formChats = profileFormResponses.filter(
+    (chat) => chat.type === "profileFormResponse" && chat.fromForm === true
   );
-  const selectedChat = chatHistory.find((msg) => msg.id === selectedChatId);
+  const selectedChat = formChats.find((msg) => msg.id === selectedChatId);
 
   const buildPrompt = () => {
     if (!selectedChat) return "";
@@ -131,8 +132,7 @@ using language and structure appropriate to the child's support level.
     setIsGenerating(true);
     setIsLoading(true);
 
-    // Check and deduct credits for story generation
-    const canProceed = await interactWithAIFeature("story", 1); // 0.25 credits per story
+    const canProceed = await interactWithAIFeature("story", 1);
     if (!canProceed) {
       alert("Not enough credits to generate a story.");
       setIsGenerating(false);
@@ -146,7 +146,7 @@ using language and structure appropriate to the child's support level.
       const sanitizedResponse = sanitizeContent(response);
       const timestamp = selectedChat.timestamp || Date.now();
       const newStory = {
-        id: uuidv4(), // Added unique ID
+        id: uuidv4(),
         chatId: selectedChatId,
         date: timestamp,
         customName: "",

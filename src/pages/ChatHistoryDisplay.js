@@ -28,6 +28,7 @@ function truncateContent(content, maxLines = 3) {
 
 const MessageCard = ({
   message,
+  notes,
   onDelete,
   onAddNote,
   onDeleteNote,
@@ -36,16 +37,52 @@ const MessageCard = ({
   const [expanded, setExpanded] = useState(false);
   const [showNoteInput, setShowNoteInput] = useState(false);
   const [noteContent, setNoteContent] = useState("");
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [isDeletingNote, setIsDeletingNote] = useState(false);
+  const [error, setError] = useState("");
 
-  const notes = message.notes || [];
   const sanitizedContent = sanitizeContent(message.content);
   const { truncated, isTruncated } = truncateContent(sanitizedContent);
 
-  const handleSaveNote = () => {
-    if (noteContent.trim() === "") return;
-    onAddNote(message.id, noteContent);
-    setNoteContent("");
-    setShowNoteInput(false);
+  const handleSaveNote = async () => {
+    if (noteContent.trim() === "") {
+      setError("Note content cannot be empty.");
+      return;
+    }
+
+    setIsAddingNote(true);
+    setError("");
+    try {
+      await onAddNote(message.id, noteContent);
+      setNoteContent("");
+      console.log(
+        "Note added for message:",
+        message.id,
+        "Content:",
+        noteContent
+      );
+    } catch (err) {
+      console.error("Error adding note:", err);
+      setError("Failed to add note. Check console.");
+    } finally {
+      setIsAddingNote(false);
+    }
+  };
+
+  const handleDeleteNote = async (noteId) => {
+    if (!window.confirm("Are you sure you want to delete this note?")) return;
+
+    setIsDeletingNote(true);
+    setError("");
+    try {
+      await onDeleteNote(message.id, noteId);
+      console.log("Note deleted:", noteId, "from message:", message.id);
+    } catch (err) {
+      console.error("Error deleting note:", err);
+      setError("Failed to delete note. Check console.");
+    } finally {
+      setIsDeletingNote(false);
+    }
   };
 
   return (
@@ -66,7 +103,6 @@ const MessageCard = ({
         Timestamp: {formatTimestamp(message.timestamp)}
       </p>
 
-      {/* Notes Section */}
       <div className="notesSection">
         <h4 className="notesTitle">Notes:</h4>
         {notes.length > 0 ? (
@@ -81,7 +117,9 @@ const MessageCard = ({
                 </div>
                 <button
                   className="deleteNoteButton"
-                  onClick={() => onDeleteNote(message.id, note.id)}
+                  onClick={() => handleDeleteNote(note.id)}
+                  disabled={isDeletingNote}
+                  aria-label="Delete note"
                 >
                   ×
                 </button>
@@ -93,7 +131,8 @@ const MessageCard = ({
         )}
       </div>
 
-      {/* Add Note Input */}
+      {error && <p className="errorMessage">{error}</p>}
+
       {showNoteInput && (
         <div className="addNoteContainer">
           <textarea
@@ -102,14 +141,25 @@ const MessageCard = ({
             value={noteContent}
             onChange={(e) => setNoteContent(e.target.value)}
             rows={3}
+            maxLength={500}
+            disabled={isAddingNote}
           />
           <div className="addNoteActions">
-            <button className="saveNoteButton" onClick={handleSaveNote}>
-              Save Note
+            <button
+              className="saveNoteButton"
+              onClick={handleSaveNote}
+              disabled={isAddingNote}
+            >
+              {isAddingNote ? "Saving..." : "Save Note"}
             </button>
             <button
               className="cancelNoteButton"
-              onClick={() => setShowNoteInput(false)}
+              onClick={() => {
+                setNoteContent("");
+                setShowNoteInput(false);
+                setError("");
+              }}
+              disabled={isAddingNote}
             >
               Cancel
             </button>
@@ -117,7 +167,6 @@ const MessageCard = ({
         </div>
       )}
 
-      {/* Action Buttons */}
       <div className="actions">
         <button className="actionButton" onClick={() => onDownload(message)}>
           Download
@@ -139,6 +188,7 @@ const MessageCard = ({
         <button
           className="addNoteButton"
           onClick={() => setShowNoteInput(!showNoteInput)}
+          disabled={isAddingNote}
         >
           <span>Add Note ({notes.length})</span>
         </button>
@@ -149,72 +199,83 @@ const MessageCard = ({
 
 const ChatHistoryDisplay = () => {
   const {
-    chatHistory,
+    profileFormResponses,
     addMessageToHistory,
     removeMessageFromHistory,
     addNoteToMessage,
     deleteNoteFromMessage,
+    notes,
   } = useUser();
 
-  // Filter and reverse directly from chatHistory
-  const messages = chatHistory
-    .filter((msg) => msg.type === "profileFormResponse")
-    .reverse();
+  const [messages, setMessages] = useState([]);
+  const [messageNotes, setMessageNotes] = useState({}); // Define messageNotes state
 
-  // Delete a single message by ID
+  useEffect(() => {
+    // Filter to ensure only ChildProfileForm responses are displayed
+    const filteredMessages = profileFormResponses.filter(
+      (msg) => msg.type === "profileFormResponse" && msg.fromForm === true
+    );
+    setMessages(filteredMessages);
+    console.log("Filtered ProfileFormResponses:", filteredMessages);
+    console.log("Raw ProfileFormResponses:", profileFormResponses);
+
+    const notesMap = {};
+    filteredMessages.forEach((msg) => {
+      if (msg.noteIds) {
+        notesMap[msg.id] = notes.filter((note) =>
+          msg.noteIds.includes(note.id)
+        );
+      }
+    });
+    setMessageNotes(notesMap);
+    console.log("Message Notes Map:", notesMap);
+  }, [profileFormResponses, notes]);
+
   const handleDeleteMessage = useCallback(
     (id) => {
       removeMessageFromHistory(id);
+      setMessages((prev) => prev.filter((msg) => msg.id !== id));
+      console.log("Message deleted, updated messages:", messages);
     },
     [removeMessageFromHistory]
   );
 
-  /** Function to handle downloading a message with cleaned content and correct list numbering */
   const handleDownloadMessage = (message) => {
-    // Helper function to clean text of markdown-like symbols
     const cleanText = (text) => text.replace(/[_*`#]/g, "").trim();
-
-    // Function to fix and format lists, handling nested lists and major/minor numbering
     const fixList = (text) => {
       let lines = text.split("\n");
       let newLines = [];
       let majorCounter = 1;
       let minorCounter = 1;
-
       for (let line of lines) {
-        // Detect major sections
         if (
           line.startsWith("1.") &&
           line.includes(":") &&
           !line.includes("Step")
         ) {
           line = `${majorCounter++}.${line.slice(1)}`;
-          minorCounter = 1; // Reset for new section
+          minorCounter = 1;
         } else if (line.includes("Step")) {
-          // Handle steps within sections
           line = line.replace(/Step \d+:/, `Step ${minorCounter++}:`);
         }
         newLines.push(line);
       }
-
       return newLines.join("\n");
     };
 
-    // Clean each line of content individually, then fix list numbering
     const cleanContent = fixList(
       message.content
         .split("\n")
         .map((line) => cleanText(line))
         .join("\n")
     );
-
     const content = `Role: ${
       message.role
     }\nContent:\n${cleanContent}\nTimestamp: ${formatTimestamp(
       message.timestamp
     )}\nNotes:\n${
-      message.notes
-        ? message.notes
+      messageNotes[message.id]
+        ? messageNotes[message.id]
             .map(
               (note) =>
                 `- ${cleanText(note.content)} (${formatTimestamp(
@@ -225,33 +286,42 @@ const ChatHistoryDisplay = () => {
         : "No notes."
     }`;
 
-    // Create a Blob with the message details
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-
     a.href = url;
     a.download = `message-${message.id}.txt`;
-    document.body.appendChild(a); // Required for Firefox
+    document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a); // Remove the element
-
-    // Clean up
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
-  // Add a note to a specific message
   const handleAddNote = useCallback(
-    (messageId, noteContent) => {
-      addNoteToMessage(messageId, noteContent);
+    async (messageId, noteContent) => {
+      try {
+        await addNoteToMessage(messageId, noteContent);
+        console.log("Note added successfully for message:", messageId);
+      } catch (err) {
+        console.error("Error adding note:", err);
+      }
     },
     [addNoteToMessage]
   );
 
-  // Delete a single note by message ID and note ID
   const handleDeleteNote = useCallback(
-    (messageId, noteId) => {
-      deleteNoteFromMessage(messageId, noteId);
+    async (messageId, noteId) => {
+      try {
+        await deleteNoteFromMessage(messageId, noteId);
+        console.log(
+          "Note deleted successfully for message:",
+          messageId,
+          "Note ID:",
+          noteId
+        );
+      } catch (err) {
+        console.error("Error deleting note:", err);
+      }
     },
     [deleteNoteFromMessage]
   );
@@ -265,6 +335,7 @@ const ChatHistoryDisplay = () => {
             <MessageCard
               key={msg.id}
               message={msg}
+              notes={messageNotes[msg.id] || []}
               onDelete={handleDeleteMessage}
               onAddNote={handleAddNote}
               onDeleteNote={handleDeleteNote}

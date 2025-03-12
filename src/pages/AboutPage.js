@@ -72,13 +72,21 @@ const AboutPage = () => {
 
       <div className="about-page">
         <div className="about-content">
-          <h1>About Spectrum's AI Guide</h1>
+          {/* <h1>About Spectrum's AI Guide</h1> */}
+
           <p>
-            Spectrum's AI Guide is an innovative AI tool designed to support
-            parents, caregivers, educators, and professionals in nurturing
-            individuals with autism. It provides personalized insights, tailored
-            recommendations, and actionable plans to enhance understanding and
-            manage daily challenges effectively.
+            <b
+              style={{
+                color: "#00c7eb",
+              }}
+            >
+              Spectrum's AI Guide
+            </b>{" "}
+            is an innovative AI tool designed to support parents, caregivers,
+            educators, and professionals in nurturing individuals with autism.
+            It provides personalized insights, tailored recommendations, and
+            actionable plans to enhance understanding and manage daily
+            challenges effectively.
           </p>
 
           <h2>Our Mission</h2>

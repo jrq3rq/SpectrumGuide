@@ -13,7 +13,7 @@ import {
 
 const TTSRadialControls = ({ text, chatId, storyColor }) => {
   const [voices, setVoices] = useState([]);
-  const [selectedVoiceIndex, setSelectedVoiceIndex] = useState("");
+  const [selectedVoiceIndex, setSelectedVoiceIndex] = useState(null); // Initialize as null, set default later
   const [speed, setSpeed] = useState(1);
   const [isAutoTTSOn, setIsAutoTTSOn] = useState(() => {
     return localStorage.getItem(`autoTTS_${chatId}`) === "true" || false;
@@ -36,18 +36,15 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
       const availableVoices = ttsService.getVoices();
       setVoices(availableVoices);
 
+      // Find Google US English voice
       const googleUSEnglishIndex = availableVoices.findIndex(
         (voice) =>
           voice.name.includes("Google US English") && voice.lang === "en-US"
       );
-
-      if (googleUSEnglishIndex !== -1) {
-        setSelectedVoiceIndex(googleUSEnglishIndex.toString());
-        ttsService.setVoiceIndex(googleUSEnglishIndex);
-      } else if (availableVoices.length > 0) {
-        setSelectedVoiceIndex("0");
-        ttsService.setVoiceIndex(0);
-      }
+      const defaultVoiceIndex =
+        googleUSEnglishIndex !== -1 ? googleUSEnglishIndex : -1; // -1 for browser default if not found
+      setSelectedVoiceIndex(defaultVoiceIndex.toString());
+      ttsService.setVoiceIndex(defaultVoiceIndex); // Set the default voice
     };
 
     loadVoices();
@@ -70,7 +67,10 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
         case "play":
           ttsService.setTtsEnabled(true);
           ttsService.setSpeechRate(speed);
-          ttsService.setVoiceIndex(parseInt(selectedVoiceIndex, 10));
+          // Use the default voice index set in useEffect
+          ttsService.setVoiceIndex(
+            selectedVoiceIndex !== null ? parseInt(selectedVoiceIndex, 10) : -1
+          );
           ttsService.speakText(cleanedText);
           break;
         case "pause":
@@ -84,6 +84,9 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
           break;
         case "replay":
           ttsService.cancelSpeech();
+          ttsService.setVoiceIndex(
+            selectedVoiceIndex !== null ? parseInt(selectedVoiceIndex, 10) : -1
+          );
           ttsService.speakText(cleanedText);
           break;
         default:
@@ -94,8 +97,8 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
   );
 
   const handleVoiceChange = useCallback((e) => {
-    setSelectedVoiceIndex(e.target.value);
-    ttsService.setVoiceIndex(parseInt(e.target.value, 10));
+    // Disable user changes, this function won't be triggered due to 'disabled' on select
+    console.warn("Voice change attempted but disabled");
   }, []);
 
   const handleSpeedChange = useCallback((e) => {
@@ -138,7 +141,7 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
               onMouseEnter={() => setHoveredButton(action)}
               onMouseLeave={() => setHoveredButton(null)}
               style={{
-                backgroundColor: storyColor || "#F0F0F0", // Default background color
+                backgroundColor: storyColor || "#F0F0F0",
                 borderColor: hoveredButton === action ? "#9c9c9c" : "#CCC",
                 color: hoveredButton === action ? "#9c9c9c" : "#C3C3C3",
                 transform:
@@ -148,7 +151,6 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
                   hoveredButton === action
                     ? "none"
                     : "2px 2px 3px rgba(0, 0, 0, 0.3)",
-                // Apply opacity overlay on hover
                 ...(hoveredButton === action && {
                   backgroundBlendMode: "overlay",
                 }),
@@ -199,13 +201,14 @@ const TTSRadialControls = ({ text, chatId, storyColor }) => {
               <label>
                 Voice:
                 <select
-                  value={selectedVoiceIndex}
+                  value={selectedVoiceIndex !== null ? selectedVoiceIndex : ""}
                   onChange={handleVoiceChange}
                   className="tts-voice"
+                  disabled // Prevent user changes
                 >
                   <option value="">Default</option>
                   {voices.map((voice, index) => (
-                    <option key={index} value={index}>
+                    <option key={index} value={index.toString()}>
                       {voice.name} ({voice.lang})
                     </option>
                   ))}

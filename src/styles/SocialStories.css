@@ -27,6 +27,8 @@
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
 .label-inline {
@@ -42,8 +44,6 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 30px;
-  height: 40px;
   transition: background-color 0.3s ease;
 }
 
