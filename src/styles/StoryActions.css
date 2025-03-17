@@ -1,14 +1,27 @@
 .story-actions-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Changed to space-between for equal spacing */
   align-items: center;
   flex-wrap: wrap; /* Prevents overflow */
-  gap: 10px; /* Spacing between elements */
+  gap: 10px; /* Consistent 10px spacing between elements */
   padding: 10px 0;
   margin-top: 10px;
 }
 
-/* Ensures buttons and controls are aligned */
+/* Button base styles for consistency */
+.download-story-button,
+.generate-image-button,
+.delete-story-button {
+  flex: 1; /* Makes buttons take equal width */
+  padding: 10px; /* Consistent padding */
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  color: #ffffff;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transitions */
+}
+
+/* Story content styles remain unchanged */
 .generated-story-content,
 .story-content {
   background-color: var(--story-bg-color, #ffffff);
@@ -21,6 +34,7 @@
   margin-bottom: 10px;
 }
 
+/* Individual button styles */
 .download-story-button {
   background-color: #00c7eb;
 }
@@ -39,17 +53,29 @@
   transform: scale(1.05);
 }
 
-/* Ensure it adjusts properly for mobile */
+.generate-image-button {
+  background-color: #00d9ff;
+}
+
+.generate-image-button:hover {
+  background-color: #03c7eb;
+  transform: scale(1.05);
+}
+
+/* Media query for mobile */
 @media (max-width: 768px) {
   .story-actions-container {
     flex-direction: column;
-    gap: 5px;
+    gap: 5px; /* Keeps mobile spacing consistent with original */
   }
-  .label-inline,
+
   .download-story-button,
+  .generate-image-button,
   .delete-story-button {
-    width: 100%;
+    flex: none; /* Reset flex for mobile */
+    width: 100%; /* Full width on mobile */
   }
+
   .delete-story-button {
     margin-bottom: 5px;
   }

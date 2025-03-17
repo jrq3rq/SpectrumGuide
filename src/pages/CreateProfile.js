@@ -139,7 +139,8 @@ const CreateProfile = () => {
             ? 25
             : selectedPlan === "gold"
             ? 50
-            : 0, // Updated credit allocation
+            : 0,
+        aiUsage: { carePlans: 0, stories: 0, aiChats: 0 }, // Add this
         createdAt: new Date(),
         lastLogin: new Date(),
       });

@@ -8,7 +8,7 @@ import React, {
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, firestore } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 
@@ -83,19 +83,25 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateLocalStorage = useCallback(
-    (newCredits, newAiUsage) => {
+    async (newCredits, newAiUsage) => {
       if (!user?.uid) return;
       try {
+        const userRef = doc(firestore, "users", user.uid);
+        await setDoc(
+          userRef,
+          { credits: newCredits, aiUsage: newAiUsage },
+          { merge: true }
+        );
         localStorage.setItem(`credits_${user.uid}`, newCredits);
         localStorage.setItem(`aiUsage_${user.uid}`, JSON.stringify(newAiUsage));
         console.log(
-          "UserContext: Local storage updated - Credits:",
+          "UserContext: Updated Firestore and localStorage - Credits:",
           newCredits,
           "Usage:",
           newAiUsage
         );
       } catch (error) {
-        console.error("UserContext: Local storage error:", error);
+        console.error("UserContext: Storage sync error:", error);
       }
     },
     [user?.uid]
@@ -284,14 +290,7 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("UserContext - Initializing, pathname:", location.pathname);
-    setIsLoading(true);
-
     const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
-      console.log(
-        "UserContext - onAuthStateChanged, firebaseUser:",
-        !!firebaseUser
-      );
       if (firebaseUser) {
         try {
           const userRef = doc(firestore, "users", firebaseUser.uid);
@@ -304,37 +303,19 @@ export const UserProvider = ({ children }) => {
 
           const userData = await fetchUserProfile(firebaseUser);
           const plan = userData.plan || "free";
+          const storedCredits = docSnap.exists()
+            ? docSnap.data().credits
+            : getPlanCredits(plan);
+          const storedUsage = docSnap.exists()
+            ? docSnap.data().aiUsage
+            : { carePlans: 0, stories: 0, aiChats: 0 };
+
           setIsAuthenticated(true);
           setUser(userData);
           setUserPlan(plan);
           setIsAdmin(userData.isAdmin || false);
-          const storedCredits = localStorage.getItem(
-            `credits_${firebaseUser.uid}`
-          );
-          const storedUsage = localStorage.getItem(
-            `aiUsage_${firebaseUser.uid}`
-          );
-          const parsedStoredUsage = storedUsage
-            ? JSON.parse(storedUsage)
-            : null;
-          setCredits(
-            userData.isAdmin
-              ? 999999
-              : storedCredits !== null
-              ? parseFloat(storedCredits)
-              : parseFloat(userData.credits) || getPlanCredits(plan)
-          );
-          setAiUsage({
-            carePlans: parseFloat(
-              parsedStoredUsage?.carePlans || aiUsage.carePlans || 0
-            ),
-            stories: parseFloat(
-              parsedStoredUsage?.stories || aiUsage.stories || 0
-            ),
-            aiChats: parseFloat(
-              parsedStoredUsage?.aiChats || aiUsage.aiChats || 0
-            ),
-          });
+          setCredits(userData.isAdmin ? 999999 : storedCredits);
+          setAiUsage(storedUsage);
           setChatHistoryKey(`chatHistory_${firebaseUser.uid}`);
           setSocialStoriesKey(`socialStories_${firebaseUser.uid}`);
           setProfileFormResponsesKey(
@@ -344,9 +325,6 @@ export const UserProvider = ({ children }) => {
           migrateOldData(firebaseUser.uid);
 
           if (requiresProfileSetup && location.pathname !== "/create-profile") {
-            console.log(
-              "UserContext - Redirecting to /create-profile for profile setup"
-            );
             navigate("/create-profile", { replace: true });
           } else if (
             !requiresProfileSetup &&
@@ -354,16 +332,14 @@ export const UserProvider = ({ children }) => {
           ) {
             const lastPage =
               sessionStorage.getItem("lastVisitedPage") || "/form";
-            console.log("UserContext - Redirecting to last page:", lastPage);
             navigate(lastPage, { replace: true });
           }
         } catch (error) {
-          console.error("UserContext - Error in onAuthStateChanged:", error);
+          console.error("Error in onAuthStateChanged:", error);
           setIsAuthenticated(false);
           navigate("/signin", { replace: true });
         }
       } else {
-        console.log("UserContext - No user detected");
         setIsAuthenticated(false);
         setUser(null);
         setUserPlan("free");
@@ -383,10 +359,7 @@ export const UserProvider = ({ children }) => {
       setIsLoading(false);
     });
 
-    return () => {
-      console.log("UserContext - Cleaning up auth listener");
-      if (unsubscribeAuth) unsubscribeAuth();
-    };
+    return () => unsubscribeAuth();
   }, [navigate, location.pathname, getPlanCredits]);
 
   const fetchUserProfile = async (firebaseUser) => {
@@ -394,7 +367,13 @@ export const UserProvider = ({ children }) => {
       const userRef = doc(firestore, "users", firebaseUser.uid);
       const docSnap = await getDoc(userRef);
       if (docSnap.exists()) {
-        return { ...firebaseUser, ...docSnap.data() };
+        const data = docSnap.data();
+        return {
+          ...firebaseUser,
+          ...data,
+          credits: data.credits || 0,
+          aiUsage: data.aiUsage || { carePlans: 0, stories: 0, aiChats: 0 },
+        };
       }
       return firebaseUser;
     } catch (error) {

@@ -91,7 +91,6 @@ const SignUp = () => {
         dob,
         accountCreator,
         plan: selectedPlan,
-
         credits:
           selectedPlan === "free"
             ? 1
@@ -101,7 +100,8 @@ const SignUp = () => {
             ? 25
             : selectedPlan === "gold"
             ? 50
-            : 0, // Default or error case
+            : 0,
+        aiUsage: { carePlans: 0, stories: 0, aiChats: 0 }, // Add this
         createdAt: new Date(),
         lastLogin: new Date(),
       });

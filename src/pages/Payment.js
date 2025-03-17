@@ -1,13 +1,15 @@
-// src/pages/Payment.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Added import for useNavigate
+import { useNavigate } from "react-router-dom";
 import "../styles/Payment.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentComponent from "../components/PaymentComponent";
 import { createPaymentIntent } from "../services/paymentService";
-import Tooltip from "../components/Tooltip"; // Assuming 'Tooltip' is in a 'components' folder
+import Tooltip from "../components/Tooltip";
 import SpectrumGuideInfo from "../components/SpectrumGuideInfo";
+import { useUser } from "../context/UserContext"; // Already imported
+import { doc, setDoc, getDoc } from "firebase/firestore"; // Add getDoc for fetching credits
+import { firestore } from "../firebase";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -17,8 +19,9 @@ const Payment = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [isAboutOpen, setIsAboutOpen] = useState(false); // State for toggling SpectrumGuideInfo
-  const navigate = useNavigate(); // Added useNavigate hook
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const navigate = useNavigate();
+  const { user, credits } = useUser(); // Add credits from useUser
 
   const toggleAbout = () => {
     setIsAboutOpen((prev) => !prev);
@@ -27,20 +30,22 @@ const Payment = () => {
   const handlePurchase = async (plan) => {
     let amount;
     switch (plan) {
+      case "bronze":
+        amount = 995; // $9.95 in cents for Bronze Spectrum
+        break;
       case "silver":
-        amount = 999; // $9.99 in cents for Silver Spectrum
+        amount = 1995; // $19.95 in cents for Silver Spectrum
         break;
       case "gold":
-        amount = 2999; // $29.99 in cents for Gold Spectrum
+        amount = 2995; // $29.95 in cents for Gold Spectrum
         break;
       default:
         console.error("Invalid plan selected");
         return;
     }
 
-    // Ideally, collect actual customer details from user inputs
     const name = "Customer Name"; // Replace with dynamic data
-    const email = "customer@example.com"; // Replace with dynamic data
+    const email = user?.email || "customer@example.com";
 
     try {
       const clientSecret = await createPaymentIntent({
@@ -54,7 +59,34 @@ const Payment = () => {
       console.log(`Client Secret for ${plan} plan:`, clientSecret);
     } catch (error) {
       console.error("Failed to create payment intent:", error.message);
-      // Optionally, display error to the user
+    }
+  };
+
+  const handlePaymentSuccess = async () => {
+    if (!user?.uid) {
+      console.error("No user UID available for credit update");
+      return;
+    }
+    const newCredits =
+      selectedPlan === "bronze"
+        ? credits + 10
+        : selectedPlan === "silver"
+        ? credits + 25
+        : selectedPlan === "gold"
+        ? credits + 50
+        : credits;
+    try {
+      const userRef = doc(firestore, "users", user.uid);
+      await setDoc(userRef, { credits: newCredits }, { merge: true });
+      console.log(
+        `Updated Firestore credits to ${newCredits} for plan: ${selectedPlan}`
+      );
+      navigate("/form");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } catch (error) {
+      console.error("Failed to update credits in Firestore:", error);
     }
   };
 
@@ -91,12 +123,7 @@ const Payment = () => {
             >
               <b>Bronze Spectrum</b>: <b style={{ color: "#02C7EB" }}>10</b>{" "}
               credits for $9.95
-              <i
-                style={{
-                  fontSize: "16px",
-                  color: "#02C7EB",
-                }}
-              >
+              <i style={{ fontSize: "16px", color: "#02C7EB" }}>
                 {" "}
                 (10 Personalized Care Plans, 10 Personalized Stories, 100 AI
                 Chats)
@@ -114,15 +141,9 @@ const Payment = () => {
               }
               onMouseLeave={hideTooltip}
             >
-              {" "}
               <b>Silver Spectrum</b>: <b style={{ color: "#02C7EB" }}>25</b>{" "}
               credits for $19.95{" "}
-              <i
-                style={{
-                  fontSize: "16px",
-                  color: "#02C7EB",
-                }}
-              >
+              <i style={{ fontSize: "16px", color: "#02C7EB" }}>
                 (25 Personalized Care Plans, 25 Personalized Stories, 250 AI
                 Chats)
               </i>
@@ -141,12 +162,7 @@ const Payment = () => {
             >
               <b>Gold Spectrum</b>: <b style={{ color: "#02C7EB" }}>50</b>{" "}
               credits for $29.95{" "}
-              <i
-                style={{
-                  fontSize: "16px",
-                  color: "#02C7EB",
-                }}
-              >
+              <i style={{ fontSize: "16px", color: "#02C7EB" }}>
                 (50 Personalized Care Plans, 50 Personalized Stories, 500 AI
                 Chats)
               </i>
@@ -202,15 +218,9 @@ const Payment = () => {
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <PaymentComponent
               clientSecret={clientSecret}
-              customerName="Customer Name" // Replace with dynamic data
-              customerEmail="customer@example.com" // Replace with dynamic data
-              onSuccess={() => {
-                console.log("Payment successful, navigating to Form");
-                navigate("/form");
-                setTimeout(() => {
-                  window.location.reload();
-                }, 100);
-              }}
+              customerName="Customer Name"
+              customerEmail={user?.email || "customer@example.com"}
+              onSuccess={handlePaymentSuccess}
               onFailure={(err) => {
                 console.error("Payment failed:", err);
                 // Optionally, display error to the user

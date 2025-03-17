@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore"; // Add these imports
+import { firestore } from "../firebase"; // Import firestore from your firebase config
 
 const useCreditTracker = ({
   uid,
@@ -35,19 +37,25 @@ const useCreditTracker = ({
   };
 
   const updateLocalStorage = useCallback(
-    (newCredits, newAiUsage) => {
+    async (newCredits, newAiUsage) => {
       if (!uid) return;
       try {
+        const userRef = doc(firestore, "users", uid);
+        await setDoc(
+          userRef,
+          { credits: newCredits, aiUsage: newAiUsage },
+          { merge: true }
+        );
         localStorage.setItem(`credits_${uid}`, newCredits);
         localStorage.setItem(`aiUsage_${uid}`, JSON.stringify(newAiUsage));
         console.log(
-          "useCreditTracker: Local storage updated - Credits:",
+          "useCreditTracker: Updated Firestore and localStorage - Credits:",
           newCredits,
           "Usage:",
           newAiUsage
         );
       } catch (error) {
-        console.error("useCreditTracker: Local storage error:", error);
+        console.error("useCreditTracker: Storage sync error:", error);
         setError(error.message);
       }
     },
@@ -115,30 +123,21 @@ const useCreditTracker = ({
     }
 
     setLoading(true);
-    const storedCredits = localStorage.getItem(`credits_${uid}`);
-    const storedUsage = localStorage.getItem(`aiUsage_${uid}`);
-    const parsedStoredUsage = storedUsage ? JSON.parse(storedUsage) : null;
-
-    if (storedCredits === null) {
-      const planCredits = getPlanCredits(plan);
-      setCredits(planCredits);
-      setAiUsage(initialAiUsage);
-      updateLocalStorage(planCredits, initialAiUsage);
-    } else {
-      setCredits(parseFloat(storedCredits));
-      setAiUsage({
-        carePlans: parseFloat(
-          parsedStoredUsage?.carePlans || initialAiUsage.carePlans || 0
-        ),
-        stories: parseFloat(
-          parsedStoredUsage?.stories || initialAiUsage.stories || 0
-        ),
-        aiChats: parseFloat(
-          parsedStoredUsage?.aiChats || initialAiUsage.aiChats || 0
-        ),
-      });
-    }
-    setLoading(false);
+    const loadCredits = async () => {
+      const userRef = doc(firestore, "users", uid);
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists() && docSnap.data().credits !== undefined) {
+        setCredits(parseFloat(docSnap.data().credits));
+        setAiUsage(docSnap.data().aiUsage || initialAiUsage);
+      } else {
+        const planCredits = getPlanCredits(plan);
+        setCredits(planCredits);
+        setAiUsage(initialAiUsage);
+        await updateLocalStorage(planCredits, initialAiUsage);
+      }
+      setLoading(false);
+    };
+    loadCredits();
   }, [
     uid,
     plan,

@@ -11,6 +11,7 @@ const StoryActions = ({ story, onDownload, onDelete }) => {
       >
         Download
       </button>
+      <button className="generate-image-button">Generate Image</button>
       <button
         onClick={() => onDelete(story.id)}
         className="delete-story-button"
