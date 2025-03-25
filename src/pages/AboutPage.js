@@ -73,14 +73,13 @@ const AboutPage = () => {
       <div className="about-page">
         <div className="about-content">
           {/* <h1>About Spectrum's AI Guide</h1> */}
-
           <p>
             <b
               style={{
                 color: "#00c7eb",
               }}
             >
-              Spectrum's AI Guide
+              Spectrum's Guide
             </b>{" "}
             is an innovative AI tool designed to support parents, caregivers,
             educators, and professionals in nurturing individuals with autism.
@@ -91,8 +90,8 @@ const AboutPage = () => {
 
           <h2>Our Mission</h2>
           <p>
-            At Spectrum's AI Guide, we believe every autistic individual
-            deserves personalized support that acknowledges their unique needs,
+            At Spectrum's Guide, we believe every autistic individual deserves
+            personalized support that acknowledges their unique needs,
             strengths, and challenges. Our mission is to empower those involved
             in their care with AI-driven tools, fostering environments where
             everyone can thrive.
@@ -105,7 +104,7 @@ const AboutPage = () => {
             what you use, making personalized support more accessible and
             cost-effective. Whether you need to update a care plan, generate a
             new social story, or gain insights into behavioral management,
-            Spectrum's AI Guide adapts to your needs on demand.
+            Spectrum's Guide adapts to your needs on demand.
           </p>
 
           <p
@@ -118,11 +117,11 @@ const AboutPage = () => {
             }}
           >
             <strong>Designed for Individual Use:</strong> Data with Spectrum's
-            AI Guide is stored directly on your device, ensuring privacy but
-            also meaning that each account is device-specific. Your data,
-            including progress, chat history, and personalized insights, does
-            not transfer between devices. For continuity, we recommend using the
-            same device for all interactions with Spectrum's AI Guide.
+            Guide is stored directly on your device, ensuring privacy but also
+            meaning that each account is device-specific. Your data, including
+            progress, chat history, and personalized insights, does not transfer
+            between devices. For continuity, we recommend using the same device
+            for all interactions with Spectrum's Guide.
           </p>
 
           <p>Our suite of features includes:</p>
@@ -162,15 +161,15 @@ const AboutPage = () => {
           </ul>
 
           <p>
-            <strong>Spectrum's AI Guide</strong> uses AI to turn complex data
-            into practical, actionable insights, ensuring personalized support
-            for every individual's journey. We continuously update our
-            technology and methodologies to meet the evolving needs of the
-            autism community.
+            <strong>Spectrum's Guide</strong> uses AI to turn complex data into
+            practical, actionable insights, ensuring personalized support for
+            every individual's journey. We continuously update our technology
+            and methodologies to meet the evolving needs of the autism
+            community.
           </p>
 
           <p className="privacy-intro">
-            <strong>Privacy and Data Security:</strong> At Spectrum's AI Guide,
+            <strong>Privacy and Data Security:</strong> At Spectrum's Guide,
             your privacy is our priority. All data is stored{" "}
             <strong>locally on your device</strong>—never on external
             servers—ensuring you maintain full control and confidentiality over
@@ -196,8 +195,8 @@ const AboutPage = () => {
                 <strong>
                   <em>No Cloud Sync:</em>
                 </strong>{" "}
-                Data doesn’t sync across devices, so using Spectrum's AI Guide
-                on multiple devices requires extra data management steps.
+                Data doesn’t sync across devices, so using Spectrum's Guide on
+                multiple devices requires extra data management steps.
               </li>
             </ul>
           </div>
@@ -268,7 +267,6 @@ const AboutPage = () => {
               </li>
             </ul>
           </div>
-
           {/* Symptoms and Dualities Dropdown */}
           <p
             className="expandable-section"

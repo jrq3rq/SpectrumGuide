@@ -79,7 +79,7 @@ const Header = () => {
             className="logo"
             onClick={() => navigate("/signin", { replace: true })}
           >
-            Spectrum's <span className="blue-title">AI Guide</span>
+            Spectrum's <span className="blue-title"> Guide</span>
           </div>
         </div>
       </header>
@@ -96,7 +96,7 @@ const Header = () => {
           className="logo"
           onClick={() => navigate("/about", { replace: true })}
         >
-          Spectrum's <span className="blue-title">AI Guide</span>
+          Spectrum's <span className="blue-title"> Guide</span>
         </div>
 
         <nav className="nav desktop-links">
