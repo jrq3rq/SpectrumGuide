@@ -28,10 +28,13 @@ const CreateProfile = () => {
   const planDescriptions = {
     free: "Free: 1 credit/week (1 Personalized Care Plan, 1 Personalized Story, 10 AI Chats)",
     bronze:
-      "Bronze Spectrum: $9.95 for 10 credits (10 Personalized Care Plans, 10 Personalized Stories, 100 AI Chats)",
+      "Bronze Spectrum: $0 for 10 credits (10 Personalized Care Plans, 10 Personalized Stories, 100 AI Chats)",
+    // "Bronze Spectrum: $9.95 for 10 credits (10 Personalized Care Plans, 10 Personalized Stories, 100 AI Chats)",
     silver:
-      "Silver Spectrum: $19.95 for 25 credits (25 Personalized Care Plans, 25 Personalized Stories, 250 AI Chats)",
-    gold: "Gold Spectrum: $29.95 for 50 credits (50 Personalized Care Plans, 50 Personalized Stories, 500 AI Chats)",
+      "Silver Spectrum: $0 for 25 credits (25 Personalized Care Plans, 25 Personalized Stories, 250 AI Chats)",
+    // "Silver Spectrum: $19.95 for 25 credits (25 Personalized Care Plans, 25 Personalized Stories, 250 AI Chats)",
+    gold: "Gold Spectrum: $0 for 50 credits (50 Personalized Care Plans, 50 Personalized Stories, 500 AI Chats)",
+    // gold: "Gold Spectrum: $29.95 for 50 credits (50 Personalized Care Plans, 50 Personalized Stories, 500 AI Chats)",
   };
 
   // Effect to check if user already has a profile in Firestore

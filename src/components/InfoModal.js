@@ -9,6 +9,7 @@ const InfoModal = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [visitedNodes, setVisitedNodes] = useState(new Set());
   const [currentNodeId, setCurrentNodeId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // New loading state
 
   // Prevent body scrolling when modal is open
   useEffect(() => {
@@ -19,13 +20,10 @@ const InfoModal = ({ onClose }) => {
     };
   }, []);
 
-  // Scroll to the latest message when messages update
+  // Scroll to the top of the container when messages update
   useEffect(() => {
     if (chatContainerRef.current && messages.length > 0) {
-      const firstMessage = chatContainerRef.current.firstChild;
-      if (firstMessage) {
-        firstMessage.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      chatContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [messages]);
 
@@ -45,21 +43,21 @@ const InfoModal = ({ onClose }) => {
     },
     what_is_spectrum: {
       response:
-        "Spectrum's AI Guide is an innovative AI tool designed to support parents, caregivers, educators, and professionals in nurturing individuals with autism. It provides personalized insights, tailored recommendations, and actionable plans to enhance understanding and manage daily challenges effectively.",
+        "Spectrum's AI Guide is an AI tool designed to support parents, caregivers, educators, and professionals in understanding autism. It provides personalized insights, tailored suggestions, and educational plans to help caregivers support daily life in a non-medical way.",
       options: ["mission", "features", "how_to_sign_up"],
     },
     mission: {
       response:
-        "At Spectrum's AI Guide, we believe every autistic individual deserves personalized support that acknowledges their unique needs, strengths, and challenges. Our mission is to empower those involved in their care with AI-driven tools, fostering environments where everyone can thrive.",
+        "At Spectrum's AI Guide, we believe every autistic individual deserves personalized support that acknowledges their unique needs, strengths, and challenges. Our mission is to empower caregivers with AI-driven educational tools, fostering environments where everyone can thrive.",
       options: ["features", "who_can_use"],
     },
     features: {
       response:
-        "Spectrum's AI Guide offers a suite of features including: Customized Care Plans, Educational Support, Behavioral and Sensory Management, Safety and Emergency Planning, Strength-Based Activities, and Social Stories.",
+        "Spectrum's AI Guide offers a suite of features including: Customized Care Plans, Educational Support, Behavioral and Sensory Insights, Safety and Emergency Planning Ideas, Strength-Based Activities, and Social Stories.",
       options: [
         "care_plans",
         "educational_support",
-        "behavioral_management",
+        "behavioral_insights",
         "safety_planning",
         "strength_activities",
         "social_stories",
@@ -67,37 +65,37 @@ const InfoModal = ({ onClose }) => {
     },
     care_plans: {
       response:
-        "Customized Care Plans: Tailor daily routines and strategies to match individual strengths, sensory preferences, and triggers, fostering a supportive environment.",
+        "Customized Care Plans: Suggest daily routines and strategies based on individual strengths, sensory preferences, and triggers, fostering a supportive environment.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     educational_support: {
       response:
-        "Educational Support: Develop personalized learning approaches or Individualized Education Plans (IEPs) that align with communication styles, learning methods, and interests for optimal educational outcomes.",
+        "Educational Support: Suggest personalized learning approaches or Individualized Education Plans (IEPs) that align with communication styles, learning methods, and interests for better educational outcomes.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
-    behavioral_management: {
+    behavioral_insights: {
       response:
-        "Behavioral and Sensory Management: Address sensory sensitivities and behavioral challenges proactively with strategies that minimize stress and enhance well-being.",
+        "Behavioral and Sensory Insights: Provide educational tips on sensory preferences and behaviors to help caregivers create a more comfortable environment.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     safety_planning: {
       response:
-        "Safety and Emergency Planning: Manage safety risks, wandering behaviors, and allergies to ensure secure environments across various settings.",
+        "Safety and Emergency Planning Ideas: Offer suggestions to help caregivers plan for safety, such as ideas for addressing wandering or allergies, to create secure environments.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     strength_activities: {
       response:
-        "Strength-Based Activities: Leverage individual strengths and interests to boost confidence and encourage independence through engaging activities.",
+        "Strength-Based Activities: Suggest activities that use individual strengths and interests to boost confidence and encourage independence.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     social_stories: {
       response:
-        "Social Stories: Use AI to create personalized narratives that help with social cues, routine management, and emotional regulation, making learning both engaging and supportive.",
+        "Social Stories: Use AI to create personalized narratives that teach social cues, routine understanding, and emotional awareness, making learning engaging and supportive.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     learn_more_features: {
       response:
-        "Spectrum's AI Guide uses AI to turn complex data into practical, actionable insights, ensuring personalized support for every individual's journey. We continuously update our technology to meet the evolving needs of the autism community.",
+        "Spectrum's AI Guide uses AI to turn data into practical, educational insights, offering personalized support for caregivers in a non-medical way. We continuously update our technology to meet the needs of the autism community.",
       options: ["how_to_sign_up", "privacy"],
     },
     who_can_use: {
@@ -107,7 +105,7 @@ const InfoModal = ({ onClose }) => {
     },
     pricing: {
       response:
-        "Spectrum's Guide operates on a flexible Pay-Per-Use model, where users purchase credits for specific services or features. This model allows you to pay only for what you use, making personalized support more accessible and cost-effective. It offers a free tier with limited credits; premium plans unlock more features.",
+        "Spectrum's Guide operates on a Pay-Per-Use model, where users purchase credits for services or features. This lets you pay only for what you use, making support accessible. It offers a free tier; premium plans unlock more features.",
       options: ["free_includes", "premium_plans"],
     },
     free_includes: {
@@ -137,7 +135,7 @@ const InfoModal = ({ onClose }) => {
     },
   };
 
-  // Handle click on conversation options
+  // Handle click on conversation options with a delay and loading state
   const handleOptionClick = (nextNodeId, currentMessage) => {
     console.log(
       "Clicked option:",
@@ -164,17 +162,25 @@ const InfoModal = ({ onClose }) => {
       timestamp: new Date().toISOString(),
     };
 
-    const aiMessage = {
-      id: uuidv4(),
-      role: "assistant",
-      content: node.response,
-      timestamp: new Date().toISOString(),
-      options: node.options || null,
-      url: node.url || null,
-      nodeId: nextNodeId,
-    };
+    // Add the user's message immediately and show loading
+    setMessages((prev) => [userMessage, ...prev]);
+    setIsLoading(true);
 
-    setMessages((prev) => [aiMessage, userMessage, ...prev]);
+    // Simulate a delay (e.g., 1.5 seconds) before showing the AI's response
+    setTimeout(() => {
+      const aiMessage = {
+        id: uuidv4(),
+        role: "assistant",
+        content: node.response,
+        timestamp: new Date().toISOString(),
+        options: node.options || null,
+        url: node.url || null,
+        nodeId: nextNodeId,
+      };
+
+      setMessages((prev) => [aiMessage, ...prev]);
+      setIsLoading(false); // Hide loading after AI message is added
+    }, 1300); // 1.3-second delay
   };
 
   const formatTimestamp = (timestamp) => new Date(timestamp).toLocaleString();
@@ -220,6 +226,15 @@ const InfoModal = ({ onClose }) => {
     </div>
   );
 
+  // Loading indicator component
+  const LoadingIndicator = () => (
+    <div className="loading-indicator">
+      <span className="dot"></span>
+      <span className="dot"></span>
+      <span className="dot"></span>
+    </div>
+  );
+
   return (
     <div className="info-modal">
       <div className="info-header">
@@ -256,6 +271,7 @@ const InfoModal = ({ onClose }) => {
             </div>
           </div>
         )}
+        {isLoading && <LoadingIndicator />}
         {messages.map((msg) => (
           <MessageBubble key={msg.id} message={msg} />
         ))}
