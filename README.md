@@ -117,14 +117,14 @@ autism-support-app/
 
 ## Overview
 
-This document outlines a revised pricing strategy for managing AI feature interactions via a credit system across Free, Silver, and Gold plans. The aim is to simplify the credit system, ensure fairness, enhance user understanding, and improve retention and engagement.
+This document outlines a revised pricing strategy for managing AI feature interactions via a credit system across Free, Silver, and Gold plans for Spectrum’s Guide, a non-medical, educational tool designed to support caregivers of autistic individuals with personalized insights and suggestions. The aim is to simplify the credit system, ensure fairness, enhance user understanding, and improve retention and engagement.
 
 ## Credit System Simplification
 
 - **Uniform Credit Value**: Across all plans, 1 credit is equivalent to:
-  - 1 Custom Care Plan
-  - 1 Custom Story
-  - 10 AI Chat messages
+  - 1 Custom Care Plan (educational routine suggestion)
+  - 1 Custom Story (educational narrative)
+  - 10 AI Chat messages (supportive insights)
 
 This consistency across all features simplifies the understanding for users.
 
