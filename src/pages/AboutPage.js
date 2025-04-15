@@ -386,7 +386,13 @@
 // export default AboutPage;
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaBookOpen, FaHistory, FaRobot, FaChevronDown } from "react-icons/fa";
+import {
+  FaBookOpen,
+  FaHistory,
+  FaRobot,
+  FaChevronDown,
+  FaBook,
+} from "react-icons/fa";
 import "../styles/AboutPage.css";
 
 const AboutPage = () => {
@@ -428,6 +434,17 @@ const AboutPage = () => {
               <FaBookOpen size={40} color="#00c7eb" />
               <span>Custom Stories</span>
               <p>Craft personalized stories for skills and scenarios.</p>
+            </Link>
+            <Link
+              to="/pecs-board"
+              className="nav-button"
+              onClick={(e) => {
+                console.log("Clicked PECS Board link to /pecs-board");
+              }}
+            >
+              <FaBook size={40} color="#00c7eb" />
+              <span>PECS Boards</span>
+              <p>Create and upload custom PECS boards for visual support.</p>
             </Link>
           </div>
         </div>
@@ -509,6 +526,11 @@ const AboutPage = () => {
               <strong>Social Stories:</strong> Use AI to create personalized
               narratives that teach social cues, routine understanding, and
               emotional awareness, making learning engaging and supportive.
+            </li>
+            <li>
+              <strong>PECS Boards:</strong> Enable creation of custom visual
+              support boards and upload of pre-made PDFs to assist with
+              communication and daily tasks.
             </li>
           </ul>
 
@@ -603,6 +625,10 @@ const AboutPage = () => {
               <li>
                 <b>Transition Support</b> – Adapt IEPs into guides for life
                 transitions, like school-to-work, to support growth.
+              </li>
+              <li>
+                <b>PECS Board Enhancements</b> – Improve PECS boards with
+                advanced symbol libraries and real-time customization options.
               </li>
             </ul>
           </div>

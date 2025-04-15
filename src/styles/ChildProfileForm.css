@@ -1,452 +1,347 @@
-/* Root Container: Ensure the form wrapper is scrollable and responsive */
-.form-wrapper {
-  display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping unless in mobile view */
-  justify-content: space-between; /* Space between sections in desktop mode */
-  gap: 10px; /* Reduced from 20px */
+/* Base Form Styling */
+.child-profile-form {
   max-width: 1200px;
-
-  /* width: calc(100% - 80px);  */
-  box-sizing: border-box; /* Include padding and borders in the total width */
   margin: 60px auto; /* Reduced from 60px */
-  padding: 10px; /* Reduced from 20px */
-  background-color: white; /* White background for the form */
-  border-radius: 6px; /* Reduced from 8px */
+  padding: 15px; /* Reduced from 20px */
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Premium Plan Styling */
+.child-profile-form.premium-plan {
   border: 1px solid #c3c3c3;
+  background-color: #ffffff;
+}
+
+/* Form Container - Two-column grid on large screens */
+.child-profile-form .form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two-column grid for larger screens */
+  gap: 15px; /* Reduced from 30px */
+}
+
+/* Form Section */
+.child-profile-form .form-section {
+  padding: 12px; /* Reduced from 20px */
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Section Heading */
+.child-profile-form .form-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px; /* Reduced from 16px */
+  padding-bottom: 6px; /* Reduced from 8px */
+  border-bottom: 2px solid #02c7eb;
+  text-transform: none;
 }
 
 /* Credits Display */
-.credits-display-form {
+.child-profile-form .credits-display {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  background: #e0f7fa;
+  padding: 3px 6px; /* Reduced from 4px 8px */
+  border-radius: 12px;
+  margin-left: 8px; /* Reduced from 10px */
   display: inline-block;
-  background-color: #ffffff; /* Light grey background to match the style */
-  color: #555555; /* Black text */
-  font-size: 12px; /* Reduced from 14px */
-  padding: 3px 6px; /* Reduced from 5px 10px */
-  border-radius: 3px; /* Reduced from 4px */
-  vertical-align: middle; /* Align with the text vertically */
-  line-height: 1; /* To ensure it's the same height as the text */
-  width: auto;
+  text-transform: none;
+}
+
+/* Input Containers */
+.child-profile-form .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Reduced from 20px */
+  margin-bottom: 12px; /* Reduced from 20px */
+}
+
+/* Labels */
+.child-profile-form label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px; /* Reduced from 6px */
+  text-transform: none;
+}
+
+/* Inputs, Selects, Textareas */
+.child-profile-form input,
+.child-profile-form select,
+.child-profile-form textarea {
+  width: 100%;
+  padding: 10px; /* Reduced from 12px */
   border: 1px solid #c3c3c3;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  text-transform: none;
 }
 
-/* Form Container: Layout inside the form */
-.form-container {
-  display: flex;
-  flex-direction: row;
-  gap: 10px; /* Reduced from 15px */
-  width: 100%;
-}
-
-/* Form Sections: Left and Right */
-.form-section {
-  flex: 1; /* Each section takes equal space in desktop mode */
-  padding: 10px; /* Reduced from 20px */
-  background-color: #ffffff; /* White background for sections */
-  border-radius: 6px; /* Reduced from 8px */
-  border: 1px solid transparent; /* Initially transparent border */
-  box-sizing: border-box;
-}
-
-/* Labels: Style all label text */
-label {
-  display: block; /* Ensure labels are block elements */
-  font-size: 14px; /* Reduced from 16px */
-  text-align: left;
-  font-weight: 600; /* Semi-bold for emphasis */
-  color: #2e3136; /* Darker gray for modern and professional look */
-  margin-bottom: 4px; /* Reduced from 8px */
-  line-height: 1.3; /* Reduced from 1.5 */
-}
-
-/* Input Fields, Selects, and Textareas */
-input[type="text"],
-input[type="date"],
-select,
-textarea {
-  width: 100%;
-  padding: 6px; /* Reduced from 10px */
-  margin-top: 3px; /* Reduced from 5px */
-  border: 1px solid #ccc;
-  border-radius: 3px; /* Reduced from 4px */
-  box-sizing: border-box;
-  font-size: 14px; /* Reduced from 16px */
-  font-family: inherit;
-  height: 30px; /* Reduced height for compactness */
-}
-
-/* Input Focus Styles */
-input:focus,
-select:focus,
-textarea:focus {
+.child-profile-form input:focus,
+.child-profile-form select:focus,
+.child-profile-form textarea:focus {
+  border-color: #02c7eb;
+  box-shadow: 0 0 0 3px rgba(2, 199, 235, 0.1);
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 3px rgba(74, 144, 226, 0.5); /* Reduced from 5px */
 }
 
-/* Highlight Input Fields with Errors */
-.input-error {
-  border: 1px solid #d9534f; /* Red border */
-}
-
-/* Care Plans Container */
-.care-plans-container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px; /* Reduced from 10px */
-  margin-bottom: 5px; /* Reduced from 10px */
-  position: relative; /* For error overlay positioning */
-}
-
-/* Individual Care Plan Option */
-.care-plan-option {
-  display: flex;
-  align-items: center;
-  cursor: pointer; /* Change cursor to pointer on hover */
-  position: relative; /* For positioning pseudo-elements */
-  padding-left: 20px; /* Reduced from 30px */
-  user-select: none; /* Prevent text selection on click */
-}
-
-/* Hide the Default Checkbox */
-.care-plan-option input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Custom Checkbox - Unchecked State */
-.care-plan-option .care-plan-label::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px; /* Reduced from 20px */
-  height: 16px; /* Reduced from 20px */
-  border: 1px solid #555; /* Reduced from 2px */
-  border-radius: 3px; /* Reduced from 4px */
-  background-color: #fff;
-  transition: border-color 0.3s; /* Only transition border-color */
-}
-
-/* Custom Checkbox - Checked State */
-.care-plan-option input:checked ~ .care-plan-label::before {
-  background-color: #4caf50; /* Green background when checked */
-  border-color: #4caf50; /* Green border when checked */
-}
-
-/* Checkmark in the Custom Checkbox */
-.care-plan-option input:checked ~ .care-plan-label::after {
-  content: "✔";
-  position: absolute;
-  left: 3px; /* Reduced from 5px */
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  font-size: 12px; /* Reduced from 16px */
-}
-
-/* Hover Effect on the Custom Checkbox - Isolated to Border Color */
-.care-plan-option:hover .care-plan-label::before {
-  border-color: #000; /* Darker border on hover */
-}
-
-/* Label Text Styling for Care Plans */
-.care-plan-label {
-  margin-left: 5px; /* Reduced from 10px */
-  font-size: 14px; /* Reduced from 16px */
-  color: #333; /* Dark text color */
-}
-
-/* Important Roles Container */
-.important-roles-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3px; /* Reduced from 5px */
-  max-height: 120px; /* Reduced from 150px */
-  overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ccc; /* Add a subtle border */
-  border-radius: 3px; /* Reduced from 4px */
-  padding: 3px; /* Reduced from 5px */
-  background-color: #f9f9f9; /* Subtle background color */
-}
-
-/* Individual Important Role Option */
-.important-role-option {
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Reduced from 8px */
-  font-size: 12px; /* Reduced from 14px */
-  cursor: pointer;
-}
-
-/* Checkbox Style for Important Roles */
-.important-role-option input {
-  width: 14px; /* Reduced from 16px */
-  height: 14px; /* Reduced from 16px */
-  cursor: pointer;
-}
-
-/* Buttons Container */
-.button-container {
-  display: grid; /* Use CSS Grid for layout */
-  grid-template-columns: repeat(2, 1fr); /* Two columns, evenly spaced */
-  gap: 10px; /* Reduced from 20px */
-  width: 100%; /* Full-width container */
-  max-width: 500px; /* Reduced from 600px */
-  box-sizing: border-box;
-  margin-top: 0.5em; /* Reduced from 1em */
-}
-
-/* Buttons */
-.button-container button {
-  padding: 8px 12px;
-  border: 1px solid #c3c3c3; /* Consistent border */
-  border-radius: 6px !important; /* Enforce consistent border radius */
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  color: white;
-  background-color: #00d9ff !important; /* Enforce uniform color with !important */
-  transition: background-color 0.3s ease; /* Only transition background-color */
-  box-sizing: border-box;
-  height: 36px; /* Explicit height to prevent changes */
-  line-height: 20px; /* Match text height to prevent reflow */
-}
-
-/* Hover Effect for Both Buttons - Color Change Only */
-.button-container button:hover:not(:disabled) {
-  background-color: #00c0e6 !important; /* Slightly darker shade on hover */
-  border: 1px solid #c3c3c3; /* Consistent hover border */
-  border-radius: 6px !important; /* Enforce consistent border radius */
-  padding: 8px 12px; /* Maintain original padding */
-  height: 36px; /* Explicitly maintain height */
-}
-
-/* Active Effect for Both Buttons */
-.button-container button:active {
-  border-radius: 6px !important; /* Enforce consistent border radius */
-  padding: 8px 12px; /* Maintain original padding */
-  height: 36px; /* Explicitly maintain height */
-}
-
-/* Disabled Button State for Both Buttons */
-.button-container button:disabled {
-  background-color: #00d9ff !important; /* Match the active color */
-  border: 1px solid #c3c3c3; /* Consistent disabled border */
-  border-radius: 6px !important; /* Enforce consistent border radius */
-  cursor: not-allowed;
-  padding: 8px 12px; /* Maintain original padding */
-  height: 36px; /* Explicitly maintain height */
-  opacity: 0.5; /* Visual cue for disabled state */
-}
-
-/* Div Container Styles */
-.div-container {
-  font-size: 10px; /* Reduced from 12px */
-  height: 40px; /* Reduced from 50px */
-  display: flex; /* Enable Flexbox */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  text-align: center; /* Center-align text within elements */
-  background-color: #dddddd;
-  border-bottom-right-radius: 8px; /* Reduced from 10px */
-  border-bottom-left-radius: 8px; /* Reduced from 10px */
-}
-
-/* Error Text Styling (if using separate error texts) */
-.error-text {
-  color: red;
-  font-size: 10px; /* Reduced from 12px */
-}
-
-/* Enhance the Textarea Placeholder Color */
-textarea::placeholder {
+/* Placeholder Text */
+.child-profile-form input::placeholder,
+.child-profile-form textarea::placeholder {
   color: #999;
+  text-transform: none;
 }
 
-/* Optional: Specific styles for textarea errors */
-.form-section label textarea.input-error {
-  border-color: red;
+/* Select Dropdown Arrow */
+.child-profile-form select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
 }
 
-/* Show error overlay when active */
-.input-container .error-overlay.active {
-  opacity: 1;
-}
-
-/* Optional: Add a small arrow pointing to the input field */
-.error-overlay::after {
-  /* content: ""; */
-  /* position: absolute; */
-  /* bottom: -5px; */
-  /* left: 10px; */
-  border-width: 2px; /* Reduced from 3px */
-  border-style: solid;
-  border-color: #000;
-  /* border-color: rgba(217, 83, 79, 0.9) transparent transparent transparent; */
-}
-
-/* ... previous CSS ... */
-
-.input-container {
-  margin-bottom: 0.5em; /* Reduced from 1em */
-}
-
-.input-container h3 {
-  font-size: 16px; /* Reduced from 18px */
-  font-weight: bold;
-  text-align: center;
-  align-items: center;
-  padding: 3px 0; /* Reduced from 5px 0px 5px 0px */
-  background-color: #00d9ff; /* Matches buttons */
-  border: 1px solid #c3c3c3; /* Add the desired border */
-  color: #ffffff;
-  border-radius: 4px; /* Reduced from 6px */
-}
-
-.important-role-option,
-.care-plan-option {
-  display: block;
-  margin-bottom: 0.05em; /* Reduced from 0.1em */
-}
-
-.error-overlay {
-  position: static;
-  display: block;
-  color: red;
-  font-size: 12px; /* Reduced from 15px */
-  opacity: 1;
-  border: none;
-  padding: 0;
-}
-
-.input-container label {
+/* Custom Multi-Select */
+.child-profile-form .custom-multi-select {
   position: relative;
+  width: 100%;
 }
 
-.input-container .sensorySensitivities {
-  height: 120px; /* Reduced from 150px */
-}
-
-.input-container label .error-overlay {
-  position: absolute;
-  left: 0;
-  bottom: -1.2em; /* Reduced from -1.5em */
-  height: 240px; /* Reduced from 300px */
-}
-
-.important-roles-container,
-.care-plans-container {
-  padding-left: 0.5em; /* Reduced from 1em */
-}
-
-.custom-multi-select {
-  position: relative;
-}
-
-.select-display {
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-family: inherit;
-  height: 30px;
-  line-height: 18px;
+.child-profile-form .custom-multi-select .select-display {
+  padding: 10px; /* Reduced from 12px */
+  border: 1px solid #c3c3c3;
+  border-radius: 6px;
   background-color: #fff;
   cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 1rem;
+  text-transform: none;
 }
 
-.select-display.input-error {
-  border: 1px solid #d9534f; /* Red border for errors */
+.child-profile-form .custom-multi-select .select-display.input-error {
+  border-color: #ff6b6b;
 }
 
-.dropdown-options {
+.child-profile-form .custom-multi-select .dropdown-options {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  max-height: 150px;
-  overflow-y: auto;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  border: 1px solid #c3c3c3;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-height: 180px; /* Reduced from 200px */
+  overflow-y: auto;
+  z-index: 10;
 }
 
-.dropdown-option {
+.child-profile-form .custom-multi-select .dropdown-option {
   display: flex;
   align-items: center;
-  padding: 5px 10px;
-  font-size: 14px;
+  padding: 8px; /* Reduced from 10px */
   cursor: pointer;
+  text-transform: none;
 }
 
-.dropdown-option:hover {
-  background-color: #f0f0f0;
+.child-profile-form .custom-multi-select .dropdown-option:hover {
+  background-color: #e0f7fa;
 }
 
-.dropdown-option input {
-  margin-right: 5px;
+.child-profile-form .custom-multi-select .dropdown-option input {
+  margin-right: 6px; /* Reduced from 8px */
 }
-@media (max-width: 1276px) {
-  .form-wrapper {
-    margin: 60px 20px;
+
+/* Checkboxes */
+.child-profile-form input[type="checkbox"] {
+  width: 18px; /* Reduced from 20px */
+  height: 18px;
+  margin-right: 6px; /* Reduced from 8px */
+  accent-color: #02c7eb;
+}
+
+/* Checkbox Containers */
+.child-profile-form .checkbox-group,
+.child-profile-form .important-roles-container,
+.child-profile-form .care-plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Reduced from 12px */
+}
+
+.child-profile-form .checkbox-group label,
+.child-profile-form .important-role-option label,
+.child-profile-form .care-plan-option label {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px; /* Reduced from 8px 12px */
+  transition: background-color 0.2s ease;
+  text-transform: none;
+}
+
+.child-profile-form .checkbox-group label:hover,
+.child-profile-form .important-role-option label:hover,
+.child-profile-form .care-plan-option label:hover {
+  background-color: #e0f7fa;
+}
+
+/* Role and Care Plan Labels */
+.child-profile-form .role-label,
+.child-profile-form .care-plan-label {
+  text-transform: none;
+}
+
+/* Buttons */
+.child-profile-form .button-container {
+  display: flex;
+  gap: 10px; /* Reduced from 15px */
+  margin-top: 20px; /* Reduced from 30px */
+  grid-column: 1 / -1; /* Span full width */
+}
+
+.child-profile-form .button-container button {
+  flex: 1;
+  padding: 12px; /* Reduced from 14px */
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: none;
+}
+
+.child-profile-form .button-container button[type="submit"] {
+  background-color: #02c7eb;
+  color: #fff;
+  border: none;
+}
+
+.child-profile-form .button-container button[type="submit"]:hover {
+  background-color: #00a3c4;
+  transform: translateY(-2px);
+}
+
+.child-profile-form .button-container button[type="button"] {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #c3c3c3;
+}
+
+.child-profile-form .button-container button[type="button"]:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.child-profile-form .button-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Error Styling */
+.child-profile-form .input-error {
+  border-color: #ff6b6b;
+}
+
+.child-profile-form .error-overlay {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  margin-top: 4px; /* Reduced from 6px */
+  text-align: left;
+  text-transform: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .child-profile-form {
+    margin: 40px 20px; /* Reduced from 60px */
   }
 }
-/* Mobile Adjustments */
+
 @media (max-width: 768px) {
-  .form-wrapper {
-    flex-direction: column; /* Stack sections vertically on smaller screens */
-    justify-content: flex-start; /* Align items at the top */
-    align-items: center; /* Center horizontally stacked items */
+  .child-profile-form {
+    padding: 10px; /* Reduced from 15px */
+    box-shadow: none; /* Simplify for mobile */
   }
-  .form-container {
+
+  .child-profile-form .form-container {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+
+  .child-profile-form .form-section {
+    margin-bottom: 8px; /* Reduced from 10px */
+  }
+
+  .child-profile-form .form-section .input-container {
+    display: flex; /* Ensure input containers are always visible */
+  }
+
+  .child-profile-form .form-section h3 {
+    font-size: 1.25rem;
+  }
+
+  .child-profile-form label {
+    font-size: 0.95rem;
+  }
+
+  .child-profile-form input,
+  .child-profile-form select,
+  .child-profile-form textarea {
+    padding: 8px; /* Reduced from 10px */
+    font-size: 0.95rem;
+  }
+
+  .child-profile-form .button-container {
     flex-direction: column;
+    gap: 8px; /* Reduced from 10px */
   }
-  .button-container {
-    grid-template-columns: 1fr; /* Single column layout */
-    gap: 8px; /* Reduced from 15px */
-    min-width: 100%;
+
+  .child-profile-form .button-container button {
+    padding: 10px; /* Reduced from 12px */
+    font-size: 1rem;
   }
-  /* Make buttons span full width in column layout */
-  .button-container button {
-    width: 100%; /* Span full width */
-    border-radius: 6px !important; /* Enforce consistent border radius on mobile */
-    padding: 8px 12px; /* Maintain original padding */
-    height: 36px; /* Explicitly maintain height */
+
+  .child-profile-form .credits-display {
+    font-size: 0.8rem;
+    margin-left: 6px; /* Reduced from 8px */
+    padding: 2px 4px; /* Reduced from 3px 6px */
   }
 }
 
-/* Responsive Adjustments for Care Plans */
-@media (max-width: 600px) {
-  .care-plan-option {
-    padding-left: 20px; /* Reduced from 25px */
+@media (max-width: 480px) {
+  .child-profile-form {
+    margin: 30px 10px; /* Reduced from 50px */
+    padding: 8px; /* Reduced from 10px */
   }
 
-  .care-plan-option .care-plan-label::before {
-    width: 14px; /* Reduced from 18px */
-    height: 14px; /* Reduced from 18px */
+  .child-profile-form .form-section h3 {
+    font-size: 1.1rem;
   }
 
-  .care-plan-option input:checked ~ .care-plan-label::after {
-    font-size: 10px; /* Reduced from 14px */
+  .child-profile-form label {
+    font-size: 0.9rem;
   }
 
-  .care-plan-label {
-    font-size: 12px; /* Reduced from 14px */
+  .child-profile-form input,
+  .child-profile-form select,
+  .child-profile-form textarea {
+    padding: 6px; /* Reduced from 8px */
+    font-size: 0.9rem;
   }
-  .button-container button {
-    width: 100%; /* Span full width */
-    border-radius: 6px !important; /* Enforce consistent border radius */
-    padding: 8px 12px; /* Maintain original padding */
-    height: 36px; /* Explicitly maintain height */
+
+  .child-profile-form .error-overlay {
+    font-size: 0.8rem;
+  }
+
+  .child-profile-form .button-container button {
+    padding: 8px; /* Reduced from 10px */
+    font-size: 0.9rem;
   }
 }

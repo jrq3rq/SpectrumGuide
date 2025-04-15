@@ -53,7 +53,7 @@ const InfoModal = ({ onClose }) => {
     },
     features: {
       response:
-        "Spectrum's AI Guide offers a suite of features including: Customized Care Plans, Educational Support, Behavioral and Sensory Insights, Safety and Emergency Planning Ideas, Strength-Based Activities, and Social Stories.",
+        "Spectrum's AI Guide offers a suite of features including: Customized Care Plans, Educational Support, Behavioral and Sensory Insights, Safety and Emergency Planning Ideas, Strength-Based Activities, Social Stories, and PECS Boards.",
       options: [
         "care_plans",
         "educational_support",
@@ -61,6 +61,7 @@ const InfoModal = ({ onClose }) => {
         "safety_planning",
         "strength_activities",
         "social_stories",
+        "pecs_boards",
       ],
     },
     care_plans: {
@@ -91,6 +92,11 @@ const InfoModal = ({ onClose }) => {
     social_stories: {
       response:
         "Social Stories: Use AI to create personalized narratives that teach social cues, routine understanding, and emotional awareness, making learning engaging and supportive.",
+      options: ["learn_more_features", "how_to_sign_up"],
+    },
+    pecs_boards: {
+      response:
+        "PECS Boards: Enable creation of custom visual support boards and upload of pre-made PDFs to assist with communication and daily tasks, offering personalized visual aids.",
       options: ["learn_more_features", "how_to_sign_up"],
     },
     learn_more_features: {

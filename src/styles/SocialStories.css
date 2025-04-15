@@ -37,7 +37,7 @@
   margin-right: 10px;
 }
 
-.generate-button {
+.generate-buttonz {
   background-color: #02c7eb;
   border: none;
   color: #fff;
@@ -47,7 +47,7 @@
   transition: background-color 0.3s ease;
 }
 
-.generate-button:disabled {
+.generate-buttonz:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -165,7 +165,7 @@
   .story-card {
     padding: 15px;
   }
-  .generate-button {
+  .generate-buttonz {
     height: auto;
     margin-top: 0px;
     width: 100%;

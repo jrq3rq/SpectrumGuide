@@ -187,3 +187,19 @@ This consistency across all features simplifies the understanding for users.
 ## Conclusion
 
 This revised strategy aims to balance simplicity, fairness, user engagement, and revenue potential. It ensures that even Free account users feel valued by providing meaningful interaction with AI features, encouraging potential upgrades to paid plans. The clear, consistent credit system across all plans should enhance user understanding and satisfaction.
+
+<!--
+
+Automation You’ll Eventually Need:
+
+Usage tracking: Track credit consumption + feature usage in Firestore or a dashboard.
+
+Stripe webhook automation: Confirm payment → update credits → confirm Firestore sync.
+
+Error reporting: Use something like Sentry or Firebase Crashlytics to track unexpected behavior.
+
+Admin alerts: Flag unusual events—failed transactions, inactive users with high credit purchases, etc.
+
+Analytics: Funnel drop-off insights (e.g., who signs in but doesn’t complete a profile or purchase).
+
+-->

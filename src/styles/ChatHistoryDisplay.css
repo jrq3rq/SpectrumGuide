@@ -1,255 +1,354 @@
-.container {
-  max-width: 1200px;
+/* src/styles/ChatHistoryDisplay.css */
+
+/* Scoped styles to .chat-history-display */
+.chat-history-display {
+  max-width: 800px;
   margin: 60px auto;
-  font-family: "Helvetica Neue", Arial, sans-serif;
   padding: 20px;
-  border-radius: 10px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   background-color: #ffffff;
-  border: 1px solid #c3c3c3;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.container .title {
+/* Title */
+.chat-history-display .title {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+  margin-bottom: 24px;
+  font-size: 1.75rem;
+  font-weight: 600;
   color: #333;
 }
 
-.chatContainer {
+/* Chat Container */
+.chat-history-display .chat-container {
   max-height: 70vh;
   overflow-y: auto;
-  padding: 10px;
-  background-color: #f4f4f9;
-  border: 1px solid #c3c3c3;
-  border-radius: 10px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
 }
 
-.messageCard {
-  margin-bottom: 15px;
-  padding: 20px;
-  text-align: left;
+/* Message Card */
+.chat-history-display .message-card {
+  margin-bottom: 16px;
+  padding: 16px;
   background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
 }
 
-.messageCard .role {
-  font-weight: bold;
+.chat-history-display .message-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Role */
+.chat-history-display .message-card .role {
+  font-weight: 600;
+  font-size: 0.9rem;
   color: #4a4a4a;
-  margin-bottom: 5px;
-  text-align: left;
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
-.messageCard .content {
-  background-color: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
+/* Content */
+.chat-history-display .message-card .content {
+  background-color: #f1f3f5;
+  padding: 12px;
+  border-radius: 4px;
   font-size: 0.95rem;
+  line-height: 1.6;
   white-space: pre-wrap;
   word-wrap: break-word;
-  line-height: 1.5;
-  margin-bottom: 10px;
-  border: 1px solid #c3c3c3;
-  text-align: left;
+  margin-bottom: 12px;
+  border: 1px solid #e0e0e0;
 }
 
-.messageCard .title {
-  overflow-wrap: break-word;
-  /* Alternatively, for single-line text with ellipsis: */
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
-}
-
-.messageCard .timestamp {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
-.messageCard .actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 0px;
-  margin-top: 10px;
-}
-
-.messageCard .actionButton,
-.messageCard .deleteButton {
-  background-color: #02c7eb;
-  border: 1px solid #908f8f;
-  color: #fff;
-  padding: 10px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  flex: 1;
-  margin: 0 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.messageCard .addNoteButton {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #02c7eb;
-  border: 1px solid #908f8f;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  flex: 1;
-  margin: 0 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.messageCard .addNoteButton span {
-  flex-shrink: 0;
-}
-
-.messageCard .deleteButton {
-  background-color: #ff6b6b;
-}
-
-.messageCard .addNoteButton {
-  background-color: #4caf50;
-}
-
-.messageCard .showMoreButton {
+/* Show More Button */
+.chat-history-display .message-card .show-more-button {
   background-color: transparent;
   border: none;
   color: #02c7eb;
   cursor: pointer;
   font-size: 0.9rem;
-  margin-left: 5px;
+  margin-left: 8px;
   text-decoration: underline;
-  padding: 0;
+  transition: color 0.2s ease;
 }
 
-.noMessages {
-  text-align: center;
-  color: #777;
+.chat-history-display .message-card .show-more-button:hover {
+  color: #00a3c4;
 }
 
-.downloadAllButton {
-  display: block;
-  margin: 20px auto;
-  background-color: #02c7eb;
-  color: #fff;
-  width: 100%;
-  border: 1px solid #908f8f;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+/* Timestamp */
+.chat-history-display .message-card .timestamp {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 12px;
+}
+
+/* Notes Section */
+.chat-history-display .message-card .notes-section {
+  margin-top: 16px;
+}
+
+.chat-history-display .message-card .notes-title {
+  margin-bottom: 12px;
   font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.notesSection {
-  margin-top: 15px;
-}
-
-.notesTitle {
-  margin-bottom: 10px;
-  font-size: 1rem;
+  font-weight: 600;
   color: #333;
 }
 
-.notesList {
+/* Notes List */
+.chat-history-display .message-card .notes-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.noteItem {
+/* Note Item */
+.chat-history-display .message-card .note-item {
   background-color: #e8f5e9;
-  padding: 8px 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #c3c3c3;
+  border: 1px solid #d4e4d5;
+  transition: background-color 0.2s ease;
 }
 
-.noteContent {
+.chat-history-display .message-card .note-item:hover {
+  background-color: #d4edda;
+}
+
+/* Note Content */
+.chat-history-display .message-card .note-content {
   color: #2e7d32;
   font-size: 0.9rem;
+  flex: 1;
 }
 
-.noteTimestamp {
+/* Note Timestamp */
+.chat-history-display .message-card .note-timestamp {
   font-size: 0.8rem;
   color: #555;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
-.addNoteContainer {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.addNoteTextarea {
-  width: 100%;
-  padding: 8px;
-  font-size: 0.9rem;
-  border: 1px solid #c3c3c3;
-  border-radius: 5px;
-  resize: vertical;
-}
-
-.addNoteActions {
-  display: flex;
-  gap: 10px;
-  margin: 5px 0px 10px 0px;
-}
-
-.saveNoteButton {
-  width: 100%;
-  background-color: #4caf50;
-  border: 1px solid #908f8f;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.cancelNoteButton {
-  width: 100%;
-  background-color: #ff6b6b;
-  border: 1px solid #908f8f;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.deleteNoteButton {
+/* Delete Note Button */
+.chat-history-display .message-card .delete-note-button {
   background-color: transparent;
   border: none;
-  color: #c3c3c3;
+  color: #ff6b6b;
   font-size: 1.2rem;
   cursor: pointer;
-  margin-left: 10px;
   transition: color 0.2s ease;
 }
 
+.chat-history-display .message-card .delete-note-button:hover {
+  color: #e55a5a;
+}
+
+/* No Notes Message */
+.chat-history-display .message-card .no-notes {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Error Message */
+.chat-history-display .message-card .error-message {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+/* Add Note Container */
+.chat-history-display .message-card .add-note-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Add Note Textarea */
+.chat-history-display .message-card .add-note-textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  resize: vertical;
+  background-color: #f8f9fa;
+  transition: border-color 0.2s ease;
+}
+
+.chat-history-display .message-card .add-note-textarea:focus {
+  border-color: #02c7eb;
+  outline: none;
+}
+
+/* Add Note Actions */
+.chat-history-display .message-card .add-note-actions {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0 12px 0;
+}
+
+/* Save Note Button */
+.chat-history-display .message-card .save-note-button {
+  width: 100%;
+  background-color: #4caf50;
+  border: none;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.chat-history-display .message-card .save-note-button:hover {
+  background-color: #45a049;
+}
+
+.chat-history-display .message-card .save-note-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Cancel Note Button */
+.chat-history-display .message-card .cancel-note-button {
+  width: 100%;
+  background-color: #ff6b6b;
+  border: none;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.chat-history-display .message-card .cancel-note-button:hover {
+  background-color: #e55a5a;
+}
+
+.chat-history-display .message-card .cancel-note-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Actions */
+.chat-history-display .message-card .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Action Buttons */
+.chat-history-display .message-card .action-button,
+.chat-history-display .message-card .delete-button,
+.chat-history-display .message-card .add-note-button {
+  background-color: #02c7eb;
+  border: none;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  flex: 1;
+  transition: background-color 0.2s ease;
+}
+
+.chat-history-display .message-card .action-button:hover,
+.chat-history-display .message-card .add-note-button:hover {
+  background-color: #00a3c4;
+}
+
+/* Delete Button */
+.chat-history-display .message-card .delete-button {
+  background-color: #ff6b6b;
+}
+
+.chat-history-display .message-card .delete-button:hover {
+  background-color: #e55a5a;
+}
+
+/* Add Note Button */
+.chat-history-display .message-card .add-note-button {
+  background-color: #4caf50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-history-display .message-card .add-note-button:hover {
+  background-color: #45a049;
+}
+
+.chat-history-display .message-card .add-note-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.chat-history-display .message-card .add-note-button span {
+  flex-shrink: 0;
+}
+
+/* No Messages */
+.chat-history-display .no-messages {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1rem;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+/* Responsive Design */
 @media (max-width: 1200px) {
-  .container {
-    margin: 60px 20px;
+  .chat-history-display {
+    margin: 40px 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .container {
-    margin: 60px 0px;
-    background-color: transparent;
-    border: 1px solid transparent;
+  .chat-history-display {
+    margin: 60px 20px;
+    padding: 10px;
+  }
+
+  .chat-history-display .message-card .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chat-history-display .message-card .action-button,
+  .chat-history-display .message-card .delete-button,
+  .chat-history-display .message-card .add-note-button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .chat-history-display .message-card .add-note-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chat-history-display .message-card .save-note-button,
+  .chat-history-display .message-card .cancel-note-button {
+    padding: 12px;
   }
 }

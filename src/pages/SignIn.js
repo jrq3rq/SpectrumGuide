@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth, firestore } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { auth } from "../firebase";
 import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import LoadingOverlay from "../components/LoadingOverlay";
@@ -62,15 +62,27 @@ const SignIn = () => {
     setIsLoading(true);
     try {
       console.log("SignIn - Initiating Google Sign-In");
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log("SignIn - Google Sign-In successful, user:", user);
-      login(user, true); // Let UserContext handle navigation
+      const result = await signInWithPopup(auth, provider).catch((error) => {
+        if (error.code === "auth/popup-blocked") {
+          console.log("SignIn - Popup blocked, falling back to redirect");
+          return signInWithRedirect(auth, provider);
+        }
+        throw error;
+      });
+      if (result) {
+        const user = result.user;
+        console.log("SignIn - Google Sign-In successful, user:", user);
+        login(user, true);
+      }
       setIsLoading(false);
     } catch (error) {
       console.error("SignIn - Google Sign-In Error:", error);
       setError(
-        `Google Sign-In failed: ${error.message || "Please try again."}`
+        `Google Sign-In failed: ${
+          error.code === "auth/popup-blocked"
+            ? "Popup was blocked by the browser. Please allow popups and try again, or use email sign-in."
+            : error.message || "Please try again."
+        }`
       );
       setIsLoading(false);
     }

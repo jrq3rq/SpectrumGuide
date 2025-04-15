@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 import useCreditTracker from "../hooks/useCreditTracker";
 import { firestore } from "../firebase";
 
-// Custom Multi-Select Component
+// Custom multi-select component
 const CustomMultiSelect = ({ name, value, options, onChange, error }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -25,9 +25,7 @@ const CustomMultiSelect = ({ name, value, options, onChange, error }) => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleToggle = (optionValue) => {
@@ -72,13 +70,14 @@ const CustomMultiSelect = ({ name, value, options, onChange, error }) => {
   );
 };
 
+// Care plan rules in sentence case (already correct)
 const carePlanRules = {
   customizedCarePlans: `
     - Tailor daily routines and care strategies to align with individual strengths, sensory preferences, and triggers.
     - Ensure a supportive and nurturing environment by accommodating the child's specific needs.
   `,
   educationalSupport: `
-    - Develop personalized learning approaches or Individualized Education Plans (IEPs) based on the child's preferred communication styles, learning methods, and interests.
+    - Develop personalized learning approaches or individualized education plans (IEPs) based on the child's preferred communication styles, learning methods, and interests.
     - Optimize educational outcomes by adapting teaching methods to suit the child's unique learning style.
   `,
   behavioralSensoryManagement: `
@@ -95,55 +94,57 @@ const carePlanRules = {
   `,
 };
 
+// Important roles in sentence case (already correct)
 const importantRoles = [
   {
     id: "parentsGuardians",
-    label: "Parents or Guardians",
+    label: "Parents or guardians",
     reason:
       "They are with the child 24/7, providing the most consistent and immediate support. Their understanding and application of the child's needs directly impact daily life, safety, and emotional well-being.",
   },
   {
     id: "teachersEducationalStaff",
-    label: "Teachers and Educational Staff",
+    label: "Teachers and educational staff",
     reason:
       "Education is a significant part of a child's life, where they spend a considerable amount of time. Teachers can adapt the learning environment and curriculum to support the child's unique learning style and needs, directly affecting educational outcomes and social interactions.",
   },
   {
     id: "behavioralTherapists",
-    label: "Behavioral Therapists/Therapists",
+    label: "Behavioral therapists/therapists",
     reason:
-      "Including Speech, Occupational, and Developmental Therapists. They work directly on the child's core challenges—communication, behavior management, sensory integration, and social skills. Therapy sessions are tailored to individual needs, making a direct impact on the child's quality of life and development.",
+      "Including speech, occupational, and developmental therapists. They work directly on the child's core challenges—communication, behavior management, sensory integration, and social skills. Therapy sessions are tailored to individual needs, making a direct impact on the child's quality of life and development.",
   },
   {
     id: "healthcareProviders",
-    label: "Healthcare Providers (Pediatricians, Neurologists)",
+    label: "Healthcare providers (pediatricians, neurologists)",
     reason:
       "Health monitoring and medical interventions are vital. Understanding the child's autism profile helps in managing any medical issues, monitoring developmental milestones, and ensuring that physical health supports overall well-being.",
   },
   {
     id: "specialEducationCoordinators",
-    label: "Special Education Coordinators",
+    label: "Special education coordinators",
     reason:
       "While they might not interact daily with the child, their role in orchestrating the educational environment, including IEPs and classroom modifications, is crucial for the child's academic success and inclusion.",
   },
   {
     id: "recreationalTherapists",
-    label: "Recreational Therapists or Program Coordinators",
+    label: "Recreational therapists or program coordinators",
     reason:
       "They provide opportunities for social interaction, physical activity, and personal growth in a therapeutic context. These activities can be crucial for social skills, self-esteem, and leisure enjoyment, which are often challenging areas for children with autism.",
   },
   {
     id: "socialWorkers",
-    label: "Social Workers or Case Managers",
+    label: "Social workers or case managers",
     reason:
       "Although they do not provide daily care, their role in navigating systems, advocating for services, and connecting families to resources can significantly influence the support network around the child, indirectly but importantly affecting their life.",
   },
 ];
 
+// Field labels in sentence case (already correct)
 const fieldLabels = {
-  name: "Child’s Name",
-  carePlans: "Care Plans",
-  importantRoles: "Important Roles",
+  name: "Child's name",
+  carePlans: "Care plans",
+  importantRoles: "Important roles",
 };
 
 const ChildProfileForm = ({ onLoad }) => {
@@ -156,7 +157,7 @@ const ChildProfileForm = ({ onLoad }) => {
     diagnosisDate: "",
     communication: "",
     preferredCommunication: "",
-    sensorySensitivities: [], // Array for multiple selections
+    sensorySensitivities: [],
     comfortItems: "",
     strengths: "",
     activities: "",
@@ -174,7 +175,7 @@ const ChildProfileForm = ({ onLoad }) => {
     safetyRisks: [],
     carePlans: [],
     notes: "",
-    dietRestrictions: [], // Array for multiple selections
+    dietRestrictions: [],
     age: "",
   });
   const [errors, setErrors] = useState({});
@@ -203,41 +204,43 @@ const ChildProfileForm = ({ onLoad }) => {
     isAdmin,
   });
 
+  // Care plan options in sentence case (already correct)
   const carePlanOptions = [
     {
       id: "customizedCarePlans",
       label:
-        "Customized Care Plans: Tailor daily routines and care strategies to align with individual strengths, sensory preferences, and triggers, ensuring a supportive and nurturing environment.",
+        "Customized care plans: Tailor daily routines and care strategies to align with individual strengths, sensory preferences, and triggers, ensuring a supportive and nurturing environment.",
     },
     {
       id: "educationalSupport",
       label:
-        "Educational Support: Develop personalized learning approaches or Individualized Education Plans (IEPs) based on preferred communication styles, learning methods, and interests to optimize educational outcomes.",
+        "Educational support: Develop personalized learning approaches or individualized education plans (IEPs) based on preferred communication styles, learning methods, and interests to optimize educational outcomes.",
     },
     {
       id: "behavioralSensoryManagement",
       label:
-        "Behavioral and Sensory Management: Proactively manage sensory sensitivities, challenges, and triggers to reduce stress and improve overall well-being.",
+        "Behavioral and sensory management: Proactively manage sensory sensitivities, challenges, and triggers to reduce stress and improve overall well-being.",
     },
     {
       id: "safetyEmergencyPlanning",
       label:
-        "Safety and Emergency Planning: Address safety risks, wandering behaviors, and allergies to create safe environments at home, school, and in public spaces.",
+        "Safety and emergency planning: Address safety risks, wandering behaviors, and allergies to create safe environments at home, school, and in public spaces.",
     },
     {
       id: "strengthBasedActivities",
       label:
-        "Strength-Based Activities: Highlight strengths and special interests to boost confidence, encourage independence, and foster enjoyable, meaningful experiences.",
+        "Strength-based activities: Highlight strengths and special interests to boost confidence, encourage independence, and foster enjoyable, meaningful experiences.",
     },
     {
       id: "dietFocusedCarePlan",
       label:
-        "Diet-Focused Care Plan: Creates a care plan tailored exclusively to special diet restrictions (e.g., gluten-free, no peanuts) to enhance safety and address sensory sensitivities and allergies (20-40% of autistic kids affected).",
+        "Diet-focused care plan: Creates a care plan tailored exclusively to special diet restrictions (e.g., gluten-free, no peanuts) to enhance safety and address sensory sensitivities and allergies (20-40% of autistic kids affected).",
     },
   ];
 
+  // Sensory sensitivity options in sentence case
   const sensorySensitivityOptions = [
-    { value: "", label: "Select Sensory Sensitivities" },
+    { value: "", label: "Select sensory sensitivities" },
     { value: "Light", label: "Light (e.g., bright lights cause discomfort)" },
     { value: "Sound", label: "Sound (e.g., loud noises trigger distress)" },
     {
@@ -252,29 +255,30 @@ const ChildProfileForm = ({ onLoad }) => {
     { value: "None", label: "None" },
   ];
 
+  // Diet restriction options in sentence case
   const dietRestrictionOptions = [
-    { value: "", label: "Select Diet Restrictions" },
-    { value: "Gluten-Free", label: "Gluten-Free (e.g., wheat sensitivity)" },
-    { value: "Dairy-Free", label: "Dairy-Free (e.g., lactose intolerance)" },
-    { value: "No Peanuts", label: "No Peanuts (allergy risk)" },
+    { value: "", label: "Select diet restrictions" },
+    { value: "Gluten-Free", label: "Gluten-free (e.g., wheat sensitivity)" },
+    { value: "Dairy-Free", label: "Dairy-free (e.g., lactose intolerance)" },
+    { value: "No Peanuts", label: "No peanuts (allergy risk)" },
     {
       value: "No Tree Nuts",
-      label: "No Tree Nuts (allergy risk, e.g., almonds, walnuts)",
+      label: "No tree nuts (allergy risk, e.g., almonds, walnuts)",
     },
-    { value: "No Soy", label: "No Soy (sensory aversion or allergy)" },
-    { value: "No Eggs", label: "No Eggs (allergy or texture aversion)" },
+    { value: "No Soy", label: "No soy (sensory aversion or allergy)" },
+    { value: "No Eggs", label: "No eggs (allergy or texture aversion)" },
     {
       value: "No Shellfish",
-      label: "No Shellfish (allergy risk, e.g., shrimp, crab)",
+      label: "No shellfish (allergy risk, e.g., shrimp, crab)",
     },
     {
       value: "No Artificial Colors/Flavors",
-      label: "No Artificial Colors/Flavors (behavioral trigger)",
+      label: "No artificial colors/flavors (behavioral trigger)",
     },
-    { value: "Low Sugar", label: "Low Sugar (reduces hyperactivity)" },
+    { value: "Low Sugar", label: "Low sugar (reduces hyperactivity)" },
     {
       value: "No Red Meat",
-      label: "No Red Meat (sensory aversion to texture/smell)",
+      label: "No red meat (sensory aversion to texture/smell)",
     },
     {
       value: "Vegetarian",
@@ -288,7 +292,7 @@ const ChildProfileForm = ({ onLoad }) => {
     },
     { value: "Halal", label: "Halal (cultural/religious requirement)" },
     { value: "Kosher", label: "Kosher (cultural/religious requirement)" },
-    { value: "NKA (No Known Allergies)", label: "NKA (No Known Allergies)" },
+    { value: "NKA (No Known Allergies)", label: "NKA (no known allergies)" },
     { value: "Other", label: "Other (specify in notes)" },
   ];
 
@@ -342,14 +346,14 @@ const ChildProfileForm = ({ onLoad }) => {
       !formData.sensorySensitivities.length
     ) {
       newErrors.sensorySensitivities =
-        "At least one Sensory Sensitivity is required for Behavioral and Sensory Management.";
+        "At least one sensory sensitivity is required for behavioral and sensory management.";
     }
     if (
       formData.carePlans.includes("dietFocusedCarePlan") &&
       !formData.dietRestrictions.length
     ) {
       newErrors.dietRestrictions =
-        "At least one Diet Restriction is required for Diet-Focused Care Plan.";
+        "At least one diet restriction is required for diet-focused care plan.";
     }
     // Check for conflicting diet restrictions
     if (
@@ -357,7 +361,7 @@ const ChildProfileForm = ({ onLoad }) => {
       formData.dietRestrictions.length > 1
     ) {
       newErrors.dietRestrictions =
-        "Cannot select 'NKA (No Known Allergies)' with other restrictions.";
+        "Cannot select 'NKA (no known allergies)' with other restrictions.";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -365,10 +369,10 @@ const ChildProfileForm = ({ onLoad }) => {
 
   const safeJoin = (arr) => (Array.isArray(arr) ? arr.join(", ") : "");
 
-  const constructAIPrompt = (data) => {
-    const essentialInfo = `**Child’s Name:** **${data.name}**`;
+  const constructAiPrompt = (data) => {
+    const essentialInfo = `**Child's name:** ${data.name}`;
     const importantRolesInfo = data.importantRoles.length
-      ? `**Selected Important Roles:**\n${data.importantRoles
+      ? `**Selected important roles:**\n${data.importantRoles
           .map((roleId) => {
             const role = importantRoles.find((r) => r.id === roleId);
             return role ? `**${role.label}:** ${role.reason}` : "";
@@ -376,7 +380,7 @@ const ChildProfileForm = ({ onLoad }) => {
           .join("\n")}`
       : "**No important roles selected.**";
     const carePlansInfo = data.carePlans.length
-      ? `**Selected Care Plans:**\n${data.carePlans
+      ? `**Selected care plans:**\n${data.carePlans
           .map((planId) => {
             const plan = carePlanOptions.find((p) => p.id === planId);
             return plan ? `**${plan.label.split(":")[0]}**` : "";
@@ -384,12 +388,12 @@ const ChildProfileForm = ({ onLoad }) => {
           .join("\n")}`
       : "**No care plans selected.**";
     const sensorySensitivitiesInfo = data.sensorySensitivities.length
-      ? `**Sensory Sensitivities:** ${safeJoin(
+      ? `**Sensory sensitivities:** ${safeJoin(
           data.sensorySensitivities
         )} (triggers affecting daily comfort)`
       : "**No sensory sensitivities specified.**";
     const dietRestrictionsInfo = data.dietRestrictions.length
-      ? `**Diet Restrictions:** ${safeJoin(data.dietRestrictions)}${
+      ? `**Diet restrictions:** ${safeJoin(data.dietRestrictions)}${
           data.dietRestrictions.includes("Other") && data.notes
             ? ` (Other details: ${data.notes})`
             : ""
@@ -399,28 +403,28 @@ const ChildProfileForm = ({ onLoad }) => {
       ? `**Age:** ${data.age} (used to tailor social stories and content for developmental relevance, e.g., simpler narratives for a 5-year-old or job skills for a 15-year-old)`
       : "**No age specified.**";
     const additionalInfoSections = [
-      { label: "Date of Birth", value: data.dob },
+      { label: "Date of birth", value: data.dob },
       { label: "Gender", value: data.gender },
-      { label: "Diagnosis Type", value: data.diagnosisType },
-      { label: "Diagnosis Date", value: data.diagnosisDate },
-      { label: "Communication Ability", value: data.communication },
-      { label: "Preferred Communication", value: data.preferredCommunication },
-      { label: "Comfort Items", value: data.comfortItems },
+      { label: "Diagnosis type", value: data.diagnosisType },
+      { label: "Diagnosis date", value: data.diagnosisDate },
+      { label: "Communication ability", value: data.communication },
+      { label: "Preferred communication", value: data.preferredCommunication },
+      { label: "Comfort items", value: data.comfortItems },
       { label: "Strengths", value: data.strengths },
       { label: "Activities", value: data.activities },
       { label: "Triggers", value: safeJoin(data.triggers) },
       { label: "Challenges", value: safeJoin(data.challenges) },
-      { label: "Sleep Schedule", value: data.sleepSchedule },
-      { label: "Eating Habits", value: data.eatingHabits },
-      { label: "Interaction Style", value: data.interactionStyle },
-      { label: "Social Supports", value: safeJoin(data.socialSupports) },
-      { label: "Learning Style", value: data.learningStyle },
-      { label: "Special Interests", value: data.specialInterests },
+      { label: "Sleep schedule", value: data.sleepSchedule },
+      { label: "Eating habits", value: data.eatingHabits },
+      { label: "Interaction style", value: data.interactionStyle },
+      { label: "Social supports", value: safeJoin(data.socialSupports) },
+      { label: "Learning style", value: data.learningStyle },
+      { label: "Special interests", value: data.specialInterests },
       { label: "Allergies", value: safeJoin(data.allergies) },
       { label: "Medications", value: data.medications },
-      { label: "Wandering Behavior", value: data.wanderingBehavior },
-      { label: "Safety Risks", value: safeJoin(data.safetyRisks) },
-      { label: "Additional Notes", value: data.notes },
+      { label: "Wandering behavior", value: data.wanderingBehavior },
+      { label: "Safety risks", value: safeJoin(data.safetyRisks) },
+      { label: "Additional notes", value: data.notes },
     ]
       .filter((section) => section.value && section.value.trim() !== "")
       .map((section) => `**${section.label}:** ${section.value}`)
@@ -438,15 +442,15 @@ const ChildProfileForm = ({ onLoad }) => {
   ${ageInfo}
   ${
     additionalInfoSections
-      ? `\n**Additional Context:**\n${additionalInfoSections}`
+      ? `\n**Additional context:**\n${additionalInfoSections}`
       : ""
   }
-  **Care Plan Guidelines:**
+  **Care plan guidelines:**
   ${carePlansDescription}
   ### Instructions for AI:
-  - Ensure recommendations are role-specific. If "Teachers and Educational Staff" is selected, provide educational strategies. If "Parents or Guardians" is selected, include home-based techniques.
-  - If "Diet-Focused Care Plan" is selected, focus on customizing routines with the specified diet restrictions (e.g., gluten-free snacks, no peanut exposure) to enhance safety and address sensory/allergy needs (20-40% of autistic kids affected).
-  - If "Behavioral and Sensory Management" is selected, incorporate strategies to mitigate the identified sensory sensitivities (e.g., dim lights for light sensitivity, ear protection for sound sensitivity).
+  - Ensure recommendations are role-specific. If "teachers and educational staff" is selected, provide educational strategies. If "parents or guardians" is selected, include home-based techniques.
+  - If "diet-focused care plan" is selected, focus on customizing routines with the specified diet restrictions (e.g., gluten-free snacks, no peanut exposure) to enhance safety and address sensory/allergy needs (20-40% of autistic kids affected).
+  - If "behavioral and sensory management" is selected, incorporate strategies to mitigate the identified sensory sensitivities (e.g., dim lights for light sensitivity, ear protection for sound sensitivity).
   - Tailor social stories and content based on age (e.g., simpler narratives for younger children, job skills for teens) to ensure developmental relevance and improve engagement when age is provided.
   - Provide actionable, step-by-step guidance combining all inputs to reduce caregiver guesswork and align support with individual needs.
   - Make the response clear and concise, so caregivers and professionals can quickly understand and apply the information.
@@ -473,7 +477,7 @@ const ChildProfileForm = ({ onLoad }) => {
           notes: DOMPurify.sanitize(formData.notes),
         };
 
-        const prompt = constructAIPrompt(sanitizedFormData);
+        const prompt = constructAiPrompt(sanitizedFormData);
 
         if (prompt !== lastSubmittedPrompt) {
           setLastSubmittedPrompt(prompt);
@@ -526,7 +530,7 @@ const ChildProfileForm = ({ onLoad }) => {
       diagnosisDate: "",
       communication: "",
       preferredCommunication: "",
-      sensorySensitivities: [], // Reset as array
+      sensorySensitivities: [],
       comfortItems: "",
       strengths: "",
       activities: "",
@@ -544,7 +548,7 @@ const ChildProfileForm = ({ onLoad }) => {
       safetyRisks: [],
       carePlans: [],
       notes: "",
-      dietRestrictions: [], // Reset as array
+      dietRestrictions: [],
       age: "",
     });
     setErrors({});
@@ -555,7 +559,7 @@ const ChildProfileForm = ({ onLoad }) => {
     <>
       {isLoading && <LoadingOverlay />}
       <div
-        className={`form-wrapper ${
+        className={`child-profile-form ${
           userPlan === "silver" || userPlan === "gold" ? "premium-plan" : ""
         }`}
       >
@@ -563,7 +567,7 @@ const ChildProfileForm = ({ onLoad }) => {
           <div className="form-section">
             <div className="input-container">
               <h3 className="h3">
-                Important Roles{" "}
+                Important roles
                 <span className="credits-display">
                   {" "}
                   Credit balance: {credits || 0}
@@ -592,16 +596,16 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <h3>Basic Information:</h3>
-              <label htmlFor="childName">
-                Child’s Name:
+              <h3>Basic information</h3>
+              <label htmlFor="child-name">
+                Child's name
                 <input
-                  id="childName"
+                  id="child-name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter child’s name"
+                  placeholder="Enter child's name"
                   required
                   maxLength={100}
                   className={errors.name ? "input-error" : ""}
@@ -612,15 +616,15 @@ const ChildProfileForm = ({ onLoad }) => {
                   {errors.name}
                 </div>
               )}
-              <label htmlFor="childAge">
-                Age:
+              <label htmlFor="child-age">
+                Age
                 <input
-                  id="childAge"
+                  id="child-age"
                   type="number"
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
-                  placeholder="Enter child’s age (e.g., 5)"
+                  placeholder="Enter child's age (e.g., 5)"
                   min="0"
                   max="120"
                   className={errors.age ? "input-error" : ""}
@@ -633,10 +637,10 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="childDOB">
-                Date of Birth:
+              <label htmlFor="child-dob">
+                Date of birth
                 <input
-                  id="childDOB"
+                  id="child-dob"
                   type="date"
                   name="dob"
                   value={formData.dob}
@@ -651,16 +655,16 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="childGender">
-                Gender:
+              <label htmlFor="child-gender">
+                Gender
                 <select
-                  id="childGender"
+                  id="child-gender"
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
                   className={errors.gender ? "input-error" : ""}
                 >
-                  <option value="">Select Gender</option>
+                  <option value="">Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
@@ -673,25 +677,25 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <h3>Diagnosis Details:</h3>
-              <label htmlFor="diagnosisType">
-                Diagnosis Type:
+              <h3>Diagnosis details</h3>
+              <label htmlFor="diagnosis-type">
+                Diagnosis type
                 <select
-                  id="diagnosisType"
+                  id="diagnosis-type"
                   name="diagnosisType"
                   value={formData.diagnosisType}
                   onChange={handleChange}
                   className={errors.diagnosisType ? "input-error" : ""}
                 >
-                  <option value="">Select Diagnosis Type</option>
+                  <option value="">Select diagnosis type</option>
                   <option value="ASD Level 1">
-                    ASD Level 1 (Requiring Support)
+                    ASD level 1 (requiring support)
                   </option>
                   <option value="ASD Level 2">
-                    ASD Level 2 (Requiring Substantial Support)
+                    ASD level 2 (requiring substantial support)
                   </option>
                   <option value="ASD Level 3">
-                    ASD Level 3 (Requiring Very Substantial Support)
+                    ASD level 3 (requiring very substantial support)
                   </option>
                   <option value="Other">Other</option>
                 </select>
@@ -703,10 +707,10 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="diagnosisDate">
-                Diagnosis Date:
+              <label htmlFor="diagnosis-date">
+                Diagnosis date
                 <input
-                  id="diagnosisDate"
+                  id="diagnosis-date"
                   type="date"
                   name="diagnosisDate"
                   value={formData.diagnosisDate}
@@ -720,10 +724,10 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="additionalNotes">
-                Additional Notes:
+              <label htmlFor="additional-notes">
+                Additional notes
                 <textarea
-                  id="additionalNotes"
+                  id="additional-notes"
                   name="notes"
                   value={formData.notes}
                   onChange={handleChange}
@@ -742,11 +746,11 @@ const ChildProfileForm = ({ onLoad }) => {
           </div>
           <div className="form-section">
             <div className="input-container">
-              <h3>Communication:</h3>
-              <label htmlFor="communicationAbility">
-                Communication Ability:
+              <h3>Communication</h3>
+              <label htmlFor="communication-ability">
+                Communication ability
                 <select
-                  id="communicationAbility"
+                  id="communication-ability"
                   name="communication"
                   value={formData.communication}
                   onChange={handleChange}
@@ -755,12 +759,12 @@ const ChildProfileForm = ({ onLoad }) => {
                     errors.communication ? "communication-error" : undefined
                   }
                 >
-                  <option value="">Select Communication Ability</option>
+                  <option value="">Select communication ability</option>
                   <option value="Verbal">Verbal</option>
-                  <option value="Limited Verbal">Limited Verbal</option>
-                  <option value="Non-Verbal">Non-Verbal</option>
+                  <option value="Limited Verbal">Limited verbal</option>
+                  <option value="Non-Verbal">Non-verbal</option>
                   <option value="Uses Assistive Devices">
-                    Uses Assistive Devices
+                    Uses assistive devices
                   </option>
                 </select>
               </label>
@@ -775,10 +779,10 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="preferredCommunication">
-                Preferred Communication:
+              <label htmlFor="preferred-communication">
+                Preferred communication
                 <select
-                  id="preferredCommunication"
+                  id="preferred-communication"
                   name="preferredCommunication"
                   value={formData.preferredCommunication}
                   onChange={handleChange}
@@ -789,11 +793,11 @@ const ChildProfileForm = ({ onLoad }) => {
                       : undefined
                   }
                 >
-                  <option value="">Select Preferred Communication</option>
+                  <option value="">Select preferred communication</option>
                   <option value="Speech">Speech</option>
-                  <option value="AAC Device">AAC Device</option>
+                  <option value="AAC Device">AAC device</option>
                   <option value="Gestures">Gestures</option>
-                  <option value="Sign Language">Sign Language</option>
+                  <option value="Sign Language">Sign language</option>
                   <option value="Other">Other</option>
                 </select>
               </label>
@@ -808,9 +812,9 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <h3>Sensory Preferences:</h3>
-              <label htmlFor="sensorySensitivities">
-                Sensory Sensitivities:
+              <h3>Sensory preferences</h3>
+              <label htmlFor="sensory-sensitivities">
+                Sensory sensitivities
                 <CustomMultiSelect
                   name="sensorySensitivities"
                   value={formData.sensorySensitivities}
@@ -830,10 +834,10 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <label htmlFor="comfortItems">
-                Comfort Items:
+              <label htmlFor="comfort-items">
+                Comfort items
                 <input
-                  id="comfortItems"
+                  id="comfort-items"
                   type="text"
                   name="comfortItems"
                   value={formData.comfortItems}
@@ -849,9 +853,9 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <h3>Dietary Restrictions:</h3>
-              <label htmlFor="dietRestrictions">
-                Diet Restrictions:
+              <h3>Dietary restrictions</h3>
+              <label htmlFor="diet-restrictions">
+                Diet restrictions
                 <CustomMultiSelect
                   name="dietRestrictions"
                   value={formData.dietRestrictions}
@@ -871,7 +875,7 @@ const ChildProfileForm = ({ onLoad }) => {
               )}
             </div>
             <div className="input-container">
-              <h3>Care Plans:</h3>
+              <h3>Care plans</h3>
               <div className="care-plans-container">
                 {carePlanOptions.map((plan) => (
                   <label key={plan.id} className="care-plan-option">

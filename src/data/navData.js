@@ -7,6 +7,7 @@ import {
   FaClock,
   FaChartBar,
   FaBrain,
+  FaBook,
 } from "react-icons/fa";
 import { MdDescription } from "react-icons/md";
 
@@ -28,6 +29,13 @@ export const navItems = [
     path: "/social-stories",
     name: "Stories",
     icon: <FaBookOpen />,
+  },
+
+  {
+    id: 6,
+    name: "PECS Board",
+    path: "/pecs-board",
+    icon: <FaBook />,
   },
   {
     id: 4,

@@ -2,118 +2,216 @@
 .create-profile-page {
   background: #ffffff;
   border-radius: 10px;
-  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
-  padding: 20px;
-  margin: 60px auto;
-  max-width: 800px;
-  text-align: left;
-  border: 1px solid #ccc;
+  padding: 30px;
+  margin: 80px auto;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Heading */
+.create-profile-page h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
 /* Success message */
 .success-message {
   background-color: #d4edda;
   color: #155724;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 15px;
+  margin-bottom: 20px;
   border: 1px solid #c3e6cb;
-  border-radius: 5px;
+  border-radius: 6px;
   text-align: center;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-/* Grid layout for the form */
+/* Form container */
 .profile-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-.error {
-  width: 100%; /* Ensure it spans the full width of the form */
-  text-align: center; /* Center the text horizontally */
-  margin: 10px 0; /* Add some margin for spacing */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
 }
 
 /* Form rows */
 .profile-form-row {
-  display: contents;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
-/* Submit button row - spans full width */
-.profile-form-row.full-width {
-  grid-column: span 2; /* Ensures it spans across both columns */
-  width: 100%;
-}
-
-.create-profile-page > div {
-  width: 100%;
-}
-/* Keep the submit button full width */
-.external-submit-button {
-  background-color: #00c7eb;
-  color: white;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-align: center;
-  width: 100%;
-  margin-top: 20px;
-  display: block; /* Make sure it takes full width */
-}
-
-.external-submit-button:hover {
-  background-color: #00a6c3;
-}
-
-/* Ensure error appears just below the confirm password input */
-.password-error {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px; /* Spacing between input and error message */
-  padding: 0;
-}
-
-/* Two columns for desktop */
-@media (min-width: 768px) {
-  .profile-form {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  /* Rows that should span both columns */
-  .profile-form-row {
-    grid-column: span 2;
-  }
-
-  /* Ensure button spans full width on desktop too */
-  .profile-form-row.full-width {
-    grid-column: span 2;
-    width: 100%;
-  }
+/* Form columns */
+.profile-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Labels */
-.create-profile-page label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+.profile-form-col label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
 }
 
-.create-profile-page h1 {
+/* Inputs and Select */
+.profile-form-col input,
+.profile-form-col select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.profile-form-col input:focus,
+.profile-form-col select:focus {
+  border-color: #00c7eb;
+  box-shadow: 0 0 0 3px rgba(0, 199, 235, 0.1);
+  outline: none;
+}
+
+.profile-form-col select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+/* Error messages */
+.error,
+.password-error {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-top: 5px;
   text-align: center;
+  width: 100%;
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .create-profile-page {
-    width: auto;
-    margin: 60px 20px;
-    text-align: center;
+/* Submit button */
+.external-submit-button {
+  background-color: #00c7eb;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0;
+  display: block;
+}
+
+.external-submit-button:hover {
+  background-color: #00a3c4;
+  transform: translateY(-2px);
+}
+
+.external-submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .profile-form-row {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .profile-form {
+  .profile-form-col {
+    margin: 0;
+  }
+
+  .error,
+  .password-error {
+    text-align: left;
+  }
+
+  /* Ensure error messages below inputs span the correct column */
+  .profile-form-col .error,
+  .profile-form-col .password-error {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .create-profile-page {
+    margin: 60px 15px;
+    padding: 20px;
+  }
+
+  .create-profile-page h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .profile-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .profile-form-col input,
+  .profile-form-col select {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .external-submit-button {
+    padding: 12px;
+    font-size: 1rem;
+    max-width: 250px;
+  }
+
+  .success-message {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-profile-page {
+    margin: 50px 10px;
+    padding: 15px;
+  }
+
+  .create-profile-page h1 {
+    font-size: 1.3rem;
+  }
+
+  .profile-form-col label {
+    font-size: 0.9rem;
+  }
+
+  .profile-form-col input,
+  .profile-form-col select {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .error,
+  .password-error {
+    font-size: 0.8rem;
+  }
+
+  .external-submit-button {
+    padding: 10px;
+    font-size: 0.9rem;
+    max-width: 200px;
   }
 }

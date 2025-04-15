@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import "../styles/ChatModal.css";
 import { v4 as uuidv4 } from "uuid";
 import { sendToAIService } from "../services/aiServiceImageGen";
+// import { sendToAIService } from "../services/aiService";
 import ttsService from "../core/tts-service";
 import TTSRadialControls from "../components/TTSRadialControls";
 import { useUser } from "../context/UserContext";

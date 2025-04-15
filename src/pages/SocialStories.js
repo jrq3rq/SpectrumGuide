@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaBookOpen } from "react-icons/fa";
 import { sendToAIService } from "../services/aiServiceImageGen";
+// import { sendToAIService } from "../services/aiService";
 import { useUser } from "../context/UserContext";
 import { useLocation } from "react-router-dom";
 import "../styles/SocialStories.css";
@@ -356,7 +357,7 @@ using language and structure appropriate to the child's support level.
           <button
             onClick={handleGenerateStory}
             disabled={isGenerating}
-            className="generate-button"
+            className="generate-buttonz"
           >
             {isGenerating ? "Generating..." : "Generate Story"}
           </button>
