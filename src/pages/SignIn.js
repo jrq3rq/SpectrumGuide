@@ -10,6 +10,7 @@ import { useUser } from "../context/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import LoadingOverlay from "../components/LoadingOverlay";
 import FloatingInfoBot from "../components/FloatingInfoBot";
+import FloatingPitchDeckButton from "../components/FloatingPitchDeckButton"; // New import
 import InfoModal from "../components/InfoModal";
 import "../styles/SignIn.css";
 
@@ -116,6 +117,7 @@ const SignIn = () => {
             <Link to="/form">Go to Form</Link>
           </div>
         )}
+        <FloatingPitchDeckButton /> {/* New button */}
         <FloatingInfoBot onClick={() => setIsInfoModalOpen(true)} />
         {isInfoModalOpen && (
           <div className="modal-overlay">
@@ -171,6 +173,7 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
+      <FloatingPitchDeckButton /> {/* New button */}
       <FloatingInfoBot onClick={() => setIsInfoModalOpen(true)} />
       {isInfoModalOpen && (
         <div className="modal-overlay">

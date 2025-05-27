@@ -1,0 +1,309 @@
+.investors-page {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 32px 24px;
+    font-family: "Poppins", sans-serif;
+    background-color: #f9fafa;
+    color: #111;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #cecece;
+    text-align: center;
+  }
+
+  .investors-page h1 {
+    font-size: 36px;
+    color: #00d9ff;
+    margin-bottom: 24px;
+  }
+
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #cecece;
+  }
+
+  .carousel-slide {
+    display: flex;
+    align-items: flex-start;
+    height: 500px;
+    padding: 24px;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+  }
+
+  @media (min-width: 769px) {
+    .carousel-slide {
+      align-items: center;
+    }
+  }
+
+  .image-left .carousel-image {
+    order: 1;
+  }
+  .image-left .carousel-text {
+    order: 2;
+  }
+  .image-right .carousel-image {
+    order: 2;
+  }
+  .image-right .carousel-text {
+    order: 1;
+  }
+
+  .carousel-image {
+    width: 50%;
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c3c3c3;
+  }
+
+  .carousel-text {
+    width: 50%;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-content: start;
+  }
+
+  .carousel-text h2 {
+    grid-column: 1 / -1;
+    font-size: 26px;
+    color: #00d9ff;
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .carousel-text p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #222;
+    margin: 0;
+    text-align: left;
+  }
+
+  .carousel-slide--contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    padding: 24px;
+  }
+
+  .carousel-contact-text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .carousel-contact-text h2 {
+    font-size: 26px;
+    color: #00d9ff;
+    margin-bottom: 16px;
+  }
+
+  .carousel-contact-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #222;
+    margin: 8px 0;
+    max-width: 600px;
+  }
+
+  .carousel-contact-text a {
+    color: #00d9ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: text-decoration 0.2s ease;
+  }
+
+  .carousel-contact-text a:hover {
+    text-decoration: underline;
+  }
+
+  .carousel-contact-text a:focus {
+    outline: 3px solid #00d9ff;
+    outline-offset: 2px;
+  }
+
+  .carousel-contact-home {
+    display: flex;
+    align-items: center;
+    color: #00d9ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 12px;
+    transition: text-decoration 0.2s ease;
+  }
+
+  .carousel-contact-home:hover {
+    text-decoration: underline;
+  }
+
+  .carousel-contact-home:focus {
+    outline: 3px solid #00d9ff;
+    outline-offset: 2px;
+  }
+
+  .home-icon {
+    font-size: 40px;
+  }
+
+  .home-text {
+    line-height: 1;
+  }
+
+  .carousel-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 12px 24px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .nav-button {
+    background: #00d9ff;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .nav-button:hover:not(:disabled) {
+    background: #00a6c3;
+  }
+
+  .nav-button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    gap: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    background: #222;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .indicator.active {
+    background: #00d9ff;
+    opacity: 1;
+    outline: 2px solid #00d9ff;
+  }
+
+  .contact {
+    margin-top: 24px;
+    font-size: 18px;
+  }
+
+  .contact a {
+    color: #00d9ff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .investors-page {
+      margin: 24px 16px;
+    }
+
+    .carousel-slide {
+      flex-direction: column;
+      height: 600px; /* Fixed height for mobile */
+      padding: 16px;
+      overflow: auto; /* Allow scrolling if content exceeds */
+    }
+
+    .carousel-image {
+      width: 100%;
+      max-height: 300px;
+      margin-bottom: 16px;
+      order: 1 !important;
+    }
+
+    .carousel-text {
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 0;
+      margin-bottom: 20px;
+      order: 2 !important;
+    }
+
+    .carousel-text h2 {
+      text-align: center;
+    }
+
+    .carousel-text p {
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .carousel-slide--contact {
+      height: 600px; /* Consistent with other slides */
+      padding: 16px;
+      overflow: auto; /* Allow scrolling if content exceeds */
+    }
+
+    .carousel-contact-text h2 {
+      font-size: 22px;
+    }
+
+    .carousel-contact-text p {
+      font-size: 14px;
+      margin: 6px 0;
+    }
+
+    .carousel-contact-text a {
+      font-size: 14px;
+    }
+
+    .carousel-contact-home {
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .nav-button {
+      height: 2rem;
+      font-size: 13px;
+    }
+
+    .indicator {
+      width: 5px;
+      height: 5px;
+    }
+
+    .investors-page h1 {
+      font-size: 28px;
+    }
+  }

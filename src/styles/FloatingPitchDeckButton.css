@@ -1,0 +1,56 @@
+.floating-pitch-deck-button {
+    position: fixed;
+    bottom: 90px; /* Above FloatingInfoBot (20px + 60px height + 10px gap) */
+    right: 20px;
+    background-color: #02c7ec; /* Match SignIn.css button color */
+    color: white;
+    border: 1px dashed #ffffff;
+    border-radius: 30px; /* Slightly rounded rectangle */
+    width: 120px; /* Wider for text */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    transition: transform 0.5s ease; /* Changed from 0.3s to 0.5s */
+    z-index: 1000;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .floating-pitch-deck-button.slide-in {
+    transform: translateX(0);
+  }
+
+  .floating-pitch-deck-button:not(.slide-in) {
+    transform: translateX(150px); /* Match FloatingInfoBot animation */
+  }
+
+  .pitch-deck-icon {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+
+  .pitch-deck-text {
+    line-height: 1;
+  }
+
+  .floating-pitch-deck-button:hover {
+    background-color: #00aac8; /* Match SignIn.css hover */
+  }
+
+  @media (max-width: 768px) {
+    .floating-pitch-deck-button {
+      bottom: 80px; /* Adjusted for mobile spacing */
+      width: 100px;
+      height: 36px;
+      font-size: 12px;
+    }
+
+    .pitch-deck-icon {
+      font-size: 16px;
+    }
+  }

@@ -261,7 +261,7 @@
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
   .child-profile-form {
-    margin: 40px 20px; /* Reduced from 60px */
+    margin: 60px 20px; /* Reduced from 60px */
   }
 }
 
@@ -317,7 +317,7 @@
 
 @media (max-width: 480px) {
   .child-profile-form {
-    margin: 30px 10px; /* Reduced from 50px */
+    margin: 60px 10px; /* Reduced from 50px */
     padding: 8px; /* Reduced from 10px */
   }
 

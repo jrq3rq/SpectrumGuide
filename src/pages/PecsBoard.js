@@ -1494,6 +1494,26 @@ const CATEGORIES = [
   { value: "Transitions", label: "🔄 Transitions" },
 ];
 
+//   { value: "All", label: "All" },
+//   { value: "Daily Routines", label: "🕒 Daily Routines" },
+//   { value: "Activities", label: "🎨 Activities" },
+//   { value: "Social Skills", label: "🤝 Social Skills" },
+//   { value: "Emotions", label: "😊 Emotions" },
+//   { value: "Mood States", label: "🌈 Mood States" }, // New: More granular emotions
+//   { value: "Calming Strategies", label: "🧘 Calming Strategies" }, // New: Strategies to reduce stress
+//   { value: "Mood Boosters", label: "☀️ Mood Boosters" }, // New: Activities to improve mood
+//   { value: "Self-Advocacy", label: "🗣️ Self-Advocacy" }, // New: Expressing needs/wants
+//   { value: "Sensory Needs", label: "🌿 Sensory Needs" },
+//   { value: "Sensory Preferences", label: "🎧 Sensory Preferences" }, // New: Specific sensory requests
+//   { value: "Rewards & Celebrations", label: "🎉 Rewards & Celebrations" }, // New: Positive reinforcement
+//   { value: "Health & Comfort", label: "🩺 Health & Comfort" }, // New: Physical needs
+//   { value: "Interests & Hobbies", label: "🎲 Interests & Hobbies" }, // New: Favorite activities
+//   { value: "Safety & Comfort Zones", label: "🏡 Safety & Comfort Zones" }, // New: Safe spaces
+//   { value: "Social Preferences", label: "👥 Social Preferences" }, // New: Social interaction preferences
+//   { value: "Choices", label: "✅ Choices" },
+//   { value: "Transitions", label: "🔄 Transitions" },
+//   { value: "Behavioral Expectations", label: "🚫 Behavioral Expectations" },
+
 // Helper Functions for Image Paths
 const getLocalImagePath = (smallPng, subcategory, category) => {
   const safeSmallPng = typeof smallPng === "string" ? smallPng : "";
